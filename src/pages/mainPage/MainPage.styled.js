@@ -13,6 +13,6 @@ export const MainWrapper = styled.section`
   top: 50%;
   /* left: 50%; */
 
-  /* font-family: ${({ theme }) =>
-    theme.fonts.PretendardThin["font-family"]}; */
+  font-family: ${({ theme }) =>
+    theme.fonts.PretendardSemiBold["font-family"]};
 `;

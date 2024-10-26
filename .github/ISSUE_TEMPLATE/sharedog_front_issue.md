@@ -1,10 +1,9 @@
 ---
-name: 4LINE_FRONT_ISSUE
-about: 4호선톤 프론트엔드 이슈 템플릿
+name: SHAREDOG_FRONT_ISSUE
+about: 나눠주개 프론트엔드 이슈 템플릿
 title: "[Tag] Issue Message "
-labels: ''
-assignees: ''
-
+labels: ""
+assignees: ""
 ---
 
 ## ✔️ Issue

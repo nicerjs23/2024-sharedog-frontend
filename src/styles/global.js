@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-
+//현재는 행간 140% 자간 -2.5%가 기본임 필요시 수정하기
 const GlobalStyle = createGlobalStyle`
 *{box-sizing:border-box}
 body, button, dd, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, select, table, td, textarea, th, ul {margin:0;padding:0}
@@ -75,7 +75,7 @@ i {font-style:normal}
 
 // 초기 html 설정
 html {
-	background-color: ${({ theme }) => theme.colors.fall};
+	background-color: ${({ theme }) => theme.colors.bg};
 	display: flex;
 	justify-content: center;
 	align-items: center;

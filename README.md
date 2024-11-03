@@ -37,3 +37,5 @@ ex) [🎨Design] #3 - 가로스크롤 개선
 | ✅     | `:white_check_mark:` | 테스트 추가 또는 수정                        | `Test`            |
 | 🔧     | `:wrench:`           | 설정 파일 변경                               | `Chore`           |
 | 🔥     | `:fire:`             | 불필요한 파일 또는 코드 삭제                 | `Remove`          |
+
+test

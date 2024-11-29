@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const MainWrapper = styled.section`
+export const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -9,9 +9,6 @@ export const MainWrapper = styled.section`
   align-items: center;
   /* background-color: ${({ theme }) => theme.colors.fall}; */
   position: fixed;
-
-  top: 50%;
-  /* left: 50%; */
 
   font-family: ${({ theme }) =>
     theme.fonts.SUITSemiBold["font-family"]};

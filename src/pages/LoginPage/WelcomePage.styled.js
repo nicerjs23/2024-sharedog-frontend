@@ -10,9 +10,6 @@ export const Wrapper = styled.section`
   /* background-color: ${({ theme }) => theme.colors.fall}; */
   position: fixed;
 
-  top: 50%;
-  /* left: 50%; */
-
   font-family: ${({ theme }) =>
     theme.fonts.SUITSemiBold["font-family"]};
 `;

@@ -16,6 +16,7 @@ export const theme = {
     //나중에 필요시 추가하기
 
     bg: "#999999", //배경색
+    mainColor: "#FF6969",
     default: "#000000", // 기본 검정색
     white: "#FFFFFF",
   },

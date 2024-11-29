@@ -1,39 +1,16 @@
 import { useNavigate } from "react-router-dom";
 
-export const useCustomNavigate = () => {
+export const useGoBack = () => {
   const navigate = useNavigate();
 
-  const goTo = (path) => {
-    navigate(path);
-  };
   const goBack = () => {
     navigate(-1); //뒤로가기, +1은 앞으로가기
   };
-  const goToWithId = (path, id) => {
-    navigate(`${path}/${id}`);
-  };
 
-  return { goTo, goBack, goToWithId };
+  return { goBack };
 };
 
-/* 훅 사용법! 참고하세요~
-import React from "react";
-import { useCustomNavigate } from "@hooks/useCustomNavigate";
-
-const ExampleComponent = () => {
-  const { goTo, goBack } = useCustomNavigate();
-
-  return (
-    <div>
-      <button onClick={() => goTo("/target-path")}>Go to Target Page</button>
-      <button onClick={goBack}>Go Back</button>
-    </div>
-  );
-};
-
-export default ExampleComponent;
-*/
-
+// 글쓰기같은페이지 뒤로가기 로직 처리할때 예외처리 나중에 아래처럼 바꾸기
 // // useCustomNavigate.js
 // import { useNavigate, useLocation } from "react-router-dom";
 
@@ -53,3 +30,21 @@ export default ExampleComponent;
 
 //   return { goBack };
 // };
+
+/* 훅 사용법! 참고하세요~
+import React from "react";
+import { useCustomNavigate } from "@hooks/useCustomNavigate";
+
+const ExampleComponent = () => {
+  const { goTo, goBack } = useCustomNavigate();
+
+  return (
+    <div>
+      <button onClick={() => goTo("/target-path")}>Go to Target Page</button>
+      <button onClick={goBack}>Go Back</button>
+    </div>
+  );
+};
+
+export default ExampleComponent;
+*/

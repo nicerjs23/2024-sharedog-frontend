@@ -1,13 +1,19 @@
 import { useNavigate } from "react-router-dom";
 
-export const useGoBack = () => {
+export const useCustomNavigate = () => {
   const navigate = useNavigate();
 
+  const goTo = (path) => {
+    navigate(path);
+  };
   const goBack = () => {
     navigate(-1); //뒤로가기, +1은 앞으로가기
   };
+  const goToWithId = (path, id) => {
+    navigate(`${path}/${id}`);
+  };
 
-  return { goBack };
+  return { goTo, goBack, goToWithId };
 };
 
 // 글쓰기같은페이지 뒤로가기 로직 처리할때 예외처리 나중에 아래처럼 바꾸기

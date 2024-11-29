@@ -3,7 +3,7 @@ const fontGenerator = (
   fontSize = "1rem", //기본폰트크기
   fontWeight = "400", //기본두께
   lineHeight = "1.5", // 행간140% 원래기본은 1.5
-  letterSpacing = "-0.025em" //자간-2.5% 원래기본은 normal
+  letterSpacing = "normal" //자간-2.5% 원래기본은 normal
 ) => ({
   "font-family": fontFamily,
   "font-size": fontSize,
@@ -28,7 +28,7 @@ export const theme = {
       "1rem",
       "400",
       "1.5",
-      "-0.025em"
+      "normal"
     ),
 
     // SUIT 폰트 설정

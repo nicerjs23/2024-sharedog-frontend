@@ -3,7 +3,7 @@ import { createGlobalStyle } from "styled-components";
 const GlobalStyle = createGlobalStyle`
 *{box-sizing:border-box}
 body, button, dd, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, select, table, td, textarea, th, ul {margin:0;padding:0}
-body, button, input, select, table, textarea {font-size:12px;line-height:1.5; letter-spacing: -0.025em; color:#202020;font-family: "SUIT-Regular", -apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕", helvetica, sans-serif}
+body, button, input, select, table, textarea {font-size:12px;line-height:1.5; letter-spacing: normal; color:#202020;font-family: "SUIT-Regular", -apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕", helvetica, sans-serif}
 h1, h2, h3, h4, h5, h6 {font-size:inherit;line-height:inherit}
 textarea {-webkit-backface-visibility:hidden;backface-visibility:hidden;background-color:transparent;border:0;word-break:keep-all;word-wrap:break-word}
 button, input {-webkit-border-radius:0;border-radius:0;border:0}

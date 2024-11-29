@@ -14,5 +14,5 @@ export const MainWrapper = styled.section`
   /* left: 50%; */
 
   font-family: ${({ theme }) =>
-    theme.fonts.PretendardSemiBold["font-family"]};
+    theme.fonts.SUITSemiBold["font-family"]};
 `;

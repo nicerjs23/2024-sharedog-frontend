@@ -3,7 +3,7 @@ import { createGlobalStyle } from "styled-components";
 const GlobalStyle = createGlobalStyle`
 *{box-sizing:border-box}
 body, button, dd, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, select, table, td, textarea, th, ul {margin:0;padding:0}
-body, button, input, select, table, textarea {font-size:12px;line-height:1.5; letter-spacing: -0.025em; color:#202020;font-family: "Pretendard-SemiBold", -apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕", helvetica, sans-serif}
+body, button, input, select, table, textarea {font-size:12px;line-height:1.5; letter-spacing: -0.025em; color:#202020;font-family: "SUIT-Regular", -apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕", helvetica, sans-serif}
 h1, h2, h3, h4, h5, h6 {font-size:inherit;line-height:inherit}
 textarea {-webkit-backface-visibility:hidden;backface-visibility:hidden;background-color:transparent;border:0;word-break:keep-all;word-wrap:break-word}
 button, input {-webkit-border-radius:0;border-radius:0;border:0}
@@ -23,56 +23,60 @@ i {font-style:normal}
 	overflow: hidden;
 	min-height: 100vh;
 }
-
-// Pretendard 폰트 설정
+// SUIT 폰트 설정
 @font-face {
-    font-family: "Pretendard-Thin";  /* 폰트 패밀리 이름을 개별적으로 지정 */
-    src: url("/fonts/Pretendard-Thin.otf") format("opentype");
+    font-family: "SUIT-Bold";
+    src: url("/fonts/SUIT-Bold.otf") format("opentype");
     font-style: normal;
 }
 
 @font-face {
-    font-family: "Pretendard-Light";  /* Light 폰트 */
-    src: url("/fonts/Pretendard-Light.otf") format("opentype");
+    font-family: "SUIT-ExtraBold";
+    src: url("/fonts/SUIT-ExtraBold.otf") format("opentype");
     font-style: normal;
 }
 
 @font-face {
-    font-family: "Pretendard-Regular";  /* Regular 폰트 */
-    src: url("/fonts/Pretendard-Regular.otf") format("opentype");
+    font-family: "SUIT-ExtraLight";
+    src: url("/fonts/SUIT-ExtraLight.otf") format("opentype");
     font-style: normal;
 }
 
 @font-face {
-    font-family: "Pretendard-Medium";  /* Medium 폰트 */
-    src: url("/fonts/Pretendard-Medium.otf") format("opentype");
+    font-family: "SUIT-Heavy";
+    src: url("/fonts/SUIT-Heavy.otf") format("opentype");
     font-style: normal;
 }
 
 @font-face {
-    font-family: "Pretendard-SemiBold";  /* SemiBold 폰트 */
-    src: url("/fonts/Pretendard-SemiBold.otf") format("opentype");
+    font-family: "SUIT-Light";
+    src: url("/fonts/SUIT-Light.otf") format("opentype");
     font-style: normal;
 }
 
 @font-face {
-    font-family: "Pretendard-Bold";  /* Bold 폰트 */
-    src: url("/fonts/Pretendard-Bold.otf") format("opentype");
+    font-family: "SUIT-Medium";
+    src: url("/fonts/SUIT-Medium.otf") format("opentype");
     font-style: normal;
 }
 
 @font-face {
-    font-family: "Pretendard-ExtraBold";  /* ExtraBold 폰트 */
-    src: url("/fonts/Pretendard-ExtraBold.otf") format("opentype");
+    font-family: "SUIT-Regular";
+    src: url("/fonts/SUIT-Regular.otf") format("opentype");
     font-style: normal;
 }
 
 @font-face {
-    font-family: "Pretendard-Black";  /* Black 폰트 */
-    src: url("/fonts/Pretendard-Black.otf") format("opentype");
+    font-family: "SUIT-SemiBold";
+    src: url("/fonts/SUIT-SemiBold.otf") format("opentype");
     font-style: normal;
 }
 
+@font-face {
+    font-family: "SUIT-Thin";
+    src: url("/fonts/SUIT-Thin.otf") format("opentype");
+    font-style: normal;
+}
 // 초기 html 설정
 html {
 	background-color: ${({ theme }) => theme.colors.bg};
@@ -95,7 +99,7 @@ body {
 	overflow-x: hidden;
 	background-color: ${({ theme }) => theme.colors.white};
 	color: ${({ theme }) => theme.colors.default};
-	font-family: "Pretendard-Regular", "Pretendard-SemiBold", "Pretendard-Light", "Pretendard-Medium", sans-serif;
+	font-family: "SUIT-Regular", "SUIT-SemiBold", "SUIT-Medium", sans-serif;
 
 }
 

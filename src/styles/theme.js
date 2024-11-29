@@ -23,21 +23,22 @@ export const theme = {
   fonts: {
     //기본 설정해둠 프리텐다드로
     default: fontGenerator(
-      "Pretendard-SemiBold",
+      "SUIT-Regular",
       "1rem",
       "400",
       "1.5",
       "-0.025em"
     ),
 
-    // Pretendard 폰트 설정
-    PretendardThin: fontGenerator("Pretendard-Thin"),
-    PretendardLight: fontGenerator("Pretendard-Light"),
-    PretendardRegular: fontGenerator("Pretendard-Regular"),
-    PretendardMedium: fontGenerator("Pretendard-Medium"),
-    PretendardSemiBold: fontGenerator("Pretendard-SemiBold"),
-    PretendardBold: fontGenerator("Pretendard-Bold"),
-    PretendardExtraBold: fontGenerator("Pretendard-ExtraBold"),
-    PretendardBlack: fontGenerator("Pretendard-Black"),
+    // SUIT 폰트 설정
+    SUITBold: fontGenerator("SUIT-Bold"),
+    SUITExtraBold: fontGenerator("SUIT-ExtraBold"),
+    SUITExtraLight: fontGenerator("SUIT-ExtraLight"),
+    SUITHeavy: fontGenerator("SUIT-Heavy"),
+    SUITLight: fontGenerator("SUIT-Light"),
+    SUITMedium: fontGenerator("SUIT-Medium"),
+    SUITRegular: fontGenerator("SUIT-Regular"),
+    SUITSemiBold: fontGenerator("SUIT-SemiBold"),
+    SUITThin: fontGenerator("SUIT-Thin"),
   },
 };

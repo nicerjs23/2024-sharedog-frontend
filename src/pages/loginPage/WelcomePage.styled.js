@@ -4,13 +4,13 @@ export const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   /* min-height: 700px; */
   max-width: 540px;
 
   align-items: center;
   /* background-color: ${({ theme }) => theme.colors.fall}; */
-  position: fixed;
+  /* position: fixed; */
 `;
 
 export const Header = styled.div`

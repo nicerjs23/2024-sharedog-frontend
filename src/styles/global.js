@@ -27,7 +27,7 @@ i {font-style:normal}
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
-	min-height: 100vh;
+	min-height: calc(var(--vh, 1vh) * 100);
 }
 // SUIT 폰트 설정
 @font-face {

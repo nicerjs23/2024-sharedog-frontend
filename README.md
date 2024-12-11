@@ -29,8 +29,8 @@ gitmoji -c 으로 깃모지,커밋메세지 입력가능
 ```
 $ gitmoji -c
 ? Choose a gitmoji: 🎨 - Improve structure / format of the code.
-? Enter the commit title [02/48]: [Design]
-? Enter the commit message: #3 - 가로스크롤 개선
+? Enter the commit title [02/48]: [Design] #3 - 가로스크롤 개선
+? Enter the commit message:
 ```
 
 ex) 🎨 [Design] #3 - 가로스크롤 개선

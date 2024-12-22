@@ -24,3 +24,11 @@ export const Box = styled.div`
   height: calc(var(--vh, 1vh) * 100);
   border: 1px solid green;
 `;
+
+export const A = styled.div`
+  display: flex;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+  background-color: ${({ theme }) => theme.colors.mainColor};
+`;

@@ -11,6 +11,7 @@ export const Wrapper = styled.section`
   max-width: 540px;
   height: 78px;
   background-color: ${({ theme }) => theme.colors.white};
+  box-shadow: 0px -6px 14px 0px rgba(47, 47, 47, 0.04);
 `;
 
 export const Icons = styled.div`

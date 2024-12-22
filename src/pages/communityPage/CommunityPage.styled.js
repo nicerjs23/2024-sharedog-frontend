@@ -7,7 +7,7 @@ export const Wrapper = styled.section`
   max-width: 540px;
   justify-content: center;
   align-items: center;
-  /* background-color: ${({ theme }) => theme.colors.fall}; */
+
   /* position: fixed; */
 
   top: 50%;

@@ -7,7 +7,8 @@ export const MainWrapper = styled.section`
   max-width: 540px;
   justify-content: center;
   align-items: center;
-  /* background-color: ${({ theme }) => theme.colors.fall}; */
+  /* background-color: ${({ theme }) =>
+    theme.colors.pageBgColor}; */ //디폴트레이아웃에 설정함
   /* position: fixed; */
 
   /* top: 50%; */
@@ -21,5 +22,5 @@ export const Box = styled.div`
   display: flex;
   width: 100%;
   height: calc(var(--vh, 1vh) * 100);
-  border: 5px solid red;
+  border: 1px solid green;
 `;

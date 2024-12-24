@@ -1,22 +1,26 @@
 import * as S from "./MainPage.styled";
-import Medal from "../../components/main/Medal";
+import Medal from "@components/main/Medal";
+import MainSlider from "@components/main/MainSlider";
+import BellIcon from "@assets/icons/BellIcon.svg";
 export const MainPage = () => {
+  // <Medal number={1} />
+  {
+    /* 🥇 메달 아이콘 추가 */
+  }
   return (
     <S.MainWrapper>
-      <S.Box>
-        나눠주개 메인페이지
-        <S.A>
-          <Medal number={1} />
-        </S.A>
-        <S.A>
-          <Medal number={65} />
-        </S.A>
-        <S.A>
-          <Medal number={100} />
-        </S.A>
-      </S.Box>
-      <S.Box>1</S.Box>
-      {/* 🥇 메달 아이콘 추가 */}
+      <S.SliderBox>
+        <S.Header>
+          <S.ProfileBox>
+            <S.Profile />
+            <S.ProfileText>로그인하기</S.ProfileText>
+          </S.ProfileBox>
+          <S.AlarmBox>
+            <img src={BellIcon} />
+          </S.AlarmBox>
+        </S.Header>
+        <MainSlider />
+      </S.SliderBox>
     </S.MainWrapper>
   );
 };

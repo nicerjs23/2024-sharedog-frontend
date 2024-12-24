@@ -19,6 +19,7 @@ export const MainPage = () => {
             <img src={BellIcon} />
           </S.AlarmBox>
         </S.Header>
+        {/* 슬라이더부분 컴포넌트로 구현 */}
         <MainSlider />
       </S.SliderBox>
     </S.MainWrapper>

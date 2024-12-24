@@ -10,7 +10,7 @@ export const SlideWrapper = styled.div`
   display: flex;
   width: 100%;
   /* flex-grow: 1; */
-  height: 161px;
+  height: 162px;
   /* border: 1px solid blue; */
 `;
 

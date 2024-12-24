@@ -20,7 +20,6 @@ export const SliderBox = styled.div`
   width: 100%;
   height: 200px;
   /* height: calc(var(--vh, 1vh) * 100); */
-  border: 1px solid green;
   background-color: ${({ theme }) => theme.colors.mainColor};
 `;
 export const Header = styled.div`

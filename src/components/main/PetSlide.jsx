@@ -1,29 +1,30 @@
 import styled from "styled-components";
-import slide1Png from "@assets/images/slide1.png";
+import slide2Png from "@assets/images/petImg.png";
 import arrowIcon from "@assets/icons/ArrowIcon.svg";
-const TestSlide = () => {
+import PostImg3 from "@assets/images/postImg3.jpg";
+const PetSlide = () => {
   return (
     <Wrapper>
       <SlideContent>
         <SlideTitle>
-          우리집 강아지는 <br />
-          헌혈견이 될 수 있을까?
+          반려견 정보를 <br />
+          추가로 등록할 수 있어요!
         </SlideTitle>
         <SlideBtn>
-          <BtnText>테스트 바로 가기</BtnText>
+          <BtnText>반려견 정보 등록하기</BtnText>
           <img src={arrowIcon} alt="화살표아이콘" />
         </SlideBtn>
       </SlideContent>
       <ImgFlexDiv>
-        <SlideImg>
-          <img src={slide1Png} alt="슬라이드1이미지" />
-        </SlideImg>
+        <SlideImgBox>
+          <SlideImg src={slide2Png} alt="반려견이미지" />
+        </SlideImgBox>
       </ImgFlexDiv>
     </Wrapper>
   );
 };
 
-export default TestSlide;
+export default PetSlide;
 
 const Wrapper = styled.div`
   display: flex;
@@ -69,9 +70,19 @@ const BtnText = styled.div`
 //이미지 하단정렬용 div
 const ImgFlexDiv = styled.div`
   display: flex;
-  align-items: flex-end;
+  align-items: center;
 `;
-const SlideImg = styled.div`
+const SlideImgBox = styled.div`
   display: flex;
-  height: 133px;
+  overflow: hidden; /* 이미지가 넘칠 경우 숨김 */
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  background: #fff;
+`;
+const SlideImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 비율 유지하면서 꽉 채우기 */
+  object-position: center; /* 중앙 정렬 */
 `;

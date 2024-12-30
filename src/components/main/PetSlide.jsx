@@ -40,6 +40,7 @@ const SlideContent = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 27px;
+  padding-bottom: 5px;
 `;
 const SlideTitle = styled.div`
   display: flex;
@@ -71,12 +72,15 @@ const BtnText = styled.div`
 const ImgFlexDiv = styled.div`
   display: flex;
   align-items: center;
+  box-sizing: border-box;
+  padding-bottom: 20px;
 `;
 const SlideImgBox = styled.div`
   display: flex;
+
   overflow: hidden; /* 이미지가 넘칠 경우 숨김 */
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   border-radius: 100px;
   background: #fff;
 `;

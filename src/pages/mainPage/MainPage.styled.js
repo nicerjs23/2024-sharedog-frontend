@@ -20,7 +20,7 @@ export const SliderBox = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 200px;
+  height: 207px;
   /* height: calc(var(--vh, 1vh) * 100); */
   background-color: ${({ theme }) => theme.colors.mainColor};
 `;
@@ -31,8 +31,7 @@ export const Header = styled.div`
   width: 87.73%;
   height: 34px;
   margin: 0 auto;
-  margin-top: 5px;
-  height: 34px;
+  margin-top: 30px;
   /* padding: 0 23px; */
   /* border: 1px solid green; */
 `;
@@ -105,7 +104,7 @@ export const FilterBox = styled.section`
   gap: 11px;
   margin-right: -20px; /* 우측 여백 제거 */
   /* padding: 0 20px; 스크롤 가능 영역 확보 */
-
+  padding-bottom: 5px;
   overflow-x: auto; /* 가로 스크롤 활성화 */
   white-space: nowrap; /* 요소가 줄 바꿈되지 않도록 설정 */
 
@@ -121,6 +120,7 @@ export const FilterBox = styled.section`
     display: flex;
     justify-content: space-between;
     margin-right: 0;
+    padding-bottom: 0; /* 노트북 이상에서는 여유 공간 제거 */
     gap: 0;
   }
 `;
@@ -143,8 +143,8 @@ export const Filter = styled.button`
 
   /* 🖱️ Hover 상태 */
   &:hover {
-    color: #ff6969;
-    border: 0.88px solid var(--Red-Red04, #ff6969);
+    color: ${({ theme }) => theme.colors.mainColor};
+    border: 0.88px solid ${({ theme }) => theme.colors.mainColor};
     background: rgba(255, 105, 105, 0.2);
   }
 
@@ -153,7 +153,7 @@ export const Filter = styled.button`
     $isActive &&
     `
     color: #ff6969;
-    border: 0.88px solid var(--Red-Red04, #ff6969);
+    border: 0.88px solid  #ff6969;
     background: rgba(255, 105, 105, 0.2);
     `}
 `;

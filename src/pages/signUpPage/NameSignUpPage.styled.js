@@ -25,14 +25,14 @@ export const Text = styled.section`
   line-height: 35px; 
 `;
 
-export const EmailWrapper = styled.section`
+export const NameWrapper = styled.section`
   display: flex;
   width: 304px;
   flex-direction: column;
   align-items: flex-start;
 `;
 
-export const EmailContainer = styled.section`
+export const NameContainer = styled.section`
   display: flex;
   width: 304px;
   flex-direction: column;
@@ -56,7 +56,7 @@ export const EmailContainer = styled.section`
   };
 `;
 
-export const EmailPlace = styled.input`
+export const NamePlace = styled.input`
   display: flex;
   height: 51px;
   padding: 0px 161.5px 0px 13.5px;

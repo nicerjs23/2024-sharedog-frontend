@@ -33,4 +33,5 @@ const HeaderWrapper = styled.section`
   align-self: stretch;
   background: #fff;
   justify-content: space-between;
+  margin-bottom: 16px;
 `;

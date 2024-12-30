@@ -9,6 +9,9 @@ import { LoginPage } from "@pages/loginPage/LoginPage";
 import { CommunityPage } from "@pages/communityPage/Community";
 import { ChatPage } from "@pages/chatPage/ChatPage";
 import { MyPage } from "@pages/myPage/MyPage";
+import { PwSignUpPage } from "@pages/signUpPage/PwSignUpPage";
+import { NameSignUpPage } from "@pages/signUpPage/NameSignUpPage";
+import { PhoneSignUpPage } from "@pages/signUpPage/PhoneSignUpPage";
 
 export const router = createBrowserRouter([
   {
@@ -23,9 +26,14 @@ export const router = createBrowserRouter([
       { path: "chat", element: <ChatPage /> },
       { path: "mypage", element: <MyPage /> },
       {
-        path: "signup",
+        path: "signup/",
         element: <SignUpLayout />, // DefaultLayout 하위에 SignUpLayout 중첩
-        children: [{ path: "", element: <SignUpPage /> }],
+        children: [
+          { path: "", element: <SignUpPage /> },
+          { path: "pw", element: <PwSignUpPage /> },
+          { path: "name", element: <NameSignUpPage /> },
+          { path: "phone", element: <PhoneSignUpPage /> },
+        ],
       },
     ],
   },

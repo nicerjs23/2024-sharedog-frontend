@@ -16,7 +16,14 @@ const TestSlide = () => {
       </SlideContent>
       <ImgFlexDiv>
         <SlideImg>
-          <img src={slide1Png} alt="슬라이드1이미지" />
+          <img
+            src={slide1Png}
+            style={{
+              width: "auto",
+              height: "133px",
+              display: "block",
+            }}
+          />
         </SlideImg>
       </ImgFlexDiv>
     </Wrapper>

@@ -1,13 +1,11 @@
 import React from "react";
 import * as S from "./styled";
 
-const Button = () => {
+const Button = (props) => {
   return (
-    <>
-      <S.ButtonWrapper>
-        <span>다음</span>
-      </S.ButtonWrapper>
-    </>
+    <S.commonButton bgColor={props.bgColor} onClick={props.onClick}>
+      <S.buttonText>{props.children}</S.buttonText>
+    </S.commonButton>
   );
 };
 

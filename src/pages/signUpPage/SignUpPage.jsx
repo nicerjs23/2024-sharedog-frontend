@@ -1,5 +1,6 @@
 import * as S from "./SignUpPage.styled";
 import Button from "@components/common/button";
+import { useState } from "react";
 
 export const SignUpPage = () => {
   return (
@@ -12,7 +13,9 @@ export const SignUpPage = () => {
           <span>이메일</span>
           <S.EmailPlace type="email" placeholder="abcd@naver.com" />
         </S.EmailWrapper>
-        <Button />
+        <Button type="button">
+          다음
+        </Button>
       </S.MainWrapper>
     </>
   );

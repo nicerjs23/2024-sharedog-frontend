@@ -5,7 +5,6 @@ export const MainWrapper = styled.section`
   flex-direction: column;
   width: 100%;
   max-width: 540px;
-  gap: 388px;
   align-items: center;
   /* background-color: ${({ theme }) => theme.colors.fall}; */
   position: fixed;

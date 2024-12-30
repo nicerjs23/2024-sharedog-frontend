@@ -28,7 +28,7 @@ export default TestSlide;
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
-
+  box-sizing: border-box;
   width: 87.73%;
   margin: 0 auto;
   height: 100%;
@@ -39,6 +39,7 @@ const SlideContent = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 27px;
+  padding-bottom: 5px;
 `;
 const SlideTitle = styled.div`
   display: flex;

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const MedalWrapper = styled.div`
-  width: 81px;
+  width: 84px;
   height: 84px;
 `;
 
@@ -33,7 +33,7 @@ const Medal = ({ number }) => {
           />
           {/* 숫자 표시 */}
           <text
-            x="40.5"
+            x="39.5"
             y="58"
             textAnchor="middle"
             fontSize="30"

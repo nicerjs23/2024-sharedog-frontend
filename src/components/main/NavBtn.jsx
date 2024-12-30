@@ -1,9 +1,13 @@
 import styled from "styled-components";
-const NavBtn = ({ icon, text }) => {
+const NavBtn = ({ icon, text, $paddingLeft }) => {
   return (
     <InfoNavBtn>
-      <NavCircle>
-        <img src={icon} alt={text} />
+      <NavCircle $paddingLeft={$paddingLeft}>
+        <img
+          src={icon}
+          alt={text}
+          style={{ width: "17px", height: "17px" }}
+        />
       </NavCircle>
       <NavText>{text}</NavText>
     </InfoNavBtn>
@@ -34,6 +38,9 @@ const NavCircle = styled.div`
   height: 47px;
   border-radius: 50px;
   background-color: #fff;
+  /* 아이콘 가운데정렬안돼서 두번째 아이콘만 동적으로 패딩 적용 */
+  ${({ $paddingLeft }) =>
+    $paddingLeft && `padding-left: ${$paddingLeft};`}
 `;
 
 const NavText = styled.div`

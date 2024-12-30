@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import * as S from "./MainSlider.styled";
 import TestSlide from "@components/main/TestSlide";
 import PetSlide from "@components/main/PetSlide";
+import CountSlide from "@components/main/CountSlide";
 const MainSlider = () => {
   const settings = {
     dots: true,
@@ -27,7 +28,7 @@ const MainSlider = () => {
           <PetSlide />
         </S.SlideWrapper>
         <S.SlideWrapper>
-          <S.SlideContent>3</S.SlideContent>
+          <CountSlide />
         </S.SlideWrapper>
       </Slider>
     </S.SliderContainer>

@@ -61,10 +61,12 @@ const BloodTag = styled.div`
   display: flex;
   width: 28px;
   height: 13px;
+
   justify-content: center;
   align-items: center;
   border-radius: 8.213px;
   color: #ffffff;
+
   font-size: 0.345rem;
   font-family: ${({ theme }) =>
     theme.fonts.SUITMedium["font-family"]};

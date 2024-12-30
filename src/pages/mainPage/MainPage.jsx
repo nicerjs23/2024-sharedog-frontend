@@ -6,7 +6,7 @@ import NavBtn from "@components/main/NavBtn";
 import Nav1 from "@assets/icons/nav1.png";
 import Nav2 from "@assets/icons/nav2.png";
 import Nav3 from "@assets/icons/nav3.png";
-import Fire from "@assets/icons/Fire.png";
+import Fire from "@assets/icons/fire4X.png";
 
 import { filter } from "@data/mainData/Posts";
 import { post } from "@data/mainData/Posts";
@@ -52,8 +52,8 @@ export const MainPage = () => {
         <S.Line />
         {/* <S.Line />*/}
         <S.PostsTitle>
-          <div>지역별 긴급헌혈 현황 </div>
-          <img src={Fire} />
+          <div>지역별 긴급헌혈 현황 🔥</div>
+          <img src={Fire} style={{ width: "15px", height: "15px" }} />
         </S.PostsTitle>
 
         <S.FilterBox>

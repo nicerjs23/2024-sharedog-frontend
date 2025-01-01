@@ -5,6 +5,12 @@ import { WelcomePage } from "@pages/loginPage/WelcomePage";
 import { CommunityPage } from "@pages/communityPage/Community";
 import { ChatPage } from "@pages/chatPage/ChatPage";
 import { MyPage } from "@pages/myPage/MyPage";
+import { PwSignUpPage } from "@pages/signUpPage/PwSignUpPage";
+import { NameSignUpPage } from "@pages/signUpPage/NameSignUpPage";
+import { PhoneSignUpPage } from "@pages/signUpPage/PhoneSignUpPage";
+import { TestStartPage } from "@pages/testPage/TestStartPage";
+import { TestLayout } from "@layout/TestLayout";
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -16,6 +22,21 @@ export const router = createBrowserRouter([
       { path: "community", element: <CommunityPage /> },
       { path: "chat", element: <ChatPage /> },
       { path: "mypage", element: <MyPage /> },
+      {
+        path: "signup/",
+        element: <SignUpLayout />, // DefaultLayout 하위에 SignUpLayout 중첩
+        children: [
+          { path: "", element: <SignUpPage /> },
+          { path: "pw", element: <PwSignUpPage /> },
+          { path: "name", element: <NameSignUpPage /> },
+          { path: "phone", element: <PhoneSignUpPage /> },
+        ],
+      },
+      {
+        path: "test",
+        element: <TestLayout />,
+        children: [{ path: "", element: <TestStartPage /> }],
+      },
     ],
   },
 ]);

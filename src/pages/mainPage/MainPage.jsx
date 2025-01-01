@@ -12,6 +12,7 @@ import { filter } from "@data/mainData/Posts";
 import { post } from "@data/mainData/Posts";
 import { useState } from "react";
 import Post from "@components/main/Post";
+
 export const MainPage = () => {
   // 🟢 활성화된 필터 상태 관리
   // 🟢 1번 필터를 초기 활성화 상태로 설정

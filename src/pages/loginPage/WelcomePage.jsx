@@ -20,7 +20,7 @@ export const WelcomePage = () => {
           <S.Kakao src={KakaoLogo} alt="카카오 로고" />
           카카오로 로그인하기
         </S.Btn>
-        <S.Btn onClick={() => goTo("/main")} type="email">
+        <S.Btn onClick={() => goTo("/login")} type="email">
           이메일로 로그인하기
         </S.Btn>
         <S.SignUp>

@@ -1,7 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import { DefaultLayout } from "@layout/DefaultLayout";
+import { SignUpLayout } from "@layout/SignUpLayout";
+
 import { MainPage } from "@pages/mainPage/MainPage";
 import { WelcomePage } from "@pages/loginPage/WelcomePage";
+import { SignUpPage } from "@pages/signUpPage/SignUpPage";
+import { LoginPage } from "@pages/loginPage/LoginPage";
 import { CommunityPage } from "@pages/communityPage/Community";
 import { ChatPage } from "@pages/chatPage/ChatPage";
 import { MyPage } from "@pages/myPage/MyPage";
@@ -18,6 +22,7 @@ export const router = createBrowserRouter([
     children: [
       { path: "", element: <WelcomePage /> },
       { path: "main", element: <MainPage /> },
+      { path: "login", element: <LoginPage /> },
       //나중에 라우터 중첩으로 변경할거면 따로 빼기 지금은 푸터연결위해 임시로 해둠
       { path: "community", element: <CommunityPage /> },
       { path: "chat", element: <ChatPage /> },
@@ -40,6 +45,3 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
-
-//따로 레이아웃만들페이지 예상
-//테스트, 회원가입 ,마이페이지 뒤로가기헤더부분 정도..?

@@ -1,7 +1,7 @@
 import * as S from "./WelcomePage.styled";
 import Logo from "@assets/icons/Logo.svg";
 import KakaoLogo from "@assets/icons/kakao.svg";
-import { useCustomNavigate } from "@hooks/useCustomNavigate";
+import { Link } from "react-router-dom";
 export const WelcomePage = () => {
   const { goTo } = useCustomNavigate();
   return (

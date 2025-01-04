@@ -13,13 +13,24 @@ const fontGenerator = (
 });
 export const theme = {
   colors: {
-    //나중에 필요시 추가하기
+    // 아래와같이 사용가능
+    // color: ${({ theme }) => theme.colors.색상};
 
+    //나중에 필요시 추가하기
     bg: "#999999", //배경색
     mainColor: "#FF6969", //메인컬러
     pageBgColor: "#FAFAFC", //페이지 기본 회색 배경색
     default: "#000000", // 기본 검정색
+    testBgColor: "#FFF7F7", //테스트페이지 배경색 연핑크
+
+    //디자인시스템 메인컬러 종류
+    red04: "#FF6969", //위에 mainColor와 같음
+    //디자인시스템 글씨색 설정
     white: "#FFFFFF",
+    black: "#1C1C1E",
+    gray03: "#3A3A3C",
+    gray02: "#636366",
+    gray01: "#9C9CA1",
   },
 
   fonts: {
@@ -32,7 +43,8 @@ export const theme = {
       "normal"
     ),
 
-    // SUIT 폰트 설정
+    // SUIT 폰트 설정 (아래처럼사용가능)
+    // font-family: ${({ theme }) => theme.fonts.SUIT폰트["font-family"]};
     SUITBold: fontGenerator("SUIT-Bold"),
     SUITExtraBold: fontGenerator("SUIT-ExtraBold"),
     SUITExtraLight: fontGenerator("SUIT-ExtraLight"),

@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import slide1Png from "@assets/images/slide1.png";
 import arrowIcon from "@assets/icons/ArrowIcon.svg";
+
+import { useCustomNavigate } from "@hooks/useCustomNavigate";
 const TestSlide = () => {
+  //페이지이동 커스텀훅
+  const { goTo } = useCustomNavigate();
   return (
     <Wrapper>
       <SlideContent>
@@ -10,7 +14,9 @@ const TestSlide = () => {
           헌혈견이 될 수 있을까?
         </SlideTitle>
         <SlideBtn>
-          <BtnText>테스트 바로 가기</BtnText>
+          <BtnText onClick={() => goTo("/testStart")}>
+            테스트 바로 가기
+          </BtnText>
           <img src={arrowIcon} alt="화살표아이콘" />
         </SlideBtn>
       </SlideContent>

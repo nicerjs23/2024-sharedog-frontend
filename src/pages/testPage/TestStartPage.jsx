@@ -1,7 +1,7 @@
 import * as S from "./TestStartPage.styled";
 import xIcon from "@assets/icons/X.svg";
 import testLogo from "@assets/images/testStartLogo.png";
-import TestBtn from "@components/test/TestBtn";
+import TestStartPgBtn from "@components/test/TestStartPgBtn";
 import { useCustomNavigate } from "@hooks/useCustomNavigate";
 export const TestStartPage = () => {
   const { goTo } = useCustomNavigate();
@@ -26,13 +26,13 @@ export const TestStartPage = () => {
         </S.TestLogo>
       </S.TestLogoBox>
       <S.TestBtnBox>
-        <TestBtn
+        <TestStartPgBtn
           bgColor="#FF6969"
           textColor="#FFFFFF"
           text="테스트 시작하기"
           onClick={() => goTo("/test")}
         />
-        <TestBtn
+        <TestStartPgBtn
           bgColor="#FFD7D7"
           textColor="#FF6969"
           text="테스트 공유하기"

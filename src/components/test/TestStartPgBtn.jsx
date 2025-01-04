@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const TestBtn = ({ bgColor, textColor, text, onClick }) => {
+const TestStartPgBtn = ({ bgColor, textColor, text, onClick }) => {
   return (
     <Wrapper
       bgColor={bgColor}
@@ -12,7 +12,7 @@ const TestBtn = ({ bgColor, textColor, text, onClick }) => {
   );
 };
 
-export default TestBtn;
+export default TestStartPgBtn;
 
 const Wrapper = styled.button`
   display: flex;

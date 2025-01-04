@@ -12,7 +12,11 @@ import { MyPage } from "@pages/myPage/MyPage";
 import { PwSignUpPage } from "@pages/signUpPage/PwSignUpPage";
 import { NameSignUpPage } from "@pages/signUpPage/NameSignUpPage";
 import { PhoneSignUpPage } from "@pages/signUpPage/PhoneSignUpPage";
-
+import { TestStartPage } from "@pages/testPage/TestStartPage";
+import { TestLayout } from "@layout/TestLayout";
+import { TestPage } from "@pages/testPage/TestPage";
+import { TestResultOkPage } from "@pages/testPage/TestResultOkPage";
+import { TestResultNoPage } from "@pages/testPage/TestResultNoPage";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -25,8 +29,9 @@ export const router = createBrowserRouter([
       { path: "community", element: <CommunityPage /> },
       { path: "chat", element: <ChatPage /> },
       { path: "mypage", element: <MyPage /> },
+      { path: "testStart", element: <TestStartPage /> },
       {
-        path: "signup/",
+        path: "signup",
         element: <SignUpLayout />, // DefaultLayout 하위에 SignUpLayout 중첩
         children: [
           { path: "", element: <SignUpPage /> },
@@ -35,6 +40,16 @@ export const router = createBrowserRouter([
           { path: "phone", element: <PhoneSignUpPage /> },
         ],
       },
+    ],
+  },
+  //헌혈견테스트쪽은 아예따로 뺐음 테스트 시작화면만 디폴트레이아웃에 속하도록함
+  {
+    path: "/test",
+    element: <TestLayout />,
+    children: [
+      { path: "", element: <TestPage /> },
+      { path: "resultOK", element: <TestResultOkPage /> },
+      { path: "resultNO", element: <TestResultNoPage /> },
     ],
   },
 ]);

@@ -27,9 +27,9 @@ export const TestPage = () => {
 
   // ✅ X 버튼 (테스트 초기화 및 /main 이동)
   const handleExit = () => {
-    setSelectedOptions(Array(testQuestions.length).fill(null));
-    setTotalScore(0);
-    goTo("/main", { replace: true });
+    setSelectedOptions(Array(testQuestions.length).fill(null)); // 선택된 옵션 초기화
+    setQuestionScores(Array(testQuestions.length).fill(0)); // 점수 초기화
+    goTo("/main", { replace: true }); // 메인 페이지로 이동
   };
 
   // ✅ 옵션 선택 핸들러

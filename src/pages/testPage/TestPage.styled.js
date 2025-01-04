@@ -6,9 +6,6 @@ export const Wrapper = styled.section`
   justify-content: space-between;
   width: 100%;
   max-width: 540px;
-
-  font-family: ${({ theme }) =>
-    theme.fonts.SUITSemiBold["font-family"]};
 `;
 
 export const GapDiv = styled.div`
@@ -41,8 +38,7 @@ export const NextBtn = styled.button`
   border-radius: 1550px;
   font-size: 1rem;
   font-family: ${({ theme }) => theme.fonts.SUITBold["font-family"]};
-  background-color: ${({ isActive }) =>
-    isActive ? "#FF6969" : "#ECECEC"};
-  color: ${({ isActive }) => (isActive ? "#FFFFFF" : "#BDBDBD")};
-  cursor: ${({ isActive }) => (isActive ? "pointer" : "not-allowed")};
+  background-color: ${(props) =>
+    props.$isActive ? "#FF6969" : "#ECECEC"};
+  color: ${(props) => (props.$isActive ? "#FFFFFF" : "#BDBDBD")};
 `;

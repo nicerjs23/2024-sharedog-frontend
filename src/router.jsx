@@ -15,7 +15,8 @@ import { PhoneSignUpPage } from "@pages/signUpPage/PhoneSignUpPage";
 import { TestStartPage } from "@pages/testPage/TestStartPage";
 import { TestLayout } from "@layout/TestLayout";
 import { TestPage } from "@pages/testPage/TestPage";
-
+import { TestResultOkPage } from "@pages/testPage/TestResultOkPage";
+import { TestResultNoPage } from "@pages/testPage/TestResultNoPage";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -45,6 +46,10 @@ export const router = createBrowserRouter([
   {
     path: "/test",
     element: <TestLayout />,
-    children: [{ path: "", element: <TestPage /> }],
+    children: [
+      { path: "", element: <TestPage /> },
+      { path: "resultOK", element: <TestResultOkPage /> },
+      { path: "resultNO", element: <TestResultNoPage /> },
+    ],
   },
 ]);

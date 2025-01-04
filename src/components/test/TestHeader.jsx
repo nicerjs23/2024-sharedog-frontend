@@ -10,7 +10,7 @@ const TestHeader = ({
   const progress = ((currentIndex + 1) / totalQuestions) * 100;
   return (
     <Wrapper>
-      <Header isFirst={currentIndex === 0}>
+      <Header $isFirst={currentIndex === 0}>
         {/* 첫화면에서는 뒤로가기버튼 없음 +justify contents flex-end로변경*/}
         {currentIndex > 0 && (
           <Btn onClick={onBack}>
@@ -23,7 +23,7 @@ const TestHeader = ({
         </Btn>
       </Header>
       <ProgressBar>
-        <Progress progress={progress} />
+        <Progress $progress={progress} />
       </ProgressBar>
     </Wrapper>
   );
@@ -40,7 +40,7 @@ const Wrapper = styled.section`
 const Header = styled.div`
   display: flex;
   justify-content: ${(props) =>
-    props.isFirst ? "flex-end" : "space-between"};
+    props.$isFirst ? "flex-end" : "space-between"};
   width: 100%;
   height: 46px;
   padding: 10px;
@@ -59,6 +59,6 @@ const ProgressBar = styled.div`
 const Progress = styled.div`
   height: 100%;
   background: ${({ theme }) => theme.colors.mainColor};
-  width: ${(props) => props.progress}%;
+  width: ${(props) => props.$progress}%;
   transition: width 0.3s ease-in-out;
 `;

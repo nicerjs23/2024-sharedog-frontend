@@ -9,7 +9,7 @@ export const TestStartPage = () => {
     <S.Wrapper>
       <S.Header>
         {/* x버튼 홈화면으로 이동시키고 replace:true걸어야될듯 */}
-        <S.XBtn>
+        <S.XBtn onClick={() => goTo("/main", { replace: true })}>
           <img src={xIcon} alt="x버튼" />
         </S.XBtn>
       </S.Header>
@@ -27,14 +27,14 @@ export const TestStartPage = () => {
       </S.TestLogoBox>
       <S.TestBtnBox>
         <TestStartPgBtn
-          bgColor="#FF6969"
-          textColor="#FFFFFF"
+          $bgColor="#FF6969"
+          $textColor="#FFFFFF"
           text="테스트 시작하기"
           onClick={() => goTo("/test")}
         />
         <TestStartPgBtn
-          bgColor="#FFD7D7"
-          textColor="#FF6969"
+          $bgColor="#FFD7D7"
+          $textColor="#FF6969"
           text="테스트 공유하기"
         />
       </S.TestBtnBox>

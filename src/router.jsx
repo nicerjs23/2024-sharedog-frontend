@@ -12,6 +12,7 @@ import { MyPage } from "@pages/myPage/MyPage";
 import { PwSignUpPage } from "@pages/signUpPage/PwSignUpPage";
 import { NameSignUpPage } from "@pages/signUpPage/NameSignUpPage";
 import { PhoneSignUpPage } from "@pages/signUpPage/PhoneSignUpPage";
+import { ProSignUpPage } from "@pages/signUpPage/ProSignUpPage";
 import { TestStartPage } from "@pages/testPage/TestStartPage";
 import { TestLayout } from "@layout/TestLayout";
 import { TestPage } from "@pages/testPage/TestPage";
@@ -38,6 +39,7 @@ export const router = createBrowserRouter([
           { path: "pw", element: <PwSignUpPage /> },
           { path: "name", element: <NameSignUpPage /> },
           { path: "phone", element: <PhoneSignUpPage /> },
+          { path: "pro", element: <ProSignUpPage /> },
         ],
       },
     ],

@@ -13,6 +13,8 @@ import { PwSignUpPage } from "@pages/signUpPage/PwSignUpPage";
 import { NameSignUpPage } from "@pages/signUpPage/NameSignUpPage";
 import { PhoneSignUpPage } from "@pages/signUpPage/PhoneSignUpPage";
 import { ProSignUpPage } from "@pages/signUpPage/ProSignUpPage";
+import { AgeSignUpPage } from "@pages/signUpPage/AGeSignUpPage";
+import { WeightSignUpPage } from "@pages/signUpPage/WeightSignUpPage";
 import { TestStartPage } from "@pages/testPage/TestStartPage";
 import { TestLayout } from "@layout/TestLayout";
 import { TestPage } from "@pages/testPage/TestPage";
@@ -40,6 +42,8 @@ export const router = createBrowserRouter([
           { path: "name", element: <NameSignUpPage /> },
           { path: "phone", element: <PhoneSignUpPage /> },
           { path: "pro", element: <ProSignUpPage /> },
+          { path: "age", element: <AgeSignUpPage />},
+          { path: "weight", element: <WeightSignUpPage />},
         ],
       },
     ],

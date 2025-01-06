@@ -25,14 +25,14 @@ export const Text = styled.section`
   line-height: 35px; 
 `;
 
-export const EmailWrapper = styled.section`
+export const PetWrapper = styled.section`
   display: flex;
   width: 304px;
   flex-direction: column;
   align-items: flex-start;
 `;
 
-export const EmailContainer = styled.section`
+export const AgeContainer = styled.section`
   display: flex;
   width: 304px;
   flex-direction: column;
@@ -56,7 +56,52 @@ export const EmailContainer = styled.section`
   };
 `;
 
-export const EmailPlace = styled.input`
+export const AgePlace = styled.input`
+  display: flex;
+  height: 51px;
+  padding: 0px 161.5px 0px 13.5px;
+  align-items: center;
+
+  border-radius: 20px;
+  border: 1px solid #E7E8EB;
+  background: #FFF;
+
+  ::placeholder {
+    display: flex;
+    color: #E7E8EB;
+    font-family: SUIT;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 160%; /* 25.6px */
+  }
+`;
+
+export const NameContainer = styled.section`
+  display: flex;
+  width: 304px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 33px;
+
+  span {
+    display: flex;
+    height: 13px;
+    flex-direction: column;
+    justify-content: center;
+    align-self: stretch;
+
+    color: #8A8A8A;
+    font-family: SUIT;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 160%; /* 22.4px */
+  };
+`;
+
+export const NamePlace = styled.input`
   display: flex;
   height: 51px;
   padding: 0px 161.5px 0px 13.5px;

@@ -25,14 +25,14 @@ export const Text = styled.section`
   line-height: 35px; 
 `;
 
-export const NameWrapper = styled.section`
+export const Wrapper = styled.section`
   display: flex;
   width: 304px;
   flex-direction: column;
   align-items: flex-start;
 `;
 
-export const NameContainer = styled.section`
+export const Container = styled.section`
   display: flex;
   width: 304px;
   flex-direction: column;
@@ -56,11 +56,12 @@ export const NameContainer = styled.section`
   };
 `;
 
-export const NamePlace = styled.input`
+export const InputField = styled.input`
   display: flex;
   height: 51px;
-  padding: 0px 161.5px 0px 13.5px;
+  padding: 0px 13.5px;
   align-items: center;
+  width: 100%;
 
   border-radius: 20px;
   border: 1px solid #E7E8EB;
@@ -68,7 +69,7 @@ export const NamePlace = styled.input`
 
   ::placeholder {
     display: flex;
-    color: #E7E8EB;
+    color: #DCDCDC;
     font-family: SUIT;
     font-size: 16px;
     font-style: normal;

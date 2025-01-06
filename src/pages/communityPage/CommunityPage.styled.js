@@ -13,6 +13,8 @@ export const Wrapper = styled.section`
   top: 50%;
 
   font-family: ${({ theme }) => theme.fonts.SUITSemiBold["font-family"]};
+
+  margin-bottom: 60px;
 `;
 
 export const Header = styled.div`
@@ -99,9 +101,13 @@ export const CategorySection = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  border: ${({ selected }) =>
+    selected
+      ? "1px solid #FF6969"
+      : "1px solid transparent"}; // 선택된 항목에 빨간색 border 적용
 `;
 
-export const CategoryIcon = styled.div`
+export const CategoryIcon = styled.button`
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -110,6 +116,9 @@ export const CategoryIcon = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 20px;
+
+  border: ${({ selected }) =>
+    selected ? "1px solid #FF6969" : "1px solid transparent"};
 `;
 
 export const CategoryText = styled.div`
@@ -128,31 +137,35 @@ export const Line = styled.div`
 `;
 
 export const FilterBox = styled.div`
+  position: relative; /* 부모 컨테이너를 기준으로 위치 조정 */
   display: flex;
   flex-direction: row;
-
   align-self: stretch;
-
   margin-left: 25px;
   margin-right: 25px;
 `;
 
 export const Filter = styled.div`
+  position: relative; /* 드롭다운 위치 조정을 위한 기준 */
   display: flex;
-
   padding: 7px 7px 7px 9px;
   gap: 10px;
   align-items: center;
   margin-right: 12px;
-
   border-radius: 30px;
   border: 1px solid #dadada;
   background: #fff;
-
   color: var(--Gray-Gray01, #9c9ca1);
   text-align: center;
   font-size: 10px;
   font-weight: 400;
+  cursor: pointer;
+`;
+
+export const PostWrapper = styled.div`
+  height: 400px;
+
+  overflow-y: auto; /* 내용이 넘칠 경우 스크롤 */
 `;
 
 export const PostBox = styled.div`
@@ -160,13 +173,10 @@ export const PostBox = styled.div`
   height: 160px;
   flex-shrink: 0;
 
-  border-radius: 10px;
-  border: 1px solid #eaeaea;
-  background: #fff;
-
   margin-top: 25px;
   margin-left: 25px;
   margin-right: 25px;
+  margin-bottom: 25px;
 `;
 
 export const PostTop = styled.div`
@@ -191,4 +201,48 @@ export const PostBottom = styled.div`
 export const PostFilterSection = styled.div`
   display: flex;
   align-items: center;
+`;
+
+export const Dropdown = styled.div`
+  position: absolute;
+  top: calc(100% + 5px); /* 필터 바로 아래에 드롭다운 배치 */
+  left: 0;
+  width: 60px; /* 필터 너비와 동일하게 설정 */
+  background-color: #fff;
+  border: 1px solid #dadada;
+  border-radius: 10px;
+  z-index: 10;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  max-height: 200px; /* 최대 높이 설정 */
+  overflow-y: auto; /* 스크롤 추가 */
+`;
+
+export const Dropdown2 = styled.div`
+  position: absolute;
+  top: calc(100% + 5px); /* 필터 바로 아래에 드롭다운 배치 */
+  left: 0;
+  width: 66px; /* 필터 너비와 동일하게 설정 */
+  background-color: #fff;
+  border: 1px solid #dadada;
+  border-radius: 10px;
+  z-index: 10;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  max-height: 200px; /* 최대 높이 설정 */
+  overflow-y: auto; /* 스크롤 추가 */
+
+  transform: translateX(67px); // 오른쪽으로 30px 이동
+`;
+
+export const DropdownItem = styled.div`
+  padding: 10px;
+  cursor: pointer;
+  background-color: ${({ selected }) => (selected ? "#ffecec" : "transparent")};
+  color: ${({ selected }) => (selected ? "#ff6969" : "inherit")};
+
+  &:hover {
+    background-color: #ffecec;
+    color: #ff6969;
+  }
 `;

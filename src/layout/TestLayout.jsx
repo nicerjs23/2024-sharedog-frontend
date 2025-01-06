@@ -11,7 +11,8 @@ export const TestLayout = () => {
   );
 };
 const Wrapper = styled.section`
+  display: flex;
   flex-grow: 1;
-  background-color: ${({ theme }) => theme.colors.pageBgColor};
+  background-color: ${({ theme }) => theme.colors.testBgColor};
   min-height: calc(var(--vh, 1vh) * 100);
 `;

@@ -14,7 +14,7 @@ const TestSlide = () => {
           헌혈견이 될 수 있을까?
         </SlideTitle>
         <SlideBtn>
-          <BtnText onClick={() => goTo("/test")}>
+          <BtnText onClick={() => goTo("/testStart")}>
             테스트 바로 가기
           </BtnText>
           <img src={arrowIcon} alt="화살표아이콘" />

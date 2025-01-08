@@ -1,4 +1,4 @@
-import * as S from "./AgeSignUpPage.styled";
+import * as S from "./SignUpPage.styled";
 import Button from "@components/common/CommonButton";
 import { useState } from "react";
 

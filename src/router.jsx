@@ -15,6 +15,9 @@ import { PhoneSignUpPage } from "@pages/signUpPage/PhoneSignUpPage";
 import { ProSignUpPage } from "@pages/signUpPage/ProSignUpPage";
 import { AgeSignUpPage } from "@pages/signUpPage/AGeSignUpPage";
 import { WeightSignUpPage } from "@pages/signUpPage/WeightSignUpPage";
+import { GenSignUpPage } from "@pages/signUpPage/GenSignUpPage";
+import { LastSignUpPage } from "@pages/signUpPage/LastSignUpPage";
+import { OpSignUpPage } from "@pages/signUpPage/OpSignUpPage";
 import { TestStartPage } from "@pages/testPage/TestStartPage";
 import { TestLayout } from "@layout/TestLayout";
 import { TestPage } from "@pages/testPage/TestPage";
@@ -44,8 +47,14 @@ export const router = createBrowserRouter([
           { path: "pro", element: <ProSignUpPage /> },
           { path: "age", element: <AgeSignUpPage />},
           { path: "weight", element: <WeightSignUpPage />},
+          { path: "gen", element: <GenSignUpPage />},
+          { path: "op", element: <OpSignUpPage />},
         ],
       },
+      {
+        path: "signup/last",
+        element: <LastSignUpPage />,
+      }
     ],
   },
   //헌혈견테스트쪽은 아예따로 뺐음 테스트 시작화면만 디폴트레이아웃에 속하도록함

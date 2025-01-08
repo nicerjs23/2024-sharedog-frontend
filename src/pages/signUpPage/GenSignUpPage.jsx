@@ -1,16 +1,30 @@
 import * as S from "./SignUpPage.styled";
 import Button from "@components/common/CommonButton";
 import { useState } from "react";
+import Check from "@assets/icons/Check.svg";
 
-export const WeightSignUpPage = () => {
+export const GenSignUpPage = () => {
 
   return (
     <>
       <S.MainWrapper>
         <S.PetWrapper>
           <S.Text>
-            우리 반려견 몸무게를 <br /> 알려주세요
+            우리 반려견 성별을 <br /> 알려주세요
           </S.Text>
+          <S.GenderContainer>
+            <span>성별</span>
+            <S.GenderSelect>
+              <S.WBtn>
+                <S.Check src={Check} alt="체크표시"/>
+                <S.GenText>여아</S.GenText>
+              </S.WBtn>
+              <S.MBtn>
+                <S.Check src={Check} alt="체크표시"/>
+                <S.GenText>남아</S.GenText>
+              </S.MBtn>
+            </S.GenderSelect>
+          </S.GenderContainer>
           <S.WeightContainer>
             <span>몸무게(kg)</span>
             <S.AgePlace placeholder="예) 5" />

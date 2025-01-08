@@ -5,7 +5,7 @@ export const useShouldHideFooter = () => {
   const location = useLocation();
 
   // Footer를 숨길 정적 경로: "/login", "/" 등 정적 경로 추가
-  const hideFooterStatic = ["/", "/testStart"];
+  const hideFooterStatic = ["/", "/login"];
 
   // 동적 경로 부분이 아직 개발되지 않았으므로 항상 false 처리 =>이제 동적경로가 생겼으니까 추가함
   // const hideFooterDynamic = false; // 동적 경로 제외 조건
@@ -18,9 +18,7 @@ export const useShouldHideFooter = () => {
   // location.pathname.startsWith("/user/");
 
   // Footer 숨김 조건
-  return (
-    hideFooterStatic.includes(location.pathname) || hideFooterDynamic
-  );
+  return hideFooterStatic.includes(location.pathname) || hideFooterDynamic;
 };
 
 /*

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import * as S from "./LoginPage.styled";
 import Logo from "@assets/icons/Logo.svg";
 import { useCustomNavigate } from "@hooks/useCustomNavigate";
+import { useLocation } from "react-router-dom";
 
 export const LoginPage = () => {
   const { goTo } = useCustomNavigate();

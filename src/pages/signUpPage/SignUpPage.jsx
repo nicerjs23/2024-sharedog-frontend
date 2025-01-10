@@ -1,24 +1,27 @@
-import * as S from "./SignUpPage.styled";
+import { SignUpForm } from "@components/signup/SignUpForm";
 import Button from "@components/common/CommonButton";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const SignUpPage = () => {
+  const navigate = useNavigate();
+
+  const handleNext = () => {
+    console.log("다음 페이지로 이동!");
+    navigate("/signup/pw");
+  };
+
   return (
-    <>
-      <S.MainWrapper>
-        <S.EmailWrapper>
-          <S.Text>
-            견주님의 <br /> 이메일 주소를 알려주세요
-          </S.Text>
-          <S.EmailContainer>
-            <span>이메일</span>
-            <S.EmailPlace type="email" placeholder="abcd@naver.com" />
-          </S.EmailContainer>
-        </S.EmailWrapper>
-        <Button type="button">
-          다음
-        </Button>
-      </S.MainWrapper>
-    </>
+    <SignUpForm
+      title={`견주님의\n이메일 주소를 알려주세요`}
+      placeholder="abcd@naver.com"
+      label="이메일"
+      type="email"
+      onNext={handleNext}
+    >
+      <Button type="button" onClick={handleNext}>
+        다음
+      </Button>
+    </SignUpForm>
   );
 };
+

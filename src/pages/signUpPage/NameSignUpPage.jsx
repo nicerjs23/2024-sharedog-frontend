@@ -1,24 +1,26 @@
-import * as S from "./NameSignUpPage.styled";
+import { SignUpForm } from "@components/signup/SignUpForm";
 import Button from "@components/common/CommonButton";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const NameSignUpPage = () => {
+  const navigate = useNavigate();
+
+  const handleNext = () => {
+    console.log("다음 페이지로 이동!");
+    navigate("/signup/phone");
+  };
+
   return (
-    <>
-      <S.MainWrapper>
-        <S.NameWrapper>
-          <S.Text>
-            견주님의 <br /> 이름을 알려주세요
-          </S.Text>
-          <S.NameContainer>
-            <span>이름</span>
-            <S.NamePlace placeholder="이름 입력" />
-          </S.NameContainer>
-        </S.NameWrapper>
-        <Button type="button">
-          다음
-        </Button>
-      </S.MainWrapper>
-    </>
+    <SignUpForm
+      title={`견주님의 \n 이름을 알려주세요`}
+      placeholder="이름 입력"
+      label="이름"
+      type="name"
+      onNext={handleNext}
+    >
+      <Button type="button" onClick={handleNext}>
+        다음
+      </Button>
+    </SignUpForm>
   );
 };

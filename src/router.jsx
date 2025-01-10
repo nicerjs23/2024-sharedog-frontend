@@ -18,6 +18,7 @@ import { WeightSignUpPage } from "@pages/signUpPage/WeightSignUpPage";
 import { GenSignUpPage } from "@pages/signUpPage/GenSignUpPage";
 import { LastSignUpPage } from "@pages/signUpPage/LastSignUpPage";
 import { OpSignUpPage } from "@pages/signUpPage/OpSignUpPage";
+import { BloodSignUpPage } from "@pages/signUpPage/BloodSignUpPage";
 import { TestStartPage } from "@pages/testPage/TestStartPage";
 import { TestLayout } from "@layout/TestLayout";
 import { TestPage } from "@pages/testPage/TestPage";
@@ -49,6 +50,7 @@ export const router = createBrowserRouter([
           { path: "weight", element: <WeightSignUpPage />},
           { path: "gen", element: <GenSignUpPage />},
           { path: "op", element: <OpSignUpPage />},
+          { path: "blood", element: <BloodSignUpPage />},
         ],
       },
       {

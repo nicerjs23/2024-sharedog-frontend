@@ -297,3 +297,60 @@ export const OpText = styled.section`
   font-weight: 500;
   line-height: 160%; /* 25.6px */
 `;
+
+export const BloodContainer = styled.section`
+  display: flex;
+  width: 304px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 33px;
+
+  span {
+    display: flex;
+    height: 13px;
+    flex-direction: column;
+    justify-content: center;
+    align-self: stretch;
+    color: #FF6969;
+    font-family: SUIT;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 160%;
+  };
+`;
+
+export const BloodWrapper = styled.section`
+  display: flex;
+  width: 100%;
+  padding: 16px 16px 15px 19px;
+  justify-content: space-between;
+  align-items: center;
+  gap: auto;
+  border-radius: 20px;
+  border: 1px solid #E7E8EB;
+  background: #FFF;
+`;
+
+export const BloodSelect = styled.input`
+  display: flex;
+  width: 74px;
+  height: 14px;
+  flex-direction: column;
+  justify-content: center;
+  color: #E7E8EB;
+  font-family: SUIT;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%; /* 25.6px */
+`;
+
+export const Drop = styled.img`
+  width: 20px;
+  height: 20px;
+`;
+
+export const DropdownContent = styled.div`
+
+`;

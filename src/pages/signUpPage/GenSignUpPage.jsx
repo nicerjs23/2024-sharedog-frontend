@@ -2,8 +2,16 @@ import * as S from "./SignUpPage.styled";
 import Button from "@components/common/CommonButton";
 import { useState } from "react";
 import Check from "@assets/icons/Check.svg";
+import { useNavigate } from "react-router-dom";
 
 export const GenSignUpPage = () => {
+
+  const navigate = useNavigate();
+
+  const handleNext = () => {
+    console.log("다음 페이지로 이동!");
+    navigate("/signup/op");
+  };
 
   return (
     <>
@@ -38,7 +46,7 @@ export const GenSignUpPage = () => {
             <S.NamePlace placeholder=" "/>
           </S.NameContainer> 
         </S.PetWrapper>
-        <Button type="button">
+        <Button type="button" onClick={handleNext}>
           다음
         </Button>
       </S.MainWrapper>

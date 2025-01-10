@@ -2,15 +2,26 @@ import * as S from "./SignUpPage.styled";
 import Button from "@components/common/CommonButton";
 import { useState } from "react";
 import Check from "@assets/icons/Check.svg";
+import Drop from "@assets/icons/Drop.svg";
 import { useNavigate } from "react-router-dom";
 
-export const OpSignUpPage = () => {
+export const BloodSignUpPage = () => {
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('혈액형 선택');
+
+  const toggleDropdown = () => setIsOpen(!isOpen);
+
+  const selectOption = (option) => {
+    setSelectedOption(option);
+    setIsOpen(false);
+  };
 
   const navigate = useNavigate();
 
   const handleNext = () => {
     console.log("다음 페이지로 이동!");
-    navigate("/signup/blood");
+    navigate("/signup/last");
   };
 
   return (
@@ -18,8 +29,30 @@ export const OpSignUpPage = () => {
       <S.MainWrapper>
         <S.PetWrapper>
           <S.Text>
-            중성화수술 여부를 <br /> 알려주세요
+            우리 반려견 혈액형을 <br /> 알려주세요
           </S.Text>
+          <S.BloodContainer>
+            <span>혈액형</span>
+            <S.BloodWrapper>
+              <S.BloodSelect
+                onClick={toggleDropdown}
+                value={selectedOption}
+                readOnly
+              />
+              <S.Drop src={Drop} alt="드롭다운" onClick={toggleDropdown} />
+              {isOpen && (
+                <S.DropdownContent>
+                  <div onClick={() => selectOption('DEA1-')}>DEA 1-</div>
+                  <div onClick={() => selectOption('DEA 1.1')}>DEA 1.1</div>
+                  <div onClick={() => selectOption('DEA 1.2')}>DEA 1.2</div>
+                  <div onClick={() => selectOption('DEA 3')}>DEA 3</div>
+                  <div onClick={() => selectOption('DEA 4')}>DEA 4</div>
+                  <div onClick={() => selectOption('DEA 5')}>DEA 5</div>
+                  <div onClick={() => selectOption('DEA 7')}>DEA 7</div>
+                </S.DropdownContent>
+              )}
+            </S.BloodWrapper>
+          </S.BloodContainer>
           <S.OpContainer>
             <span>중성화 수술 여부</span>
             <S.OpSelect>

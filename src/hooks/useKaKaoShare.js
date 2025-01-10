@@ -20,7 +20,13 @@ const useKakaoShare = () => {
   }, []);
 
   const shareKakao = useCallback(
-    ({ title, description, imageUrl, pageUrl }) => {
+    ({
+      title = "우리집 강아지는 헌혈견이 될 수 있을까?",
+      description = "테스트를 통해 확인해보세요!",
+      imageUrl = "https://2024-sharedog-frontend.vercel.app/testThumbnail.png",
+      pageUrl = `${baseUrl}/testStart`,
+    } = {}) => {
+      // 빈 객체를 기본값으로 설정
       if (!window.Kakao) {
         console.error("Kakao SDK가 로드되지 않았습니다.");
         return;
@@ -29,20 +35,20 @@ const useKakaoShare = () => {
       window.Kakao.Share.sendDefault({
         objectType: "feed",
         content: {
-          title: title || "공유 제목",
-          description: description || "공유 설명",
-          imageUrl: imageUrl || `${baseUrl}/defaultThumbnail.png`,
+          title,
+          description,
+          imageUrl,
           link: {
-            mobileWebUrl: pageUrl || `${baseUrl}/testStart`,
-            webUrl: pageUrl || `${baseUrl}/testStart`,
+            mobileWebUrl: pageUrl,
+            webUrl: pageUrl,
           },
         },
         buttons: [
           {
             title: "자세히 보기",
             link: {
-              mobileWebUrl: pageUrl || `${baseUrl}/testStart`,
-              webUrl: pageUrl || `${baseUrl}/testStart`,
+              mobileWebUrl: pageUrl,
+              webUrl: pageUrl,
             },
           },
         ],

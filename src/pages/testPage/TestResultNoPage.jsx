@@ -3,9 +3,10 @@ import testNoPng from "@assets/images/testStartLogo.png";
 import resultBloodIcon from "@assets/icons/resultBlood.png";
 
 import { useCustomNavigate } from "@hooks/useCustomNavigate";
-
+import useKakaoShare from "@hooks/useKaKaoShare";
 export const TestResultNoPage = () => {
   const { goTo } = useCustomNavigate();
+  const { shareKakao } = useKakaoShare();
   return (
     <S.Wrapper>
       {/* 위치조절용 div */}
@@ -25,7 +26,7 @@ export const TestResultNoPage = () => {
         </S.InfoBox>
       </S.ContentsBox>
       <S.NavBtnBox>
-        <S.Btn>공유</S.Btn>
+        <S.Btn onClick={() => shareKakao()}>공유</S.Btn>
         <S.Btn
           props="ok"
           onClick={() => goTo("/main", { replace: true })}

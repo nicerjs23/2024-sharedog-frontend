@@ -40,16 +40,7 @@ export const TestStartPage = () => {
           $bgColor="#FFD7D7"
           $textColor="#FF6969"
           text="테스트 공유하기"
-          onClick={() =>
-            shareKakao({
-              title: "우리집 강아지는 헌혈견이 될 수 있을까?",
-              description: "테스트를 통해 확인해보세요!",
-              imageUrl:
-                "https://2024-sharedog-frontend.vercel.app/testThumbnail.png",
-              pageUrl:
-                "https://2024-sharedog-frontend.vercel.app/testStart",
-            })
-          }
+          onClick={() => shareKakao()}
         />
       </S.TestBtnBox>
     </S.Wrapper>

@@ -1,8 +1,16 @@
 import * as S from "./ProSignUpPage.styled";
 import Button from "@components/common/CommonButton";
 import ProImage from "@assets/icons/ProImage.svg";
+import { useNavigate } from "react-router-dom";
 
 export const ProSignUpPage = () => {
+  const navigate = useNavigate();
+
+  const handleNext = () => {
+    console.log("다음 페이지로 이동!");
+    navigate("/signup/age");
+  };
+
   return (
     <>
       <S.MainWrapper>
@@ -28,7 +36,7 @@ export const ProSignUpPage = () => {
             </S.LaterButton>
           </S.LaterWrapper>
         </S.ProWrapper>
-        <Button type="button">
+        <Button type="button" onClick={handleNext}>
           다음
         </Button>
       </S.MainWrapper>

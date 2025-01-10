@@ -26,16 +26,7 @@ export const TestResultOkPage = () => {
         </S.InfoBox>
       </S.ContentsBox>
       <S.NavBtnBox>
-        <S.Btn
-          onClick={() =>
-            shareKakao({
-              imageUrl:
-                "https://2024-sharedog-frontend.vercel.app/testThumbnail.png",
-            })
-          }
-        >
-          공유
-        </S.Btn>
+        <S.Btn onClick={() => shareKakao()}>공유</S.Btn>
         <S.Btn
           props="ok"
           onClick={() => goTo("/main", { replace: true })}

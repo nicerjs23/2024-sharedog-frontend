@@ -33,7 +33,7 @@ export const NameBox = styled.section`
   flex-direction: row;
   align-items: center;
 
-  width: 324px;
+  width: 80%;
   height: 88px;
   padding: 19px 130px 18px 17px;
   margin-top: 26px;
@@ -66,15 +66,13 @@ export const NameText = styled.div`
 
 export const InfoBox = styled.section`
   display: flex;
-  width: 324px;
+  width: 80%;
   padding: 19.197px;
   flex-direction: column;
   justify-content: center;
   gap: 26.876px;
-  align-self: stretch;
 
   margin-top: 19px;
-  margin-left: 25px;
 
   border-radius: 11.587px;
   border: 1.159px solid rgba(234, 234, 234, 0.8);

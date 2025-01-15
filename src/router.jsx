@@ -9,6 +9,7 @@ import { LoginPage } from "@pages/loginPage/LoginPage";
 import { CommunityPage } from "@pages/communityPage/Community";
 import { ChatPage } from "@pages/chatPage/ChatPage";
 import { MyPage } from "@pages/myPage/MyPage";
+import { AccountManagement } from "@pages/myPage/AccountManagement";
 import { PwSignUpPage } from "@pages/signUpPage/PwSignUpPage";
 import { NameSignUpPage } from "@pages/signUpPage/NameSignUpPage";
 import { PhoneSignUpPage } from "@pages/signUpPage/PhoneSignUpPage";
@@ -36,6 +37,7 @@ export const router = createBrowserRouter([
       { path: "community", element: <CommunityPage /> },
       { path: "chat", element: <ChatPage /> },
       { path: "mypage", element: <MyPage /> },
+      { path: "accountmanagement", element: <AccountManagement /> },
       { path: "testStart", element: <TestStartPage /> },
       {
         path: "signup",

@@ -52,6 +52,14 @@ export default defineConfig({
       },
     }),
   ],
+  build: {
+    rollupOptions: {
+      input: {
+        main: "index.html", // 기본 페이지
+        test: "public/test.html", // 테스트 페이지 추가
+      },
+    },
+  },
   resolve: {
     alias: {
       //경로 별칭(Alias)으로 경로 관리하기

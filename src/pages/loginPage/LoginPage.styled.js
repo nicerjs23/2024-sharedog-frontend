@@ -42,17 +42,17 @@ export const InputBox = styled.input`
   background: #fff;
 
   &::placeholder {
-    color: #dcdcdc; /* placeholder 색상 */
-    opacity: 1; /* 투명도 조정 */
+    color: #dcdcdc;
+    opacity: 1;
   }
 
   &:focus::placeholder {
-    color: transparent; /* 입력 중에는 플레이스홀더 숨김 */
+    color: transparent;
   }
 
   &:focus {
     border: 1px solid ${(props) => (props.isError ? "#ff6969" : "#e7e8eb")};
-    outline: none; /* 선택적으로 외곽선 제거 */
+    outline: none;
   }
 `;
 export const LogoWrapper = styled.div`

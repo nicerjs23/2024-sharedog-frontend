@@ -4,7 +4,6 @@ export const commonButton = styled.section`
   display: flex;
   width: 332px;
   height: 52px;
-  padding: 18px 152px;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
@@ -24,4 +23,5 @@ export const buttonText = styled.p`
   font-style: normal;
   font-weight: 700;
   line-height: 160%; /* 25.6px */
+  width: fit-content
 `;

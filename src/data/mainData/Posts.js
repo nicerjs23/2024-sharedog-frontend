@@ -14,6 +14,16 @@ export const filter = [
   { id: 8, name: "전라" },
   { id: 9, name: "제주" },
 ];
+
+export const filter2 = [
+  { id: 1, bloodType: "DEA 1-" },
+  { id: 2, bloodType: "DEA 1.1" },
+  { id: 3, bloodType: "DEA 1.2" },
+  { id: 4, bloodType: "DEA 3" },
+  { id: 5, bloodType: "DEA 4" },
+  { id: 6, bloodType: "DEA 5" },
+  { id: 7, bloodType: "DEA 7" },
+];
 // 게시글티비
 export const post = [
   {
@@ -24,6 +34,11 @@ export const post = [
     content:
       "10살 마티즈믹스 루피가 식욕 부진과 기력 저하로 병원에 내원하였고, 긴급 헌혈이 필요합니다.",
     img: PostImg1,
+    type: "긴급헌혈",
+    date: "1일 전",
+    writer: "황민영",
+    likes: 10,
+    commentsCount: 7,
   },
   {
     id: 2,
@@ -32,6 +47,11 @@ export const post = [
     title: "DEA 1.1 비상비상 이멀전씨 비상비상",
     content: "짧은 내용 테스트 ",
     img: null,
+    type: "궁금해요",
+    date: "2일 전",
+    writer: "황민영",
+    likes: 10,
+    commentsCount: 7,
   },
   {
     id: 3,
@@ -41,6 +61,11 @@ export const post = [
     content:
       "7살 시바견 코코가 응급 수혈이 필요합니다. 많은 관심 부탁드립니다.",
     img: PostImg2,
+    type: "후기에요",
+    date: "3일 전",
+    writer: "황민영",
+    likes: 10,
+    commentsCount: 7,
   },
   {
     id: 4,
@@ -51,5 +76,10 @@ export const post = [
     content:
       "2살 포메라니안 루루가 희귀 혈액형으로 긴급 수혈이 필요합니다.필요필요 필요핑2살 포메라니안 루루가 희귀 혈액형으로 긴급 수혈이 필요합니다.필요필요 필요핑 2살 포메라니안 루루가 희귀 혈액형으로 긴급 수혈이 필요합니다.필요필요 필요핑",
     img: PostImg3,
+    type: "얘기해요",
+    date: "1일 전",
+    writer: "황민영",
+    likes: 10,
+    commentsCount: 7,
   },
 ];

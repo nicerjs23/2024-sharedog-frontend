@@ -24,6 +24,7 @@ import { TestLayout } from "@layout/TestLayout";
 import { TestPage } from "@pages/testPage/TestPage";
 import { TestResultOkPage } from "@pages/testPage/TestResultOkPage";
 import { TestResultNoPage } from "@pages/testPage/TestResultNoPage";
+import { KakaoCallbackPage } from "@pages/loginPage/KakaoCallbackPage";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -32,6 +33,7 @@ export const router = createBrowserRouter([
       { path: "", element: <WelcomePage /> },
       { path: "main", element: <MainPage /> },
       { path: "login", element: <LoginPage /> },
+      { path: "kakao/callback", element: <KakaoCallbackPage /> },
       //나중에 라우터 중첩으로 변경할거면 따로 빼기 지금은 푸터연결위해 임시로 해둠
       { path: "community", element: <CommunityPage /> },
       { path: "chat", element: <ChatPage /> },

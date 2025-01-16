@@ -31,7 +31,7 @@ const HeaderWrapper = styled.section`
   align-items: flex-start;
   gap: 10px;
   align-self: stretch;
-  background: #fff;
+  background: #FAFAFC;
   justify-content: space-between;
   margin-bottom: 16px;
 `;

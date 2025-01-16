@@ -81,7 +81,7 @@ export const BloodSignUpPage = () => {
           </S.GenderContainer>
           <S.WeightContainer>
             <span>몸무게(kg)</span>
-            <S.AgePlace placeholder="예) 5" />
+            <S.WeightPlace placeholder="예) 5" />
           </S.WeightContainer>
           <S.AgeContainer>
             <span>나이(세)</span>

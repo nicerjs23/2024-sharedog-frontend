@@ -19,7 +19,7 @@ export const commonButton = styled.section`
 export const buttonText = styled.p`
   color: #FFF;
   font-family: SUIT;
-  font-size: 12px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 700;
   line-height: 160%; /* 25.6px */

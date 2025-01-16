@@ -19,7 +19,7 @@ export const AgeSignUpPage = () => {
             우리 반려견 나이를 <br /> 알려주세요
           </S.Text>
           <S.AgeContainer>
-            <span>나이(세)</span>
+            <S.DynamicSpan active={true}>나이(세)</S.DynamicSpan>
             <S.AgePlace placeholder="예) 1" />
           </S.AgeContainer>
           <S.NameContainer>

@@ -8,7 +8,7 @@ export const commonButton = styled.section`
   align-items: center;
   flex-shrink: 0;
   gap: 10px;
-  margin-bottom: 50px;
+  margin-bottom: 42px;
   position: fixed;
   bottom: 0%;
   background-color: ${(props) => props.bgColor || "#FF6969"};

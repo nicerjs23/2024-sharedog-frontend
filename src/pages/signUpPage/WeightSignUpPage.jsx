@@ -19,11 +19,11 @@ export const WeightSignUpPage = () => {
             우리 반려견 몸무게를 <br /> 알려주세요
           </S.Text>
           <S.WeightContainer>
-            <span>몸무게(kg)</span>
+            <S.DynamicSpan active={true}>몸무게(kg)</S.DynamicSpan>
             <S.AgePlace placeholder="예) 5" />
           </S.WeightContainer>
           <S.AgeContainer>
-            <span>나이(세)</span>
+            <S.DynamicSpan active={false}>나이(세)</S.DynamicSpan>
             <S.AgePlace placeholder="예) 1" />
           </S.AgeContainer>
           <S.NameContainer>

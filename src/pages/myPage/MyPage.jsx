@@ -25,13 +25,13 @@ export const MyPage = () => {
       </S.NameBox>
       <S.InfoBox>
         <S.CategoryText>내 정보</S.CategoryText>
-        <S.CategoryDetail onClick={() => handleNavigate("/AccountManagement")}>
+        <S.CategoryDetail onClick={() => handleNavigate("/accountmanagement")}>
           계정 관리{" "}
           <S.NextIcon>
             <img src={Next} alt="다음 아이콘" />
           </S.NextIcon>
         </S.CategoryDetail>
-        <S.CategoryDetail>
+        <S.CategoryDetail onClick={() => handleNavigate("/petinfo")}>
           반려견 정보 관리{" "}
           <S.NextIcon>
             <img src={Next} alt="다음 아이콘" />

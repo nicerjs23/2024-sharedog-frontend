@@ -32,7 +32,7 @@ export const BloodSignUpPage = () => {
             우리 반려견 혈액형을 <br /> 알려주세요
           </S.Text>
           <S.BloodContainer>
-            <span>혈액형</span>
+            <S.DynamicSpan active={true}>혈액형</S.DynamicSpan>
             <S.BloodWrapper>
               <S.BloodSelect
                 onClick={toggleDropdown}
@@ -54,7 +54,7 @@ export const BloodSignUpPage = () => {
             </S.BloodWrapper>
           </S.BloodContainer>
           <S.OpContainer>
-            <span>중성화 수술 여부</span>
+            <S.DynamicSpan active={false}>중성화 수술 여부</S.DynamicSpan>
             <S.OpSelect>
               <S.OBtn>
                 <S.Check src={Check} alt="체크표시"/>
@@ -67,7 +67,7 @@ export const BloodSignUpPage = () => {
             </S.OpSelect>
           </S.OpContainer>
           <S.GenderContainer>
-            <span>성별</span>
+            <S.DynamicSpan active={false}>성별</S.DynamicSpan>
             <S.GenderSelect>
               <S.WBtn>
                 <S.Check src={Check} alt="체크표시"/>
@@ -80,11 +80,11 @@ export const BloodSignUpPage = () => {
             </S.GenderSelect>
           </S.GenderContainer>
           <S.WeightContainer>
-            <span>몸무게(kg)</span>
-            <S.AgePlace placeholder="예) 5" />
+            <S.DynamicSpan active={false}>몸무게</S.DynamicSpan>
+            <S.WeightPlace placeholder="예) 5" />
           </S.WeightContainer>
           <S.AgeContainer>
-            <span>나이(세)</span>
+            <S.DynamicSpan active={false}>나이(세)</S.DynamicSpan>
             <S.AgePlace placeholder="예) 1" />
           </S.AgeContainer>
           <S.NameContainer>

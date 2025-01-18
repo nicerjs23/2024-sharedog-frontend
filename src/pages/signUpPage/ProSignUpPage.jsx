@@ -2,13 +2,28 @@ import * as S from "./ProSignUpPage.styled";
 import Button from "@components/common/CommonButton";
 import ProImage from "@assets/icons/ProImage.svg";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export const ProSignUpPage = () => {
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleNext = () => {
     console.log("다음 페이지로 이동!");
     navigate("/signup/age");
+  };
+
+  const handleModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false); // 모달 닫기
+  };
+
+  const handleConfirm = () => {
+    setIsModalOpen(false);
+    navigate("/signup/last"); // 홈 또는 다른 페이지로 이동
   };
 
   return (
@@ -31,7 +46,7 @@ export const ProSignUpPage = () => {
             <S.ProPlace placeholder="반려견 이름 입력" />
           </S.ProContainer>
           <S.LaterWrapper>
-            <S.LaterButton>
+            <S.LaterButton onClick={handleModal}>
                 <span>반려견 정보는 나중에 등록할게요</span>
             </S.LaterButton>
           </S.LaterWrapper>
@@ -40,6 +55,20 @@ export const ProSignUpPage = () => {
           다음
         </Button>
       </S.MainWrapper>
+
+      {isModalOpen && (
+        <S.ModalOverlay>
+          <S.Modal>
+            <S.ModalTitle>
+              <span>나중에 등록 하시겠어요?</span>
+            </S.ModalTitle>
+            <S.ModalButtonWrapper>
+              <S.NoBtn onClick={handleCloseModal}>아니요</S.NoBtn>
+              <S.YesBtn onClick={handleConfirm}>네</S.YesBtn>
+            </S.ModalButtonWrapper>
+          </S.Modal>
+        </S.ModalOverlay>
+      )}
     </>
   );
 };

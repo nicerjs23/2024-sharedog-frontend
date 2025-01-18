@@ -37,20 +37,6 @@ export const AgeContainer = styled.section`
   align-items: flex-start;
   gap: 12px;
   margin-top: 33px;
-
-  span {
-    display: flex;
-    height: 13px;
-    flex-direction: column;
-    justify-content: center;
-    align-self: stretch;
-    color: #FF6969;
-    font-family: SUIT;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 160%;
-  };
 `;
 
 export const AgePlace = styled.input`
@@ -124,20 +110,6 @@ export const WeightContainer = styled.section`
   align-items: flex-start;
   gap: 12px;
   margin-top: 33px;
-
-  span {
-    display: flex;
-    height: 13px;
-    flex-direction: column;
-    justify-content: center;
-    align-self: stretch;
-    color: #8A8A8A;
-    font-family: SUIT;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 160%;
-  };
 `;
 
 export const WeightPlace = styled.input`
@@ -167,20 +139,6 @@ export const GenderContainer = styled.section`
   align-items: flex-start;
   gap: 12px;
   margin-top: 33px;
-
-  span {
-    display: flex;
-    height: 13px;
-    flex-direction: column;
-    justify-content: center;
-    align-self: stretch;
-    color: #8A8A8A;
-    font-family: SUIT;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 160%;
-  };
 `;
 
 export const GenderSelect = styled.section`
@@ -239,20 +197,6 @@ export const OpContainer = styled.section`
   align-items: flex-start;
   gap: 12px;
   margin-top: 33px;
-
-  span {
-    display: flex;
-    height: 13px;
-    flex-direction: column;
-    justify-content: center;
-    align-self: stretch;
-    color: #FF6969;
-    font-family: SUIT;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 160%;
-  };
 `;
 
 export const OpSelect = styled.section`
@@ -305,20 +249,6 @@ export const BloodContainer = styled.section`
   align-items: flex-start;
   gap: 12px;
   margin-top: 33px;
-
-  span {
-    display: flex;
-    height: 13px;
-    flex-direction: column;
-    justify-content: center;
-    align-self: stretch;
-    color: #FF6969;
-    font-family: SUIT;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 160%;
-  };
 `;
 
 export const BloodWrapper = styled.section`
@@ -353,4 +283,18 @@ export const Drop = styled.img`
 
 export const DropdownContent = styled.div`
 
+`;
+
+export const DynamicSpan = styled.span`
+  display: flex;
+  height: 13px;
+  flex-direction: column;
+  justify-content: center;
+  align-self: stretch;
+  color: ${(props) => (props.active ? '#FF6969' : '#8A8A8A')}; /* 색상 조건 추가 */
+  font-family: SUIT;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%;
 `;

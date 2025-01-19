@@ -1,3 +1,4 @@
+import React from "react";
 import * as S from "./SignUpForm.styled";
 
 export const SignUpForm = ({ 
@@ -5,7 +6,9 @@ export const SignUpForm = ({
   placeholder,  // 입력 필드 placeholder
   label,        // 입력 필드 레이블
   type = "text", // 입력 타입 기본값 text
-  children     
+  onChange,
+  onNext,
+  children,     
 }) => {
   return (
     <S.MainWrapper>
@@ -20,10 +23,11 @@ export const SignUpForm = ({
         </S.Text>
         <S.Container>
           <span>{label}</span>
-          <S.InputField type={type} placeholder={placeholder} />
+          <S.InputField type={type} placeholder={placeholder} 
+          onChange={onChange}/>
         </S.Container>
       </S.Wrapper>
-      {children}
+      {React.cloneElement(children, { onClick: onNext })}
     </S.MainWrapper>
   );
 };

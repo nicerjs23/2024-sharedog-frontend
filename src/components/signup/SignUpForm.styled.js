@@ -69,7 +69,7 @@ export const InputField = styled.input`
 
   ::placeholder {
     display: flex;
-    color: #DCDCDC;
+    color: #E7E8EB;
     font-family: SUIT;
     font-size: 16px;
     font-style: normal;

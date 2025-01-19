@@ -42,6 +42,7 @@ export const BloodSignUpPage = () => {
               <S.Drop src={Drop} alt="드롭다운" onClick={toggleDropdown} />
               {isOpen && (
                 <S.DropdownContent>
+                  <div onClick={() => selectOption('잘 모르겠어요')}>잘 모르겠어요</div>
                   <div onClick={() => selectOption('DEA1-')}>DEA 1-</div>
                   <div onClick={() => selectOption('DEA 1.1')}>DEA 1.1</div>
                   <div onClick={() => selectOption('DEA 1.2')}>DEA 1.2</div>

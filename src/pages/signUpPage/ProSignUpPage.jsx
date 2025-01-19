@@ -2,13 +2,28 @@ import * as S from "./ProSignUpPage.styled";
 import Button from "@components/common/CommonButton";
 import ProImage from "@assets/icons/ProImage.svg";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import React, { useState } from "react";
 
 export const ProSignUpPage = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [name, setName] = useState("");
+
+  const handleNameChange = (e) => {
+    const value = e.target.value;
+    setName(value);
+    if (value.trim()) {
+      setShowError(false);
+    }
+  };
 
   const handleNext = () => {
+    if (!name.trim()) {
+      // 이름이 비어 있으면 에러 메시지 표시
+      setShowError(true);
+      return;
+    }
+
     console.log("다음 페이지로 이동!");
     navigate("/signup/age");
   };
@@ -43,7 +58,7 @@ export const ProSignUpPage = () => {
           </S.ProImageWrapper>
           <S.ProContainer>
             <span>반려견 이름</span>
-            <S.ProPlace placeholder="반려견 이름 입력" />
+            <S.ProPlace placeholder="반려견 이름 입력" onChange={handleNameChange}/>
           </S.ProContainer>
           <S.LaterWrapper>
             <S.LaterButton onClick={handleModal}>
@@ -51,7 +66,9 @@ export const ProSignUpPage = () => {
             </S.LaterButton>
           </S.LaterWrapper>
         </S.ProWrapper>
-        <Button type="button" onClick={handleNext}>
+        <Button type="button" onClick={handleNext}
+        bgColor={name.trim() ? "#FF6969" : "#BDBDBD"} // 이름이 입력되면 버튼 색상 변경
+        disabled={!name.trim()}>
           다음
         </Button>
       </S.MainWrapper>

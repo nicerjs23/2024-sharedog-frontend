@@ -21,7 +21,7 @@ export const GenSignUpPage = () => {
             우리 반려견 성별을 <br /> 알려주세요
           </S.Text>
           <S.GenderContainer>
-            <span>성별</span>
+            <S.DynamicSpan active={true}>성별</S.DynamicSpan>
             <S.GenderSelect>
               <S.WBtn>
                 <S.Check src={Check} alt="체크표시"/>
@@ -34,11 +34,11 @@ export const GenSignUpPage = () => {
             </S.GenderSelect>
           </S.GenderContainer>
           <S.WeightContainer>
-            <span>몸무게(kg)</span>
+            <S.DynamicSpan active={false}>몸무게(kg)</S.DynamicSpan>
             <S.AgePlace placeholder="예) 5" />
           </S.WeightContainer>
           <S.AgeContainer>
-            <span>나이(세)</span>
+            <S.DynamicSpan active={false}>나이(세)</S.DynamicSpan>
             <S.AgePlace placeholder="예) 1" />
           </S.AgeContainer>
           <S.NameContainer>

@@ -6,6 +6,8 @@ import { RouterProvider } from "react-router-dom";
 import { router } from "./router";
 import { useEffect } from "react";
 
+import { KakaoAuthProvider } from "@hooks/useKakaoAuth";
+
 function App() {
   useEffect(() => {
     const setVh = () => {
@@ -20,10 +22,12 @@ function App() {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <KakaoAuthProvider>
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </KakaoAuthProvider>
   );
 }
 

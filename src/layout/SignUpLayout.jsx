@@ -42,6 +42,14 @@ const HeaderWrapper = styled.section`
   background: #FAFAFC;
   justify-content: space-between;
   margin-bottom: 16px;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  left: 50%; /* 화면의 중앙으로 이동 */
+  transform: translateX(-50%); /* 중앙 정렬 */
+  width: 100%; /* 기본 너비 */
+  max-width: 540px;
 
   img {
     cursor: pointer;

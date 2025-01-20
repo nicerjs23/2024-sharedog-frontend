@@ -30,6 +30,16 @@ export const Wrapper = styled.section`
   width: 304px;
   flex-direction: column;
   align-items: flex-start;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: calc(100vh - 66px - 94px);
+  margin-top: 66px;
+  padding-bottom: 10px;
+  box-sizing: border-box; /* 패딩 포함하여 크기 계산 */
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const Container = styled.section`

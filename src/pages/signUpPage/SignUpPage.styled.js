@@ -6,19 +6,26 @@ export const MainWrapper = styled.section`
   flex-direction: column;
   width: 100%;
   max-width: 540px;
+  height: 100vh; /* 화면 전체 높이 */
   align-items: center;
-  position: fixed;
+  overflow: hidden;
+  position: relative;
   font-family: ${({ theme }) => theme.fonts.SUITSemiBold["font-family"]};
 `;
 
 // 텍스트 스타일
 export const Text = styled.section`
+  width: 100%;
   color: #2A2A2A;
   font-family: SUIT;
   font-size: 22px;
   font-style: normal;
   font-weight: 700;
   line-height: 35px; 
+  position: sticky; /* 스크롤 시 상단 고정 */
+  top: 0; /* 화면의 최상단에 고정 */
+  background: #FAFAFC; /* 고정된 영역 배경색 */
+  z-index: 10; /* 다른 요소 위로 배치 */
 `;
 
 // 입력 폼 공통 Wrapper
@@ -27,6 +34,16 @@ export const PetWrapper = styled.section`
   width: 304px;
   flex-direction: column;
   align-items: flex-start;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: calc(100vh - 66px - 94px);
+  margin-top: 66px;
+  padding-bottom: 10px;
+  box-sizing: border-box; /* 패딩 포함하여 크기 계산 */
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 // 나이 컨테이너
@@ -252,6 +269,7 @@ export const BloodContainer = styled.section`
 `;
 
 export const BloodWrapper = styled.section`
+  position: relative;
   display: flex;
   width: 100%;
   padding: 16px 16px 15px 19px;
@@ -282,7 +300,128 @@ export const Drop = styled.img`
 `;
 
 export const DropdownContent = styled.div`
+  position: absolute;
+  top: 52px;
+  left: 0;
+  width: 304px;
+  height: 416px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 20px 20px 20px 20px;
+  border-top: 1px solid #E7E8EB;
+  border-right: 1px solid #E7E8EB;
+  border-left: 1px solid #E7E8EB;
+  border-bottom: 1px solid #E7E8EB;
+  background: #FFF;
+`;
 
+export const DropdownItem = styled.div`
+  display: flex;
+  height: 52px;
+  padding: 0px 182px 0px 32px;
+  align-items: center;
+  align-self: stretch;
+  border-top: 1px solid #E7E8EB;
+  border-right: 1px solid #E7E8EB;
+  border-left: 1px solid #E7E8EB;
+  border-bottom: 1px solid #E7E8EB;
+  background: #FFF;
+
+  color: #2A2A2A;
+  font-family: SUIT;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%; /* 25.6px */
+
+  &:hover {
+    color: #FF6969;
+    font-family: SUIT;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 160%; /* 25.6px */
+
+    height: 52px;
+    border-right: 1px solid #E7E8EB;
+    border-left: 1px solid #E7E8EB;
+    background: rgba(255, 215, 215, 0.60);
+  }
+`;
+
+export const DropdownItemTop = styled.div`
+  display: flex;
+  height: 52px;
+  padding: 0px 80px 0px 32px;
+  align-items: center;
+  align-self: stretch;
+  border-radius: 20px 20px 0px 0px;
+  border-top: 1px solid #E7E8EB;
+  border-right: 1px solid #E7E8EB;
+  border-left: 1px solid #E7E8EB;
+  border-bottom: 1px solid #E7E8EB;
+  background: #FFF;
+
+  color: #2A2A2A;
+  font-family: SUIT;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%; /* 25.6px */
+
+  &:hover {
+    color: #FF6969;
+    font-family: SUIT;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 160%; /* 25.6px */
+
+    height: 52px;
+    border-radius: 15px 15px 0px 0px;
+    border-right: 1px solid #E7E8EB;
+    border-left: 1px solid #E7E8EB;
+    background: rgba(255, 215, 215, 0.60);
+  }
+`;
+
+export const DropdownItemBottom = styled.div`
+  display: flex;
+  height: 52px;
+  padding: 0px 182px 0px 32px;
+  align-items: center;
+  align-self: stretch;
+  border-radius: 0px 0px 20px 20px;
+  border-top: 1px solid #E7E8EB;
+  border-right: 1px solid #E7E8EB;
+  border-left: 1px solid #E7E8EB;
+  border-bottom: 1px solid #E7E8EB;
+  background: #FFF;
+  cursor: pointer;
+
+  color: #2A2A2A;
+  font-family: SUIT;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%; /* 25.6px */
+
+  &:hover {
+    color: #FF6969;
+    font-family: SUIT;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 160%; /* 25.6px */
+
+    height: 52px;
+    border-radius: 0px 0px 20px 20px;
+    border-right: 1px solid #E7E8EB;
+    border-left: 1px solid #E7E8EB;
+    background: rgba(255, 215, 215, 0.60);
+  }
 `;
 
 export const DynamicSpan = styled.span`

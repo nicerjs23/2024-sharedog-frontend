@@ -42,14 +42,14 @@ export const BloodSignUpPage = () => {
               <S.Drop src={Drop} alt="드롭다운" onClick={toggleDropdown} />
               {isOpen && (
                 <S.DropdownContent>
-                  <div onClick={() => selectOption('잘 모르겠어요')}>잘 모르겠어요</div>
-                  <div onClick={() => selectOption('DEA1-')}>DEA 1-</div>
-                  <div onClick={() => selectOption('DEA 1.1')}>DEA 1.1</div>
-                  <div onClick={() => selectOption('DEA 1.2')}>DEA 1.2</div>
-                  <div onClick={() => selectOption('DEA 3')}>DEA 3</div>
-                  <div onClick={() => selectOption('DEA 4')}>DEA 4</div>
-                  <div onClick={() => selectOption('DEA 5')}>DEA 5</div>
-                  <div onClick={() => selectOption('DEA 7')}>DEA 7</div>
+                  <S.DropdownItemTop onClick={() => selectOption('잘 모르겠어요')}>잘 모르겠어요</S.DropdownItemTop>
+                  <S.DropdownItem onClick={() => selectOption('DEA1-')}>DEA 1-</S.DropdownItem>
+                  <S.DropdownItem onClick={() => selectOption('DEA 1.1')}>DEA 1.1</S.DropdownItem>
+                  <S.DropdownItem onClick={() => selectOption('DEA 1.2')}>DEA 1.2</S.DropdownItem>
+                  <S.DropdownItem onClick={() => selectOption('DEA 3')}>DEA 3</S.DropdownItem>
+                  <S.DropdownItem onClick={() => selectOption('DEA 4')}>DEA 4</S.DropdownItem>
+                  <S.DropdownItem onClick={() => selectOption('DEA 5')}>DEA 5</S.DropdownItem>
+                  <S.DropdownItemBottom onClick={() => selectOption('DEA 7')}>DEA 7</S.DropdownItemBottom>
                 </S.DropdownContent>
               )}
             </S.BloodWrapper>

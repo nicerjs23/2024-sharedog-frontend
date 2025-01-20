@@ -2,8 +2,15 @@ import * as S from "./PetCard.styled";
 import Medal from "@assets/icons/medal.svg";
 import PetProfile from "@assets/images/petprofile.png";
 import Pencil from "@assets/icons/pencil.svg";
+import { useNavigate } from "react-router-dom"; // React Router의 useNavigate 가져오기
 
 export const PetCard = ({ name, age, weight, gender, neutered, bloodType }) => {
+  const navigate = useNavigate(); // useNavigate 훅 초기화
+
+  const handleNavigate = (path) => {
+    navigate(path); // path에 따라 페이지 이동
+  };
+
   return (
     <S.Wrapper>
       <S.Card>
@@ -11,7 +18,7 @@ export const PetCard = ({ name, age, weight, gender, neutered, bloodType }) => {
           <S.NameSection>
             <img src={Medal} alt="대표강아지 아이콘" />
             {name}
-            <S.ProfileEdit>
+            <S.ProfileEdit onClick={() => handleNavigate("/petedit")}>
               <img src={Pencil} alt="연필 아이콘" />
               프로필 수정
             </S.ProfileEdit>

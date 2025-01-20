@@ -41,6 +41,8 @@ export const SignUpPage = () => {
       type="email"
       onChange={handleEmailChange}
       onNext={handleNext}
+      showError={showError} // 에러 상태 전달
+      errorMessage="올바른 이메일주소를 입력해 주세요." // 에러 메시지 전달
     >
       <Button type="button" onClick={handleNext} 
       bgColor={isEmailValid ? "#FF6969" : "#BDBDBD"}>

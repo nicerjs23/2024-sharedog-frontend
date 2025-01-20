@@ -52,6 +52,16 @@ export const ProWrapper = styled.section`
   width: 304px;
   flex-direction: column;
   align-items: flex-start;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: calc(100vh - 66px - 94px);
+  margin-top: 66px;
+  padding-bottom: 10px;
+  box-sizing: border-box; /* 패딩 포함하여 크기 계산 */
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const ProImageWrapper = styled.section`
@@ -96,7 +106,7 @@ export const ProContainer = styled.section`
 export const ProPlace = styled.input`
   display: flex;
   height: 51px;
-  padding: 0px 161.5px 0px 13.5px;
+  padding: 0px 155px 0px 13.5px;
   align-items: center;
 
   border-radius: 20px;

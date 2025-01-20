@@ -35,6 +35,8 @@ export const NameSignUpPage = () => {
       type="text"
       onChange={handleNameChange}
       onNext={handleNext}
+      showError={showError} // 에러 상태 전달
+      errorMessage="이름을 입력해 주세요." // 에러 메시지 전달
     >
       <Button type="button" onClick={handleNext}
       bgColor={name.trim() ? "#FF6969" : "#BDBDBD"} // 이름이 입력되면 버튼 색상 변경

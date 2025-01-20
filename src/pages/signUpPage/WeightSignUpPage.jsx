@@ -2,6 +2,7 @@ import * as S from "./SignUpPage.styled";
 import Button from "@components/common/CommonButton";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Circle from "@assets/icons/Circle.svg";
 
 export const WeightSignUpPage = () => {
   const [weight, setWeight] = useState("");
@@ -50,20 +51,11 @@ export const WeightSignUpPage = () => {
               }}
             />
             {showError && (
-              <span
-              style={{
-                color: "#FF6969", // 에러 글씨 색상
-                fontFamily: "SUIT", // 폰트 패밀리
-                fontSize: "14px", // 글씨 크기
-                fontStyle: "normal", // 글씨 스타일
-                fontWeight: 500, // 글씨 굵기
-                lineHeight: "160%", // 줄 간격
-                marginTop: "5px", // 메시지 위 여백
-              }}
-            >
-                숫자만 입력해 주세요.
-              </span>
-            )}
+            <S.ErrorContainer>
+              <img src={Circle} alt="Error Icon" width="12.6" height="12.6" />
+              <span>숫자만 입력해 주세요.</span>
+            </S.ErrorContainer>
+          )}
           </S.WeightContainer>
           <S.AgeContainer>
             <S.DynamicSpan active={false}>나이(세)</S.DynamicSpan>

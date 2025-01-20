@@ -39,6 +39,8 @@ export const PwSignUpPage = () => {
       type="pw"
       onChange={handlePasswordChange}
       onNext={handleNext}
+      showError={showError} // 에러 상태 전달
+      errorMessage="8~16자리 영문, 숫자, 특수문자만 입력할 수 있어요." // 에러 메시지 전달
     >
       <Button type="button" onClick={handleNext}
       bgColor={isPasswordValid ? "#FF6969" : "#BDBDBD"}>

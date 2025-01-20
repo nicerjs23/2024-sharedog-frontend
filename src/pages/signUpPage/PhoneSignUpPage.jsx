@@ -41,6 +41,8 @@ export const PhoneSignUpPage = () => {
       type="text" 
       onChange={handlePhoneChange} // 입력값 변경 핸들러
       onNext={handleNext} // '다음' 버튼 클릭 핸들러
+      showError={showError} // 에러 상태 전달
+      errorMessage="올바른 휴대폰 번호를 입력해 주세요." // 에러 메시지 전달
     >
       <Button
         type="button"

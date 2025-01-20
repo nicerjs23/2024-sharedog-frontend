@@ -59,7 +59,7 @@ export const AgeContainer = styled.section`
 export const AgePlace = styled.input`
   display: flex;
   height: 51px;
-  padding: 0px 161.5px 0px 13.5px;
+  padding: 0px 153px 0px 13.5px;
   align-items: center;
   border-radius: 20px;
   border: 1px solid #E7E8EB;
@@ -73,6 +73,11 @@ export const AgePlace = styled.input`
     font-style: normal;
     font-weight: 500;
     line-height: 160%;
+  }
+
+  &:focus {
+    outline: none; /* 기본 포커스 외곽선 제거 */
+    border: 1px solid #E7E8EB; /* 원하는 테두리 색상으로 변경 */
   }
 `;
 
@@ -103,7 +108,7 @@ export const NameContainer = styled.section`
 export const NamePlace = styled.input`
   display: flex;
   height: 51px;
-  padding: 0px 161.5px 0px 13.5px;
+  padding: 0px 153px 0px 13.5px;
   align-items: center;
   border-radius: 20px;
   border: 1px solid #E7E8EB;
@@ -117,6 +122,11 @@ export const NamePlace = styled.input`
     font-style: normal;
     font-weight: 500;
     line-height: 160%;
+  }
+
+  &:focus {
+    outline: none; /* 기본 포커스 외곽선 제거 */
+    border: 1px solid #E7E8EB; /* 원하는 테두리 색상으로 변경 */
   }
 `;
 
@@ -132,7 +142,7 @@ export const WeightContainer = styled.section`
 export const WeightPlace = styled.input`
   display: flex;
   height: 51px;
-  padding: 0px 161.5px 0px 13.5px;
+  padding: 0px 155px 0px 13.5px;
   align-items: center;
   border-radius: 20px;
   border: 1px solid #E7E8EB;
@@ -436,4 +446,16 @@ export const DynamicSpan = styled.span`
   font-style: normal;
   font-weight: 500;
   line-height: 160%;
+`;
+
+export const ErrorContainer = styled.div`
+  display: flex;
+  align-items: center; /* 아이콘과 텍스트를 수직 중앙 정렬 */
+  gap: 8px;           /* 아이콘과 텍스트 간 간격 */
+  color: #FF6969;     /* 에러 메시지 색상 */
+  font-size: 14px;    /* 텍스트 크기 */
+  font-family: SUIT, sans-serif;
+  font-weight: 500;
+  line-height: 160%;
+  margin-top: 5px;    /* 입력 필드와 에러 메시지 간격 */
 `;

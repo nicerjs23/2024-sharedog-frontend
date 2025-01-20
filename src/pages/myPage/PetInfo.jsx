@@ -1,14 +1,21 @@
 import * as S from "./PetInfo.styled";
 import PetCard from "@components/mypage/PetCard";
+import { useNavigate } from "react-router-dom"; // React Router의 useNavigate 가져오기
 
 export const PetInfo = () => {
+  const navigate = useNavigate(); // useNavigate 훅 초기화
+
+  const handleNavigate = (path) => {
+    navigate(path); // path에 따라 페이지 이동
+  };
+
   // 반려견 데이터 (예시)
   const pets = [
     {
       id: 1,
       name: "루시",
       age: "2세",
-      weight: "5kg",
+      weight: "5",
       gender: "여아",
       neutered: true,
       bloodType: "DEA -1",

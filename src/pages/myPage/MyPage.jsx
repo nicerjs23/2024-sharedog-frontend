@@ -38,7 +38,7 @@ export const MyPage = () => {
           </S.NextIcon>
         </S.CategoryDetail>
         <S.CategoryText>긴급헌혈 예약 내역</S.CategoryText>
-        <S.CategoryDetail>
+        <S.CategoryDetail onClick={() => handleNavigate("/reservation")}>
           예약 내역{" "}
           <S.NextIcon>
             <img src={Next} alt="다음 아이콘" />

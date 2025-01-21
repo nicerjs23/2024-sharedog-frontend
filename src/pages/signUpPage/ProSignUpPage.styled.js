@@ -51,22 +51,58 @@ export const ProWrapper = styled.section`
   display: flex;
   width: 304px;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: calc(100vh - 66px - 94px);
+  margin-top: 66px;
+  padding-bottom: 10px;
+  box-sizing: border-box; /* 패딩 포함하여 크기 계산 */
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const ProImageWrapper = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  position: relative;
+  width: 114px;
+  height: 110px;
   margin-top: 34px;
 `;
 
 export const ProImage = styled.img`
   display: flex;
-  width: 114px;
-  height: 110px;
+  width: 100%;
+  height: 100%;
   flex-shrink: 0;
+  background: url(<path-to-image>) lightgray 50% / cover no-repeat;
+  border-radius: 50%; 
+`;
+
+export const Camera = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 34px;
+  height: 34px;
+  padding: 10px 9px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  border-radius: 50%;
+  border: 1px solid #e7e8eb;
+  background: #fff;
+  gap: 10px;
+  flex-shrink: 0;
+
+  img {
+    width: 16px;
+    height: 13px;
+  }
 `;
 
 export const ProContainer = styled.section`
@@ -96,7 +132,7 @@ export const ProContainer = styled.section`
 export const ProPlace = styled.input`
   display: flex;
   height: 51px;
-  padding: 0px 161.5px 0px 13.5px;
+  padding: 0px 153px 0px 13.5px;
   align-items: center;
 
   border-radius: 20px;
@@ -111,6 +147,11 @@ export const ProPlace = styled.input`
     font-style: normal;
     font-weight: 500;
     line-height: 160%; /* 25.6px */
+  }
+
+  &:focus {
+    outline: none; /* 기본 포커스 외곽선 제거 */
+    border: 1px solid #E7E8EB; /* 원하는 테두리 색상으로 변경 */
   }
 `;
 

@@ -13,6 +13,7 @@ import { MyPage } from "@pages/myPage/MyPage";
 import { AccountManagement } from "@pages/myPage/AccountManagement";
 import { PetInfo } from "@pages/myPage/PetInfo";
 import { PetEdit } from "@pages/myPage/PetEdit";
+import { PetAdd } from "@pages/myPage/PetAdd";
 import { Reservation } from "@pages/myPage/Reservation";
 import { PwSignUpPage } from "@pages/signUpPage/PwSignUpPage";
 import { NameSignUpPage } from "@pages/signUpPage/NameSignUpPage";
@@ -46,6 +47,7 @@ export const router = createBrowserRouter([
       { path: "accountmanagement", element: <AccountManagement /> },
       { path: "petinfo", element: <PetInfo /> },
       { path: "petedit", element: <PetEdit /> },
+      { path: "petadd", element: <PetAdd /> },
       { path: "reservation", element: <Reservation /> },
       { path: "testStart", element: <TestStartPage /> },
       {
@@ -75,9 +77,9 @@ export const router = createBrowserRouter([
     path: "community",
     element: <DefaultLayout />,
     children: [
-      { path : "", element: <CommunityPage />},
+      { path: "", element: <CommunityPage /> },
       { path: "search", element: <CommunitySearch /> },
-      { path: "write", element: <CommunityWrite />}
+      { path: "write", element: <CommunityWrite /> },
     ],
   },
   {

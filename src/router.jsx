@@ -7,6 +7,7 @@ import { WelcomePage } from "@pages/loginPage/WelcomePage";
 import { SignUpPage } from "@pages/signUpPage/SignUpPage";
 import { LoginPage } from "@pages/loginPage/LoginPage";
 import { CommunityPage } from "@pages/communityPage/Community";
+import { CommunitySearch } from "@pages/communityPage/CommunitySearch";
 import { ChatPage } from "@pages/chatPage/ChatPage";
 import { MyPage } from "@pages/myPage/MyPage";
 import { AccountManagement } from "@pages/myPage/AccountManagement";
@@ -29,6 +30,7 @@ import { TestPage } from "@pages/testPage/TestPage";
 import { TestResultOkPage } from "@pages/testPage/TestResultOkPage";
 import { TestResultNoPage } from "@pages/testPage/TestResultNoPage";
 import { KakaoCallbackPage } from "@pages/loginPage/KakaoCallbackPage";
+import { CommunityWrite } from "@pages/communityPage/CommunityWrite";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -39,7 +41,6 @@ export const router = createBrowserRouter([
       { path: "login", element: <LoginPage /> },
       { path: "kakao/callback", element: <KakaoCallbackPage /> },
       //나중에 라우터 중첩으로 변경할거면 따로 빼기 지금은 푸터연결위해 임시로 해둠
-      { path: "community", element: <CommunityPage /> },
       { path: "chat", element: <ChatPage /> },
       { path: "mypage", element: <MyPage /> },
       { path: "accountmanagement", element: <AccountManagement /> },
@@ -70,6 +71,15 @@ export const router = createBrowserRouter([
     ],
   },
   //헌혈견테스트쪽은 아예따로 뺐음 테스트 시작화면만 디폴트레이아웃에 속하도록함
+  {
+    path: "community",
+    element: <DefaultLayout />,
+    children: [
+      { path : "", element: <CommunityPage />},
+      { path: "search", element: <CommunitySearch /> },
+      { path: "write", element: <CommunityWrite />}
+    ],
+  },
   {
     path: "/test",
     element: <TestLayout />,

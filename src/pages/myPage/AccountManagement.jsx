@@ -4,55 +4,78 @@ import { useNavigate } from "react-router-dom";
 import Next from "@assets/icons/Next.svg";
 import { useKakaoAuth } from "@hooks/useKakaoAuth"; // useKakaoAuth 훅 가져오기
 import axios from "@apis/axiosInstance"; // axiosInstance 가져오기
+import LeftButton from "@assets/icons/Left.svg";
 
 export const AccountManagement = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false); // 로그아웃 모달 상태
+  const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false); // 탈퇴 모달 상태
+  const [email, setEmail] = useState(""); // 이메일 상태 추가
   const navigate = useNavigate();
+  const BackClick = () => {
+    navigate(-1);
+  };
   const { logout } = useKakaoAuth(); // useKakaoAuth에서 logout 함수 가져오기
 
-  const [email, setEmail] = useState(""); // 이메일 상태 추가
   // 로그아웃 처리 함수
   const handleLogout = () => {
-    logout(); // useKakaoAuth의 logout 함수 호출
-    setIsModalOpen(false);
+    logout();
+    setIsLogoutModalOpen(false);
     navigate("/");
   };
 
-  //API연결 함수 부분이야~~~~~~~~//
-  // 사용자 정보 가져오기 함수
+  // 회원 탈퇴 처리 함수 (여기선 단순히 닫기만 설정, 실제 탈퇴 로직 추가 가능)
+  const handleWithdraw = async () => {
+    try {
+      await axios.delete("/api/accounts/delete-account"); // 회원 탈퇴 API 요청
+      console.log("회원 탈퇴 성공!");
+
+      logout(); // 로그아웃 처리
+      navigate("/"); // 메인 페이지로 이동
+    } catch (error) {
+      console.error("회원 탈퇴 실패:", error);
+    } finally {
+      setIsWithdrawModalOpen(false); // 모달 닫기
+    }
+  };
+
+  // 사용자 정보 가져오기
   const fetchUserInfo = async () => {
     try {
-      const response = await axios.get("/api/users/mypage"); // API 호출
-      console.log("API 응답 전체 데이터:", response.data); // 전체 응답 데이터를 콘솔에 출력
-      const { email } = response.data[0]; // // 배열의 첫 번째 객체에서 email 추출
-      setEmail(email); // email 상태 업데이트
+      const response = await axios.get("/api/users/mypage");
+      console.log("API 응답 전체 데이터:", response.data);
+      const { email } = response.data[0];
+      setEmail(email);
     } catch (error) {
       console.error("사용자 정보 가져오기 실패:", error);
     }
   };
 
-  // 컴포넌트 마운트 시 사용자 정보 가져오기
   useEffect(() => {
     fetchUserInfo();
   }, []);
-  //API연결부분 end~~~~~~~//
 
   return (
     <S.Wrapper>
-      <S.Header>계정 관리</S.Header>
+      <S.Header>
+        <S.BackButton>
+          <img src={LeftButton} alt="백 버튼" onClick={BackClick} />
+        </S.BackButton>
+        <div>계정 관리</div>
+        <S.Blank></S.Blank>
+      </S.Header>
       <S.InfoBox>
         <S.CategoryText>계정 정보</S.CategoryText>
         <S.CategoryDetail>
-          카카오 로그인 {email && `${email}`}
+          카카오 로그인<S.MailText> {email && `${email}`}</S.MailText>
         </S.CategoryDetail>
         <S.CategoryText>계정 관리</S.CategoryText>
-        <S.CategoryDetail onClick={() => setIsModalOpen(true)}>
+        <S.CategoryDetail onClick={() => setIsLogoutModalOpen(true)}>
           로그아웃{" "}
           <S.NextIcon>
             <img src={Next} alt="다음 아이콘" />
           </S.NextIcon>
         </S.CategoryDetail>
-        <S.CategoryDetail onClick={() => setIsModalOpen(true)}>
+        <S.CategoryDetail onClick={() => setIsWithdrawModalOpen(true)}>
           회원 탈퇴{" "}
           <S.NextIcon>
             <img src={Next} alt="다음 아이콘" />
@@ -60,39 +83,34 @@ export const AccountManagement = () => {
         </S.CategoryDetail>
       </S.InfoBox>
 
-      {isModalOpen && (
+      {/* 로그아웃 모달 */}
+      {isLogoutModalOpen && (
         <S.ModalOverlay>
           <S.ModalBox>
             <p>로그아웃 하시겠어요?</p>
             <S.ModalButtonContainer>
-              <S.ModalButton
-                cancel
-                onClick={() => setIsModalOpen(false)}
-              >
+              <S.ModalButton cancel onClick={() => setIsLogoutModalOpen(false)}>
                 취소
               </S.ModalButton>
-              <S.ModalButton onClick={handleLogout}>
-                로그아웃
-              </S.ModalButton>
+              <S.ModalButton onClick={handleLogout}>로그아웃</S.ModalButton>
             </S.ModalButtonContainer>
           </S.ModalBox>
         </S.ModalOverlay>
       )}
 
-      {isModalOpen && (
+      {/* 회원 탈퇴 모달 */}
+      {isWithdrawModalOpen && (
         <S.ModalOverlay>
           <S.ModalBox>
             <p>더 이상 이용을 원치 않으신가요?</p>
             <S.ModalButtonContainer>
               <S.ModalButton
                 cancel
-                onClick={() => setIsModalOpen(false)}
+                onClick={() => setIsWithdrawModalOpen(false)}
               >
                 취소
               </S.ModalButton>
-              <S.ModalButton onClick={handleLogout}>
-                로그아웃
-              </S.ModalButton>
+              <S.ModalButton onClick={handleWithdraw}>탈퇴</S.ModalButton>
             </S.ModalButtonContainer>
           </S.ModalBox>
         </S.ModalOverlay>

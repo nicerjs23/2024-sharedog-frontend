@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // useNavigate import
-import * as S from "./PetEdit.styled";
+import * as S from "./PetAdd.styled";
 import PetProfile from "@assets/images/petprofile.png";
 import YesCheck from "@assets/icons/YesCheck.svg";
 import NoCheck from "@assets/icons/NoCheck.svg";
 import CameraIcon from "@assets/icons/CameraIcon.svg";
+import LeftButton from "@assets/icons/Left.svg";
 
-export const PetEdit = () => {
+export const PetAdd = () => {
   const navigate = useNavigate(); // navigate 객체 생성
   const [selectedDog, setSelectedDog] = useState(null);
   const [gender, setGender] = useState(null);
@@ -52,11 +53,18 @@ export const PetEdit = () => {
     navigate("/petinfo"); // 취소 버튼 클릭 시 PetInfo 페이지로 이동
   };
 
+  const BackClick = () => {
+    navigate(-1);
+  };
+
   return (
     <S.Wrapper>
       <S.Header>
-        <S.Cancel onClick={handleCancel}>취소</S.Cancel>반려견 정보 수정
-        <S.Save onClick={handleSave}>저장</S.Save>
+        <S.BackButton>
+          <img src={LeftButton} alt="백 버튼" onClick={BackClick} />
+        </S.BackButton>
+        반려견 정보 수정
+        <S.Blank></S.Blank>
       </S.Header>
       <S.ProfileContainer>
         <S.ProfileImage src={profileImage} alt="강아지 프로필사진" />
@@ -182,6 +190,8 @@ export const PetEdit = () => {
             </S.NoCheckBox>
           </S.CheckBox>
         </S.DetailBox>
+
+        <S.Save>저장</S.Save>
       </S.ScrollableContent>
     </S.Wrapper>
   );

@@ -5,16 +5,8 @@ export const Wrapper = styled.section`
   flex-direction: column;
   width: 100%;
   max-width: 540px;
-  justify-content: center;
-  align-items: center;
-
-  /* position: fixed; */
-
-  top: 50%;
-
-  font-family: ${({ theme }) => theme.fonts.SUITSemiBold["font-family"]};
-
-  margin-bottom: 60px;
+  height: 100vh; /* 🔹 화면 전체 높이 차지 */
+  overflow: hidden; /* 🔹 내부에서만 스크롤 가능하도록 설정 */
 `;
 
 export const Header = styled.div`
@@ -163,20 +155,32 @@ export const Filter = styled.div`
 `;
 
 export const PostWrapper = styled.div`
-  height: 400px;
-
-  overflow-y: auto; /* 내용이 넘칠 경우 스크롤 */
+  flex: 1;
+  overflow-y: auto;
+  width: 100%;
+  padding-bottom: 80px; /* 🔹 마지막 게시물이 가려지지 않도록 하단 여백 추가 */
 `;
 
 export const PostBox = styled.div`
-  width: 328px;
-  height: 160px;
-  flex-shrink: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px;
+  width: 100%;
+  max-width: 100%;
+`;
 
-  margin-top: 25px;
-  margin-left: 25px;
-  margin-right: 25px;
-  margin-bottom: 25px;
+export const BloodPostCardWrapper = styled.div`
+  flex: 1 1 calc(50% - 20px); /* 🔹 2개씩 배치 */
+  max-width: 100%;
+  min-width: 150px;
+  display: flex;
+  justify-content: center;
+
+  @media (max-width: 600px) {
+    flex: 1 1 100%; /* 🔹 모바일에서는 1개씩 배치 */
+  }
 `;
 
 export const PostTop = styled.div`

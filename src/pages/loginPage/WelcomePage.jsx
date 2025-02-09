@@ -35,7 +35,7 @@ export const WelcomePage = () => {
         </S.Btn>
         <S.SignUp>
           아직 회원이 아니신가요?
-          <S.SignUpLink to="/main">회원가입하기</S.SignUpLink>
+          <S.SignUpLink to="/signup">회원가입하기</S.SignUpLink>
         </S.SignUp>
       </S.BtnWrapper>
     </S.Wrapper>

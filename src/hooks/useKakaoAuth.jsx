@@ -4,7 +4,7 @@ import {
   createContext,
   useContext,
 } from "react";
-import axios from "../apis/axiosInstance";
+import axios from "@apis/axiosInstance";
 
 // KakaoAuthContext 생성: 로그인 상태를 관리하는 Context
 const KakaoAuthContext = createContext();

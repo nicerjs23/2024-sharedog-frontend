@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // useNavigate import
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import * as S from "./PetAdd.styled";
 import PetProfile from "@assets/images/petprofile.png";
 import YesCheck from "@assets/icons/YesCheck.svg";
@@ -8,7 +8,7 @@ import CameraIcon from "@assets/icons/CameraIcon.svg";
 import LeftButton from "@assets/icons/Left.svg";
 
 export const PetAdd = () => {
-  const navigate = useNavigate(); // navigate 객체 생성
+  const navigate = useNavigate();
   const [selectedDog, setSelectedDog] = useState(null);
   const [gender, setGender] = useState(null);
   const [neutered, setNeutered] = useState(null);
@@ -18,54 +18,60 @@ export const PetAdd = () => {
     weight: "",
   });
 
-  const [profileImage, setProfileImage] = useState(PetProfile); // 초기 프로필 이미지
+  const [isFilled, setIsFilled] = useState(false);
+  const [profileImage, setProfileImage] = useState(PetProfile);
+
+  useEffect(() => {
+    // 모든 필드가 입력되었는지 확인
+    const allFilled =
+      formData.name.trim() !== "" &&
+      formData.age.trim() !== "" &&
+      formData.weight.trim() !== "" &&
+      selectedDog !== null &&
+      gender !== null &&
+      neutered !== null;
+    setIsFilled(allFilled);
+  }, [formData, selectedDog, gender, neutered]);
 
   const handleInputChange = (field, value) => {
+    if (field === "age" || field === "weight") {
+      value = value.replace(/[^0-9]/g, "");
+    }
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setProfileImage(reader.result); // 프로필 이미지 상태 업데이트
-      };
-      reader.readAsDataURL(file); // 파일을 Base64 URL로 변환
-    }
-  };
-
   const handleSave = () => {
-    const updatedData = {
-      ...formData,
+    if (!isFilled) return; // 모든 필드가 채워지지 않았으면 저장 안 함
+
+    const newPet = {
+      id: Date.now(), // 고유한 ID 생성
+      name: formData.name,
+      age: formData.age,
+      weight: formData.weight,
+      profileImage,
       selectedDog,
       gender,
       neutered,
-      profileImage, // 프로필 이미지 포함
     };
 
-    console.log("저장된 데이터:", updatedData);
-    alert("정보가 성공적으로 저장되었습니다!");
-    // 실제 API 호출 로직을 여기에 추가 (ex. axios.post)
-  };
+    // 기존 petList 불러와서 새 데이터 추가
+    const existingPets = JSON.parse(localStorage.getItem("petList")) || [];
+    const updatedList = [...existingPets, newPet];
 
-  const handleCancel = () => {
-    navigate("/petinfo"); // 취소 버튼 클릭 시 PetInfo 페이지로 이동
-  };
-
-  const BackClick = () => {
-    navigate(-1);
+    localStorage.setItem("petList", JSON.stringify(updatedList)); // 저장
+    navigate("/petinfo"); // PetInfo 페이지로 이동
   };
 
   return (
     <S.Wrapper>
       <S.Header>
-        <S.BackButton>
-          <img src={LeftButton} alt="백 버튼" onClick={BackClick} />
+        <S.BackButton onClick={() => navigate(-1)}>
+          <img src={LeftButton} alt="뒤로 가기" />
         </S.BackButton>
-        반려견 정보 수정
-        <S.Blank></S.Blank>
+        새로운 반려견 등록
+        <S.Blank />
       </S.Header>
+
       <S.ProfileContainer>
         <S.ProfileImage src={profileImage} alt="강아지 프로필사진" />
         <S.Camera>
@@ -77,7 +83,14 @@ export const PetAdd = () => {
             type="file"
             accept="image/*"
             style={{ display: "none" }}
-            onChange={handleImageUpload}
+            onChange={(e) => {
+              const file = e.target.files[0];
+              if (file) {
+                const reader = new FileReader();
+                reader.onload = () => setProfileImage(reader.result);
+                reader.readAsDataURL(file);
+              }
+            }}
           />
         </S.Camera>
       </S.ProfileContainer>
@@ -90,10 +103,7 @@ export const PetAdd = () => {
               onClick={() => setSelectedDog(true)}
               selected={selectedDog === true}
             >
-              <img
-                src={selectedDog === true ? YesCheck : NoCheck}
-                alt="예 체크 아이콘"
-              />
+              <img src={selectedDog === true ? YesCheck : NoCheck} alt="예" />{" "}
               예
             </S.YesCheckBox>
             <S.NoCheckBox
@@ -102,8 +112,8 @@ export const PetAdd = () => {
             >
               <img
                 src={selectedDog === false ? YesCheck : NoCheck}
-                alt="아니오 체크 아이콘"
-              />
+                alt="아니오"
+              />{" "}
               아니오
             </S.NoCheckBox>
           </S.CheckBox>
@@ -122,7 +132,7 @@ export const PetAdd = () => {
         <S.TitleBox>나이(세)</S.TitleBox>
         <S.DetailBox>
           <S.Input
-            type="number"
+            type="text"
             value={formData.age}
             onChange={(e) => handleInputChange("age", e.target.value)}
             placeholder="나이를 입력해주세요"
@@ -132,7 +142,7 @@ export const PetAdd = () => {
         <S.TitleBox>몸무게(kg)</S.TitleBox>
         <S.DetailBox>
           <S.Input
-            type="number"
+            type="text"
             value={formData.weight}
             onChange={(e) => handleInputChange("weight", e.target.value)}
             placeholder="몸무게를 입력해주세요"
@@ -146,20 +156,14 @@ export const PetAdd = () => {
               onClick={() => setGender("female")}
               selected={gender === "female"}
             >
-              <img
-                src={gender === "female" ? YesCheck : NoCheck}
-                alt="여아 체크 아이콘"
-              />
+              <img src={gender === "female" ? YesCheck : NoCheck} alt="여아" />{" "}
               여아
             </S.YesCheckBox>
             <S.NoCheckBox
               onClick={() => setGender("male")}
               selected={gender === "male"}
             >
-              <img
-                src={gender === "male" ? YesCheck : NoCheck}
-                alt="남아 체크 아이콘"
-              />
+              <img src={gender === "male" ? YesCheck : NoCheck} alt="남아" />{" "}
               남아
             </S.NoCheckBox>
           </S.CheckBox>
@@ -172,10 +176,7 @@ export const PetAdd = () => {
               onClick={() => setNeutered(true)}
               selected={neutered === true}
             >
-              <img
-                src={neutered === true ? YesCheck : NoCheck}
-                alt="했어요 체크 아이콘"
-              />
+              <img src={neutered === true ? YesCheck : NoCheck} alt="했어요" />{" "}
               했어요
             </S.YesCheckBox>
             <S.NoCheckBox
@@ -184,14 +185,16 @@ export const PetAdd = () => {
             >
               <img
                 src={neutered === false ? YesCheck : NoCheck}
-                alt="안했어요 체크 아이콘"
-              />
+                alt="안했어요"
+              />{" "}
               안했어요
             </S.NoCheckBox>
           </S.CheckBox>
         </S.DetailBox>
 
-        <S.Save>저장</S.Save>
+        <S.Save isFilled={isFilled} onClick={handleSave}>
+          저장
+        </S.Save>
       </S.ScrollableContent>
     </S.Wrapper>
   );

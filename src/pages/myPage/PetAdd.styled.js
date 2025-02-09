@@ -36,7 +36,7 @@ export const Save = styled.section`
   display: flex;
   width: 80%;
   height: 10%;
-  padding: 18px 152px;
+  padding: 18px 50px;
   justify-content: center;
   align-items: center;
   gap: 10px;

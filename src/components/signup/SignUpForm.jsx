@@ -7,11 +7,12 @@ export const SignUpForm = ({
   placeholder,  
   label,        
   type = "text",
-  onChange,
-  onNext,
+  value,         // 🔥 외부에서 value를 받아 컨트롤된 컴포넌트로 변경
+  onChange,      // 🔥 입력 값이 변경될 때 호출 (부모에서 관리)
+  onNext,       
   children,
-  showError = false,       // 에러 상태 추가
-  errorMessage = "",       // 에러 메시지 추가
+  showError = false,      
+  errorMessage = "",      
 }) => {
   return (
     <S.MainWrapper>
@@ -29,9 +30,10 @@ export const SignUpForm = ({
           <S.InputField
             type={type}
             placeholder={placeholder}
-            onChange={onChange}
+            value={value}  // 🔥 value를 props로 받아 컨트롤된 입력 필드로 변경
+            onChange={onChange}  // 🔥 상태 변경을 부모가 관리하도록 수정
             style={{
-              border: showError ? "1px solid #FF6969" : "1px solid #E7E8EB", // 에러 상태에 따른 테두리
+              border: showError ? "1px solid #FF6969" : "1px solid #E7E8EB",
             }}
           />
           {showError && (
@@ -46,4 +48,3 @@ export const SignUpForm = ({
     </S.MainWrapper>
   );
 };
-

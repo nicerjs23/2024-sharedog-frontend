@@ -4,7 +4,8 @@ import { SignUpLayout } from "@layout/SignUpLayout";
 
 import { MainPage } from "@pages/mainPage/MainPage";
 import { WelcomePage } from "@pages/loginPage/WelcomePage";
-import { SignUpPage } from "@pages/signUpPage/SignUpPage";
+// import { SignUpPage } from "@pages/signUpPage/SignUpPage";
+import SignupFormContainer from "@pages/signUpPage/SignupFormContainer";
 import { LoginPage } from "@pages/loginPage/LoginPage";
 import { CommunityPage } from "@pages/communityPage/Community";
 import { ChatPage } from "@pages/chatPage/ChatPage";
@@ -13,9 +14,9 @@ import { AccountManagement } from "@pages/myPage/AccountManagement";
 import { PetInfo } from "@pages/myPage/PetInfo";
 import { PetEdit } from "@pages/myPage/PetEdit";
 import { Reservation } from "@pages/myPage/Reservation";
-import { PwSignUpPage } from "@pages/signUpPage/PwSignUpPage";
-import { NameSignUpPage } from "@pages/signUpPage/NameSignUpPage";
-import { PhoneSignUpPage } from "@pages/signUpPage/PhoneSignUpPage";
+// import { PwSignUpPage } from "@pages/signUpPage/PwSignUpPage";
+// import { NameSignUpPage } from "@pages/signUpPage/NameSignUpPage";
+// import { PhoneSignUpPage } from "@pages/signUpPage/PhoneSignUpPage";
 import { ProSignUpPage } from "@pages/signUpPage/ProSignUpPage";
 import { AgeSignUpPage } from "@pages/signUpPage/AgeSignUpPage";
 import { WeightSignUpPage } from "@pages/signUpPage/WeightSignUpPage";
@@ -49,24 +50,22 @@ export const router = createBrowserRouter([
       { path: "testStart", element: <TestStartPage /> },
       {
         path: "signup",
-        element: <SignUpLayout />, // DefaultLayout 하위에 SignUpLayout 중첩
+        element: <SignUpLayout />,
         children: [
-          { path: "", element: <SignUpPage /> },
-          { path: "pw", element: <PwSignUpPage /> },
-          { path: "name", element: <NameSignUpPage /> },
-          { path: "phone", element: <PhoneSignUpPage /> },
-          { path: "pro", element: <ProSignUpPage /> },
-          { path: "age", element: <AgeSignUpPage /> },
-          { path: "weight", element: <WeightSignUpPage /> },
-          { path: "gen", element: <GenSignUpPage /> },
-          { path: "op", element: <OpSignUpPage /> },
-          { path: "blood", element: <BloodSignUpPage /> },
+          { path: "", element: <SignupFormContainer /> }, // 기본 회원가입 단계 관리
         ],
       },
-      {
-        path: "signup/last",
-        element: <LastSignUpPage />,
-      },
+
+      // 🔥 추가 회원가입 정보 (개별 페이지)
+      { path: "signup/pro", element: <ProSignUpPage /> },
+      { path: "signup/age", element: <AgeSignUpPage /> },
+      { path: "signup/weight", element: <WeightSignUpPage /> },
+      { path: "signup/gen", element: <GenSignUpPage /> },
+      { path: "signup/op", element: <OpSignUpPage /> },
+      { path: "signup/blood", element: <BloodSignUpPage /> },
+
+      // 🔥 최종 회원가입 완료 페이지
+      { path: "signup/last", element: <LastSignUpPage /> },
     ],
   },
   //헌혈견테스트쪽은 아예따로 뺐음 테스트 시작화면만 디폴트레이아웃에 속하도록함

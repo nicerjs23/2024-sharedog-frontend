@@ -2,25 +2,47 @@ import React, { useState } from "react";
 import * as S from "./LoginPage.styled";
 import Logo from "@assets/icons/Logo.svg";
 import { useCustomNavigate } from "@hooks/useCustomNavigate";
-import { useLocation } from "react-router-dom";
+import axiosInstance from "@apis/axiosInstance";
 
 export const LoginPage = () => {
   const { goTo } = useCustomNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !password) {
-      setIsError(true); // 에러 상태 설정
-      return; // 메인으로 이동하지 않음
+      setIsError(true);
+      setErrorMessage("이메일과 비밀번호를 입력해주세요.");
+      return;
     }
-    goTo("/main"); // 모든 입력값이 유효하면 이동
+
+    try {
+      const response = await axiosInstance.post("/api/accounts/login", {
+        email,
+        password,
+      });
+
+      const { access_token, refresh_token } = response.data;
+
+      localStorage.setItem("access", access_token);
+      localStorage.setItem("refresh", refresh_token);
+
+      console.log("로그인 성공:", response.data);
+      goTo("/main"); // 로그인 성공 시 메인 페이지로 이동
+    } catch (err) {
+      console.error("로그인 오류:", err.response?.data || err.message);
+      setIsError(true);
+      setErrorMessage(err.response?.data?.error || "로그인 실패");
+    }
   };
 
   return (
     <S.Wrapper>
-      <S.Header onClick={() => goTo("/main")}>둘러보기</S.Header>
+      <S.Header onClick={() => goTo("/main")}>
+        둘러보기
+      </S.Header>
       <S.LogoWrapper>
         <S.Logo src={Logo} alt="나눠주개 로고" />
       </S.LogoWrapper>
@@ -32,7 +54,7 @@ export const LoginPage = () => {
           placeholder="이메일"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          isError={isError && !email} // 에러 상태 전달
+          isError={isError && !email}
         />
         <S.TitleInfo>비밀번호</S.TitleInfo>
         <S.InputBox
@@ -40,13 +62,10 @@ export const LoginPage = () => {
           placeholder="비밀번호"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          isError={isError && !password} // 에러 상태 전달
+          isError={isError && !password}
         />
+        {isError && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
         <S.Btn onClick={handleLogin}>로그인</S.Btn>
-        {/* <S.SignUp>
-          아직 회원이 아니에요.
-          <S.SignUpLink to="/main">회원가입하기</S.SignUpLink>
-        </S.SignUp> */}
       </S.BtnWrapper>
     </S.Wrapper>
   );

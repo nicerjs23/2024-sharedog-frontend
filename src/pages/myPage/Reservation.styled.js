@@ -31,6 +31,17 @@ export const ReservationList = styled.section`
   margin-top: 20px;
 `;
 
+export const ScrollableContent = styled.div`
+  margin-bottom: 98px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex: 1; /* 남은 공간을 차지하도록 설정 */
+  overflow-y: auto; /* 세로 스크롤 활성화 */
+  align-items: center;
+  padding: 20px 0;
+`;
+
 export const BackButton = styled.div`
   align-items: stretch;
   width: 11px;

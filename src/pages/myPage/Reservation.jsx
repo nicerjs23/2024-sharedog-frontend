@@ -38,18 +38,20 @@ export const Reservation = () => {
         예약 내역
         <S.Blank></S.Blank>
       </S.Header>
-      <S.ReservationList>
-        {reservations.map((reservation, index) => (
-          <ReservationCard
-            key={index}
-            date1={reservation.date1}
-            date2={reservation.date2}
-            time={reservation.time}
-            place={reservation.place}
-            progress={reservation.progress}
-          />
-        ))}
-      </S.ReservationList>
+      <S.ScrollableContent>
+        <S.ReservationList>
+          {reservations.map((reservation, index) => (
+            <ReservationCard
+              key={index}
+              date1={reservation.date1}
+              date2={reservation.date2}
+              time={reservation.time}
+              place={reservation.place}
+              progress={reservation.progress}
+            />
+          ))}
+        </S.ReservationList>
+      </S.ScrollableContent>
     </S.Wrapper>
   );
 };

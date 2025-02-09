@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // useNavigate import
+import { useNavigate } from "react-router-dom";
 import * as S from "./PetEdit.styled";
 import PetProfile from "@assets/images/petprofile.png";
 import YesCheck from "@assets/icons/YesCheck.svg";
@@ -7,7 +7,7 @@ import NoCheck from "@assets/icons/NoCheck.svg";
 import CameraIcon from "@assets/icons/CameraIcon.svg";
 
 export const PetEdit = () => {
-  const navigate = useNavigate(); // navigate 객체 생성
+  const navigate = useNavigate();
   const [selectedDog, setSelectedDog] = useState(null);
   const [gender, setGender] = useState(null);
   const [neutered, setNeutered] = useState(null);
@@ -17,10 +17,15 @@ export const PetEdit = () => {
     weight: "",
   });
 
-  const [profileImage, setProfileImage] = useState(PetProfile); // 초기 프로필 이미지
+  const [profileImage, setProfileImage] = useState(PetProfile);
 
   const handleInputChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleNumberInput = (field, value) => {
+    const numericValue = value.replace(/[^0-9]/g, ""); // 숫자만 허용
+    setFormData((prev) => ({ ...prev, [field]: numericValue }));
   };
 
   const handleImageUpload = (event) => {
@@ -28,9 +33,9 @@ export const PetEdit = () => {
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        setProfileImage(reader.result); // 프로필 이미지 상태 업데이트
+        setProfileImage(reader.result);
       };
-      reader.readAsDataURL(file); // 파일을 Base64 URL로 변환
+      reader.readAsDataURL(file);
     }
   };
 
@@ -40,16 +45,16 @@ export const PetEdit = () => {
       selectedDog,
       gender,
       neutered,
-      profileImage, // 프로필 이미지 포함
+      profileImage,
     };
 
     console.log("저장된 데이터:", updatedData);
     alert("정보가 성공적으로 저장되었습니다!");
-    // 실제 API 호출 로직을 여기에 추가 (ex. axios.post)
+    navigate("/petinfo"); // 저장 후 petinfo 페이지로 이동
   };
 
   const handleCancel = () => {
-    navigate("/petinfo"); // 취소 버튼 클릭 시 PetInfo 페이지로 이동
+    navigate("/petinfo");
   };
 
   return (
@@ -75,32 +80,6 @@ export const PetEdit = () => {
       </S.ProfileContainer>
 
       <S.ScrollableContent>
-        <S.TitleBox>대표 강아지</S.TitleBox>
-        <S.DetailBox>
-          <S.CheckBox>
-            <S.YesCheckBox
-              onClick={() => setSelectedDog(true)}
-              selected={selectedDog === true}
-            >
-              <img
-                src={selectedDog === true ? YesCheck : NoCheck}
-                alt="예 체크 아이콘"
-              />
-              예
-            </S.YesCheckBox>
-            <S.NoCheckBox
-              onClick={() => setSelectedDog(false)}
-              selected={selectedDog === false}
-            >
-              <img
-                src={selectedDog === false ? YesCheck : NoCheck}
-                alt="아니오 체크 아이콘"
-              />
-              아니오
-            </S.NoCheckBox>
-          </S.CheckBox>
-        </S.DetailBox>
-
         <S.TitleBox>이름</S.TitleBox>
         <S.DetailBox>
           <S.Input
@@ -114,9 +93,11 @@ export const PetEdit = () => {
         <S.TitleBox>나이(세)</S.TitleBox>
         <S.DetailBox>
           <S.Input
-            type="number"
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
             value={formData.age}
-            onChange={(e) => handleInputChange("age", e.target.value)}
+            onChange={(e) => handleNumberInput("age", e.target.value)}
             placeholder="나이를 입력해주세요"
           />
         </S.DetailBox>
@@ -124,9 +105,11 @@ export const PetEdit = () => {
         <S.TitleBox>몸무게(kg)</S.TitleBox>
         <S.DetailBox>
           <S.Input
-            type="number"
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
             value={formData.weight}
-            onChange={(e) => handleInputChange("weight", e.target.value)}
+            onChange={(e) => handleNumberInput("weight", e.target.value)}
             placeholder="몸무게를 입력해주세요"
           />
         </S.DetailBox>

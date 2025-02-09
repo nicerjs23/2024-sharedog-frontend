@@ -30,7 +30,10 @@ export const Header = styled.section`
 export const PetList = styled.section`
   margin-top: 35px;
   width: 100%;
-  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px; /* 🔹 PetCard 간의 간격 추가 */
 `;
 
 export const AddPet = styled.section`
@@ -67,4 +70,14 @@ export const Blank = styled.div`
   display: flex;
   width: 11px;
   height: 17px;
+`;
+
+export const ScrollableContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex: 1; /* 남은 공간을 차지하도록 설정 */
+  overflow-y: auto; /* 세로 스크롤 활성화 */
+  align-items: center;
+  padding: 20px 0;
 `;

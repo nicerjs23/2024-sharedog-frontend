@@ -17,12 +17,11 @@ export const Wrapper = styled.section`
 
 export const Header = styled.section`
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between; /* 요소를 양쪽 끝과 가운데 정렬 */
   margin-top: 30px;
   width: 100%;
-  justify-content: center;
-  align-items: center;
-
+  padding: 0 20px; /* 좌우 여백 추가 */
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
@@ -137,4 +136,31 @@ export const ModalButton = styled.button`
   border: none;
   background: none;
   cursor: pointer;
+`;
+
+export const MailText = styled.div`
+  width: 126px;
+  flex-shrink: 0;
+
+  color: var(--Gray-Gray01, #9c9ca1);
+  text-align: right;
+  font-family: SUIT;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 180%; /* 21.6px */
+  letter-spacing: -0.24px;
+`;
+
+export const BackButton = styled.div`
+  display: flex;
+  width: 11px;
+  height: 17px;
+  margin-left: 20px;
+`;
+
+export const Blank = styled.div`
+  display: flex;
+  width: 11px;
+  height: 17px;
 `;

@@ -15,6 +15,7 @@ export const Header = styled.section`
   display: flex;
   margin-top: 30px;
   width: 100%;
+
   justify-content: space-between;
   font-size: 16px;
   font-weight: 600;

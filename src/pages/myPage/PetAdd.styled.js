@@ -13,13 +13,15 @@ export const Wrapper = styled.section`
 
 export const Header = styled.section`
   display: flex;
+  align-items: center;
+  justify-content: space-between; /* 요소를 양쪽 끝과 가운데 정렬 */
   margin-top: 30px;
   width: 100%;
-  justify-content: space-between;
+  padding: 0 20px; /* 좌우 여백 추가 */
   font-size: 16px;
+  font-style: normal;
   font-weight: 600;
 `;
-
 export const Cancel = styled.section`
   margin-left: 22px;
   color: #8a8a8a;
@@ -31,13 +33,21 @@ export const Cancel = styled.section`
 `;
 
 export const Save = styled.section`
-  margin-right: 22px;
-  color: #ff6969;
+  display: flex;
+  width: 80%;
+  height: 10%;
+  padding: 18px 152px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 1550px;
+  background: ${({ isFilled }) => (isFilled ? "#FF6969" : "#ECECEC")};
+  color: ${({ isFilled }) => (isFilled ? "#FFF" : "#BDBDBD")};
   font-family: SUIT;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 160%; /* 22.4px */
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 160%;
+  cursor: pointer;
 `;
 
 export const ProfileContainer = styled.div`
@@ -148,4 +158,18 @@ export const Input = styled.input`
   &::placeholder {
     color: #bdbdbd;
   }
+`;
+
+export const BackButton = styled.div`
+  display: flex;
+
+  width: 11px;
+  height: 17px;
+  margin-left: 20px;
+`;
+
+export const Blank = styled.div`
+  display: flex;
+  width: 11px;
+  height: 17px;
 `;

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as S from "./LoginPage.styled";
 import Logo from "@assets/icons/Logo.svg";
 import { useCustomNavigate } from "@hooks/useCustomNavigate";
-import axiosInstance from "@apis/axiosInstance";
+import axios from "axios";
 
 export const LoginPage = () => {
   const { goTo } = useCustomNavigate();
@@ -19,15 +19,19 @@ export const LoginPage = () => {
     }
 
     try {
-      const response = await axiosInstance.post("/api/accounts/login", {
+      let refreshToken = localStorage.getItem("refresh");
+      if (!refreshToken) refreshToken = null; // ✅ refresh_token이 없을 경우 null 처리
+
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/accounts/login`, {
         email,
         password,
+        refresh_token: refreshToken, // ✅ 로그인 요청 시 refresh_token 추가
       });
 
-      const { access_token, refresh_token } = response.data;
+      const { access_token, refresh_token: newRefreshToken } = response.data;
 
       localStorage.setItem("access", access_token);
-      localStorage.setItem("refresh", refresh_token);
+      localStorage.setItem("refresh", newRefreshToken);
 
       console.log("로그인 성공:", response.data);
       goTo("/main"); // 로그인 성공 시 메인 페이지로 이동
@@ -54,7 +58,7 @@ export const LoginPage = () => {
           placeholder="이메일"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          isError={isError && !email}
+          $isError={isError && !email} // ✅ 수정: $isError 사용
         />
         <S.TitleInfo>비밀번호</S.TitleInfo>
         <S.InputBox
@@ -62,7 +66,7 @@ export const LoginPage = () => {
           placeholder="비밀번호"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          isError={isError && !password}
+          $isError={isError && !password} // ✅ 수정: $isError 사용
         />
         {isError && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
         <S.Btn onClick={handleLogin}>로그인</S.Btn>

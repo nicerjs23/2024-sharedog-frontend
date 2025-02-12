@@ -15,10 +15,10 @@ export const Wrapper = styled.section`
 
 export const Header = styled.div`
   display: flex;
-  width: 375px;
+  width: 100%;
   height: 50px;
   flex-shrink: 0;
-  box-shadow: 0px 6px 14px 0px rgba(47, 47, 47, 0.04);
+  /* box-shadow: 0px 6px 14px 0px rgba(47, 47, 47, 0.04); */
   align-items: center;
   justify-content: center;
   gap: 86px;
@@ -78,9 +78,11 @@ export const Upload = styled.div`
 export const Title = styled.div`
   display: flex;
   height: 24px;
+  width: 312px;
   flex-direction: column;
+  align-items: flex-start;
   justify-content: center;
-  align-self: stretch;
+  /* align-self: stretch; */
 
   color: #000;
   font-family: SUIT;
@@ -93,16 +95,18 @@ export const Title = styled.div`
 export const Category = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 17px;
   align-self: stretch;
+  margin: 0 32px;
 `;
 
 export const CateBox = styled.div`
-  display: flex;
+  display: grid;
   width: 312px;
   flex-direction: column;
   align-items: flex-start;
+  grid-template-columns: repeat(2, 74px); // 2개의 열 생성
   gap: 14px;
 `;
 

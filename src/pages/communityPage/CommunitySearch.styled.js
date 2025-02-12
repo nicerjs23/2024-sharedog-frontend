@@ -21,9 +21,11 @@ export const Header = styled.section`
   margin: 13px 0 35px 0;
 `;
 
-export const HeaderLeft = styled.img`
-  width: 11px;
-  height: 17px;
+export const HeaderLeft = styled.div`
+  .img {
+    width: 11px;
+    height: 17px;
+  }
 `;
 
 export const HeaderRight = styled.div`
@@ -48,7 +50,7 @@ export const RightContainer = styled.div`
   align-self: stretch;
 `;
 
-export const SearchIcon = styled.img`
+export const SearchIcon = styled.div`
   display: flex;
   width: 15px;
   height: 15px;
@@ -67,6 +69,12 @@ export const Text = styled.div`
 
 export const MiddleContainer = styled.div`
   display: flex;
+  justify-content: center;
+`;
+
+export const MiddleContent = styled.div`
+  display: flex;
+  width: 327px;
   justify-content: space-between;
   align-items: center;
   align-self: stretch;

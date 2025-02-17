@@ -10,8 +10,10 @@ import Fire from "@assets/icons/fire4X.png";
 
 import { filter } from "@data/mainData/Posts";
 import { post } from "@data/mainData/Posts";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Post from "@components/main/Post";
+
+import axiosInstance from "@apis/axiosInstance";
 
 export const MainPage = () => {
   // 🟢 활성화된 필터 상태 관리
@@ -20,18 +22,59 @@ export const MainPage = () => {
     filter[0]?.id || null
   );
 
+  const [userData, setUserData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // ✅ API 호출 (로그인 여부에 따라 데이터 가져오기)
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = localStorage.getItem("access"); // 로그인 토큰 확인
+
+      if (!token) {
+        setIsLoading(false);
+        return;
+      }
+
+      try {
+        const response = await axiosInstance.get("/api/home");
+        console.log(response.data);
+        setUserData(response.data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const handleFilterClick = (id) => {
     setActiveFilter(id); // 클릭된 버튼 활성화
   };
+
+  if (isLoading) return <p>로딩 중...</p>;
+  if (error) return <p>데이터를 불러오는 중 오류가 발생했습니다.</p>;
 
   return (
     <S.MainWrapper>
       <S.SliderBox>
         <S.Header>
-          <S.ProfileBox>
-            <S.Profile />
-            <S.ProfileText>로그인하기</S.ProfileText>
-          </S.ProfileBox>
+          {userData ? (
+            <S.ProfileBox>
+              <S.Profile
+                src={userData.profile_image}
+                alt="프로필 이미지"
+              />
+              <S.ProfileText>{userData.user_name}</S.ProfileText>
+            </S.ProfileBox>
+          ) : (
+            <S.ProfileBox>
+              <S.Profile />
+              <S.ProfileText>로그인하기</S.ProfileText>
+            </S.ProfileBox>
+          )}
           <S.AlarmBox>
             <img src={BellIcon} />
           </S.AlarmBox>
@@ -52,7 +95,7 @@ export const MainPage = () => {
         {/* <S.Line />*/}
         <S.PostsTitle>
           <div>지역별 긴급헌혈 현황</div>
-          <img src={Fire} style={{ width: "15px", height: "15px" }} />
+          <img src={Fire} style={{ width: "16px", height: "16px" }} />
         </S.PostsTitle>
 
         <S.FilterBox>
@@ -71,9 +114,12 @@ export const MainPage = () => {
           {post.map((content) => (
             <Post
               key={content.id}
+              category={content.category}
               bloodType={content.bloodType}
               region={content.region}
+              created_at={content.created_at}
               title={content.title}
+              writer={content.writer}
               content={content.content}
               img={content.img}
             />

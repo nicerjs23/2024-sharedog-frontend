@@ -75,7 +75,7 @@ const SlideBtn = styled.button`
 const BtnText = styled.div`
   display: flex;
   color: #7c7f91;
-  font-size: 0.5625rem;
+  font-size: 0.75rem;
   font-family: ${({ theme }) =>
     theme.fonts.SUITSemiBold["font-family"]};
 `;

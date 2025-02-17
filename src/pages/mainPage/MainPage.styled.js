@@ -2,18 +2,18 @@ import styled from "styled-components";
 
 export const MainWrapper = styled.section`
   //푸터네브바에 안가려지게  78px+여유공간20px띄워둠
-  margin-bottom: 98px;
+  /* margin-bottom: 98px; */ //게시글만 스크롤되게하면서 postWrapper로 이동
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 540px;
   justify-content: center;
   align-items: center;
-  /* background-color: ${({ theme }) =>
-    theme.colors.pageBgColor}; */ //디폴트레이아웃에 설정함
 
   font-family: ${({ theme }) =>
     theme.fonts.SUITSemiBold["font-family"]};
+
+  height: calc(var(--vh, 1vh) * 100);
 `;
 
 export const SliderBox = styled.div`
@@ -73,6 +73,8 @@ export const ContentGapWrapper = styled.section`
   width: 87.73%;
   margin: 0 auto;
   margin-top: 30px;
+  flex: 1; /* 남은 공간을 모두 차지 */
+  min-height: 0; /* flex 속성 사용 시 필수 */
 `;
 export const InfoNavBox = styled.section`
   display: flex;
@@ -92,7 +94,7 @@ export const Line = styled.div`
 export const PostsTitle = styled.div`
   display: flex;
   align-items: center;
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-family: ${({ theme }) => theme.fonts.SUITBold["font-family"]};
   color: #373737;
   gap: 5px;
@@ -137,7 +139,7 @@ export const Filter = styled.button`
   flex-shrink: 0;
 
   color: #9c9ca1;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-family: ${({ theme }) =>
     theme.fonts.SUITRegular["font-family"]};
 
@@ -161,8 +163,26 @@ export const Filter = styled.button`
 export const PostsWrapper = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-
+  justify-content: flex-start;
+  height: 100%;
   margin-top: 20px;
-  gap: 17px;
+  gap: 20px;
+  margin-bottom: 98px; //푸터에 안가려지게 78+공간조금 20px
+  flex: 1; /* 남은 높이를 자동으로 차지 */
+  min-height: 0; /* flex 사용 시 내부 스크롤이 가능하도록 설정 */
+  overflow-y: auto; /* 내부 스크롤 활성화 */
+
+  /* 스크롤바 디자인 */
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
 `;

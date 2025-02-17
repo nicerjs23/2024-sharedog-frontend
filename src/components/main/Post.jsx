@@ -1,23 +1,32 @@
 import styled from "styled-components";
-const Post = ({ bloodType, region, title, content, img }) => {
+const Post = ({
+  category,
+  region,
+  bloodType,
+  created_at,
+  title,
+  writer,
+  content,
+  img,
+}) => {
   return (
     <PostWrapper>
-      <PostContentBox>
-        <PostContent>
-          <TagWrapper>
-            <BloodTag>{bloodType}</BloodTag>
-            <ReginTag>{region}</ReginTag>
-          </TagWrapper>
-          <PostTitle>{title}</PostTitle>
-          <PostContents>{content}</PostContents>
-        </PostContent>
-        {/* 이미지가 있을 때만 ImgWrapper 표시 */}
-        {img && (
-          <ImgWrapper>
-            <Img src={img} alt={title} />
-          </ImgWrapper>
-        )}
-      </PostContentBox>
+      <TagDayWrapper>
+        <TagWrapper>
+          <Tag>{category}</Tag>
+          <Tag tag2>{region}</Tag>
+          <Tag tag2>{bloodType}</Tag>
+        </TagWrapper>
+        <Day>{created_at}</Day>
+      </TagDayWrapper>
+      <TitleWrapper>
+        <Title>{title}</Title>
+        <Writer> | {writer}</Writer>
+      </TitleWrapper>
+      <BodyWrapper>
+        {img && <PostImg src={img} alt="게시글이미지" />}
+        <Body>{content}</Body>
+      </BodyWrapper>
     </PostWrapper>
   );
 };
@@ -26,111 +35,116 @@ export default Post;
 
 const PostWrapper = styled.div`
   display: flex;
-  padding: 12px 13px;
-  box-sizing: border-box;
-  width: 98.5%; //이미 마진값 걸려있는데 거기의 98.5%
-
-  height: 90px;
-  margin: 0 auto;
-  border-radius: 10px;
-  border: 1px solid #eaeaea;
-
-  background: #fff;
-`;
-
-const PostContentBox = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-  gap: 7px;
-`;
-const PostContent = styled.div`
-  display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
-
-  width: calc(
-    100% - 85px - 7px
-  ); /* 이미지랑 갭빼고 남은 영역만 차지 */
+  justify-content: center;
+  width: 100%;
+  min-width: 327px;
+  height: 131px;
+  padding: 0 19px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  gap: 9px;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
 `;
+
+const TagDayWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 const TagWrapper = styled.div`
   display: flex;
-  gap: 3.45px;
+  gap: 6px;
 `;
-const BloodTag = styled.div`
-  display: flex;
-  width: 28px;
-  height: 13px;
 
+const Tag = styled.div`
+  display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 8.213px;
-  color: #ffffff;
+  min-width: 31px;
+  height: 19px;
+  padding: 0 6.5px;
 
-  font-size: 0.345rem;
+  background-color: ${({ theme, tag2 }) =>
+    tag2 ? theme.colors.white : theme.colors.mainColor};
+
+  border: ${({ theme, tag2 }) =>
+    tag2 ? `0.27px solid ${theme.colors.mainColor}` : "none"};
+  border-radius: 12px;
+
   font-family: ${({ theme }) =>
     theme.fonts.SUITMedium["font-family"]};
-  background-color: ${({ theme }) => theme.colors.mainColor};
+  font-size: 0.5rem;
+  color: ${({ theme, tag2 }) =>
+    tag2 ? theme.colors.mainColor : theme.colors.white};
+  line-height: 17px;
 `;
-const ReginTag = styled.div`
+
+const Day = styled.div`
   display: flex;
-  width: 28px;
-  height: 13px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 8.213px;
-  border: 0.274px solid ${({ theme }) => theme.colors.mainColor};
-  color: ${({ theme }) => theme.colors.mainColor};
-  font-size: 0.345rem;
   font-family: ${({ theme }) =>
     theme.fonts.SUITMedium["font-family"]};
-  background-color: #ffffff;
-`;
-
-const PostTitle = styled.div`
-  margin-top: 3px;
-  display: block; /* flex 대신 block으로 변경 */
-  width: 95%; /* 부모의 남은 영역을 차지 */
-  color: #3a3a3c;
-  font-size: 0.75rem;
-  font-family: ${({ theme }) => theme.fonts.SUITBold["font-family"]};
-
-  /* 텍스트 줄바꿈 방지 및 말줄임표 적용 */
-  white-space: nowrap; /* 텍스트가 한 줄로 유지 */
-  overflow: hidden; /* 넘치는 내용 숨김 */
-  text-overflow: ellipsis; /* 넘치는 부분을 ...으로 표시 */
-  flex-shrink: 0; /* 줄어들지 않도록 설정 */
-`;
-
-const PostContents = styled.div`
-  margin-top: 5px;
-  display: -webkit-box; /* 여러 줄 말줄임 지원 */
-  width: 100%; /* 부모의 남은 영역을 차지 */
-  color: #3a3a3c;
   font-size: 0.625rem;
-  line-height: 1.2;
-  font-family: ${({ theme }) =>
-    theme.fonts.SUITMedium["font-family"]};
-
-  -webkit-line-clamp: 2; /* 최대 두 줄로 제한 */
-  -webkit-box-orient: vertical; /* 텍스트 방향 설정 */
-  overflow: hidden; /* 넘치는 텍스트 숨김 */
-  text-overflow: ellipsis; /* 넘치는 부분을 ...으로 표시 */
+  color: ${({ theme }) => theme.colors.gray01};
 `;
 
-const ImgWrapper = styled.div`
-  width: 85px; /* 가로 고정 */
-  height: 100%; /* 부모 높이 100% 채우기 */
-  flex-shrink: 0; /* 크기가 줄어들지 않도록 고정 */
-  border-radius: 6px;
-  overflow: hidden; /* 이미지가 넘칠 경우 숨김 */
+const TitleWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  gap: 5px;
   align-items: center;
 `;
-const Img = styled.img`
+
+const Title = styled.div`
+  font-family: ${({ theme }) => theme.fonts.SUITBold["font-family"]};
+  font-size: 0.75rem;
+  color: ${({ theme }) => theme.colors.gray03};
+
+  white-space: nowrap; /* 한 줄로 유지 */
+  overflow: hidden; /* 넘치는 내용 숨기기 */
+  text-overflow: ellipsis; /* 넘치는 텍스트를 "..."으로 표시 */
+  max-width: 100%; /* 부모 요소 크기만큼 확장 */
+`;
+
+const Writer = styled.div`
+  font-family: ${({ theme }) =>
+    theme.fonts.SUITMedium["font-family"]};
+  font-size: 0.625rem;
+  color: ${({ theme }) => theme.colors.gray02};
+
+  white-space: nowrap;
+`;
+
+const BodyWrapper = styled.div`
+  display: flex;
+  align-items: center;
   width: 100%;
-  height: 100%;
-  object-fit: cover; /* 비율 유지하면서 꽉 채우기 */
-  object-position: center; /* 중앙 정렬 */
+  gap: 11px;
+  /* margin-top: 5px; 없는게 더 이쁜듯*/
+`;
+const PostImg = styled.img`
+  display: flex;
+  width: 84px;
+  height: 52px;
+  border-radius: 6px;
+`;
+
+const Body = styled.div`
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* 최대 3줄 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 45px; /* 최대 높이 제한 */
+  line-height: 15px; /* 줄 간격 */
+
+  margin-right: 5px;
+
+  font-family: ${({ theme }) =>
+    theme.fonts.SUITMedium["font-family"]};
+  font-size: 0.625rem;
+  line-height: 15px;
+  color: ${({ theme }) => theme.colors.default};
 `;

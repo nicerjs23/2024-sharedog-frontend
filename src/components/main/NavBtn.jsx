@@ -45,7 +45,7 @@ const NavCircle = styled.div`
 
 const NavText = styled.div`
   display: flex;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   color: #373737;
   font-family: ${({ theme }) =>
     theme.fonts.SUITSemiBold["font-family"]};

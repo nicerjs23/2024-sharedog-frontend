@@ -1,7 +1,23 @@
 import { useState, React } from "react";
+import { useNavigate } from "react-router-dom";
 import * as S from "./CommunityWrite.styled";
 import ImageUpload from "@assets/icons/ImageUpload.svg";
 import Circle from "@assets/icons/Circle.svg";
+
+const Modal = ({ isOpen, onClose }) => {
+  if (!isOpen) return null;
+
+  return (
+    <S.ModalOverlay>
+      <S.ModalContent>
+        <S.ModalText>
+          <span>작성한 게시글이 등록되었어요!</span>
+        </S.ModalText>
+        <S.ModalButton onClick={onClose}>확인</S.ModalButton>
+      </S.ModalContent>
+    </S.ModalOverlay>
+  );
+};
 
 const categories = ["긴급헌혈", "궁금해요", "얘기해요", "후기에요"];
 const regions = ["서울", "인천", "경기", "강원", "경상", "충청", "전라", "제주"];
@@ -12,6 +28,13 @@ export const CommunityWrite = () => {
   const [selectedRegion, setSelectedRegion] = useState("");
   const [selectedBloodType, setSelectedBloodType] = useState("");
   const [selectedImages, setSelectedImages] = useState([]);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const isFormComplete = selectedCategory && selectedRegion && selectedBloodType
+    && title && content && selectedImages.length > 0;
 
   const handleImageUpload = (event) => {
     if(!event.target.files) return;
@@ -41,15 +64,28 @@ export const CommunityWrite = () => {
     setSelectedImages((prev) => prev.filter((_, i) => i !== index));
   };
 
+  const handleCancel = () => {
+    navigate("/community/search");
+  }
+
   return (
     <>
       <S.Wrapper>
         <S.Container>
           <S.Header>
-            <S.Cancel>취소</S.Cancel>
+            <S.Cancel onClick={handleCancel}>취소</S.Cancel>
             <S.Write>글쓰기</S.Write>
-            <S.Upload>등록</S.Upload>
+            <S.Upload
+              isFormComplete={isFormComplete}
+              onClick={() => {
+                if(isFormComplete) setIsModalOpen(true);
+              }}
+            >
+              등록
+            </S.Upload>
           </S.Header>
+          {/* 모달 */}
+          <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
           <S.Category>
             <S.Title>카테고리</S.Title>
             <S.CateBox>
@@ -101,11 +137,19 @@ export const CommunityWrite = () => {
           </S.Caution>
           <S.WriteTitle>
             <S.Title>제목</S.Title>
-            <S.TitlePlace placeholder="제목을 입력해주세요." />
+            <S.TitlePlace
+              placeholder="제목을 입력해주세요."
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
           </S.WriteTitle>
           <S.WriteMain>
             <S.Title>내용</S.Title>
-            <S.MainPlace placeholder="내용을 입력해주세요." />
+            <S.MainPlace
+              placeholder="내용을 입력해주세요."
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+            />
           </S.WriteMain>
           <S.ImageContainer>
             <S.Title>이미지</S.Title>

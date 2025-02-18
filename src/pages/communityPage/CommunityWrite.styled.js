@@ -71,13 +71,15 @@ export const Upload = styled.div`
   justify-content: center;
   flex-shrink: 0;
 
-  color: rgba(156, 156, 161, 0.50);
+  color: ${(props) => (props.isFormComplete ? "#FF6969" : "rgba(156, 156, 161, 0.50)")};
   text-align: center;
   font-family: SUIT;
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
   line-height: 30px; /* 187.5% */
+
+  cursor: ${(props) => (props.isFormComplete ? "pointer" : "default")};
 `;
 
 export const Title = styled.div`
@@ -431,4 +433,69 @@ export const UploadBox = styled.div`
     color: #FF6969;
     margin-top: 5px;
   }
+`;
+
+export const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ModalContent = styled.div`
+  display: flex;
+  width: 237.72px;
+  flex-direction: column;
+  align-items: center;
+
+  border-radius: 12.326px;
+  background: #FFF;
+  backdrop-filter: blur(9.684893608093262px);
+`;
+
+export const ModalText = styled.div`
+  display: flex;
+  padding: 21.131px 14.087px 14.087px 14.087px;
+  flex-direction: column;
+  align-items: center;
+  gap: 14.087px;
+  align-self: stretch;
+
+  border-bottom: 0.44px solid var(--Separator-Color-Light-With-Transparency, rgba(60, 60, 67, 0.36));
+
+  span{
+    color: var(--Label-Color-Light-Primary, #000);
+    text-align: center;
+    font-feature-settings: 'case' on;
+    font-family: SUIT;
+    font-size: 14.968px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 19.37px; /* 129.412% */
+    letter-spacing: -0.359px;
+  } 
+`;
+
+export const ModalButton = styled.button`
+  display: flex;
+  padding: 9.685px 7.044px;
+  justify-content: center;
+  align-items: center;
+  gap: 8.804px;
+  align-self: stretch;
+  /* flex: 1 0 0; */
+  color: #FF6969;
+  text-align: center;
+  font-feature-settings: 'case' on;
+  font-family: SUIT;
+  font-size: 14.968px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 19.37px; /* 129.412% */
+  letter-spacing: -0.359px;
 `;

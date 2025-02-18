@@ -4,10 +4,13 @@ import testOkPng from "@assets/images/testok.png";
 
 import { useCustomNavigate } from "@hooks/useCustomNavigate";
 import { replace } from "react-router-dom";
-import useKakaoShare from "@hooks/useKaKaoShare";
+import useShare from "@hooks/useShare";
 export const TestResultOkPage = () => {
   const { goTo } = useCustomNavigate();
-  const { shareKakao } = useKakaoShare();
+  const startUrl = `${window.location.origin}/`; // 시작화면의 URL을 고정시킴
+  const { handleShare } = useShare({
+    url: startUrl,
+  });
   return (
     <S.Wrapper>
       {/* 위치조절용 div */}
@@ -26,7 +29,7 @@ export const TestResultOkPage = () => {
         </S.InfoBox>
       </S.ContentsBox>
       <S.NavBtnBox>
-        <S.Btn onClick={() => shareKakao()}>공유</S.Btn>
+        <S.Btn onClick={handleShare}>공유</S.Btn>
         <S.Btn
           props="ok"
           onClick={() => goTo("/main", { replace: true })}

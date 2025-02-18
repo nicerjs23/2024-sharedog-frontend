@@ -125,9 +125,9 @@ export const CateBtn = styled.div`
   flex-shrink: 0;
 
   border-radius: 20.043px;
-  border: 1px solid rgba(156, 156, 161, 0.70);
-
-  color: rgba(156, 156, 161, 0.70);
+  border: 1px solid ${({ isSelected }) => (isSelected ? "#FF6969" : "rgba(156, 156, 161, 0.70)")};
+  background: ${({ isSelected }) => (isSelected ? "#FF6969" : "transparent")};
+  color: ${({ isSelected }) => (isSelected ? "#FFF" : "rgba(156, 156, 161, 0.70)")};
   text-align: center;
   font-family: SUIT;
   font-size: 12px;
@@ -136,6 +136,7 @@ export const CateBtn = styled.div`
   line-height: normal;
 
   white-space: nowrap;
+  cursor: pointer;
 `;
 
 export const Line = styled.div`
@@ -175,10 +176,9 @@ export const RegionBtn = styled.div`
   flex-shrink: 0;
 
   border-radius: 15px;
-  border: 0.842px solid rgba(156, 156, 161, 0.70);
-  /* background: #FFF; */
-
-  color: rgba(156, 156, 161, 0.70);
+  border: 1px solid ${({ isSelected }) => (isSelected ? "#FF6969" : "rgba(156, 156, 161, 0.70)")};
+  background: ${({ isSelected }) => (isSelected ? "#FF6969" : "transparent")};
+  color: ${({ isSelected }) => (isSelected ? "#FFF" : "rgba(156, 156, 161, 0.70)")};
   text-align: center;
   font-family: SUIT;
   font-size: 12px;
@@ -187,6 +187,7 @@ export const RegionBtn = styled.div`
   line-height: normal;
 
   white-space: nowrap;
+  cursor: pointer;
 `;
 
 export const Blood = styled.div`
@@ -218,9 +219,9 @@ export const BloodBtn = styled.div`
   flex-shrink: 0;
 
   border-radius: 20.043px;
-  border: 1px solid rgba(156, 156, 161, 0.70);
-
-  color: rgba(156, 156, 161, 0.70);
+  border: 1px solid ${({ isSelected }) => (isSelected ? "#FF6969" : "rgba(156, 156, 161, 0.70)")};
+  background: ${({ isSelected }) => (isSelected ? "#FF6969" : "transparent")};
+  color: ${({ isSelected }) => (isSelected ? "#FFF" : "rgba(156, 156, 161, 0.70)")};
   text-align: center;
   font-family: SUIT;
   font-size: 12px;
@@ -229,6 +230,7 @@ export const BloodBtn = styled.div`
   line-height: normal;
 
   white-space: nowrap;
+  cursor: pointer;
 `;
 
 export const Caution = styled.div`
@@ -265,12 +267,12 @@ export const WriteTitle = styled.div`
   align-self: stretch;
 `;
 
-export const TitlePlace = styled.input`
+export const TitlePlace = styled.textarea`
   display: flex;
   height: 40px;
   align-items: flex-start;
   gap: 10px;
-  padding: 0px 29px 0px 14px;
+  padding: 10px 29px 0px 14px;
   margin-bottom: 19px;
   align-items: center;
   align-self: stretch;
@@ -284,6 +286,9 @@ export const TitlePlace = styled.input`
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+
+  resize: none;
+  overflow: hidden;
 
   &::placeholder {
     color: #9C9CA1;
@@ -303,10 +308,10 @@ export const WriteMain = styled.div`
   align-self: stretch;
 `;
 
-export const MainPlace = styled.input`
+export const MainPlace = styled.textarea`
   display: flex;
   height: 164px;
-  padding: 0px 29px 113px 14px;
+  padding: 11px 29px 113px 14px;
   align-items: center;
   align-self: stretch;
   margin-bottom: 19px;
@@ -320,6 +325,9 @@ export const MainPlace = styled.input`
   font-style: normal;
   font-weight: 500;
   line-height: 15px; /* 125% */
+
+  resize: none;
+  overflow: hidden;
 
   &::placeholder {
     color: #9C9CA1;
@@ -355,5 +363,72 @@ export const Image = styled.div`
     width: 80px;
     height: 80px;
     flex-shrink: 0;
+  }
+`;
+
+export const ImageList = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+export const ImagePreview = styled.div`
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  overflow: hidden;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+`;
+
+export const RemoveButton = styled.button`
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const UploadBox = styled.div`
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  background: #FFECEC;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  
+  label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  img {
+    width: 80px;
+    height: 80px;
+  }
+
+  span {
+    font-size: 12px;
+    color: #FF6969;
+    margin-top: 5px;
   }
 `;

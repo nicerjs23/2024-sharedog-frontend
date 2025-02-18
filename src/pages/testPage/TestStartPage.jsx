@@ -3,12 +3,13 @@ import xIcon from "@assets/icons/X.svg";
 import testLogo from "@assets/images/testStartLogo.png";
 import TestStartPgBtn from "@components/test/TestStartPgBtn";
 import { useCustomNavigate } from "@hooks/useCustomNavigate";
-
-import useKakaoShare from "@hooks/useKaKaoShare";
+import useShare from "@hooks/useShare";
 
 export const TestStartPage = () => {
   const { goTo } = useCustomNavigate();
-  const { shareKakao } = useKakaoShare();
+  const { handleShare } = useShare({
+    url: window.location.href,
+  });
   return (
     <S.Wrapper>
       <S.Header>
@@ -40,7 +41,7 @@ export const TestStartPage = () => {
           $bgColor="#FFD7D7"
           $textColor="#FF6969"
           text="테스트 공유하기"
-          onClick={() => shareKakao()}
+          onClick={handleShare}
         />
       </S.TestBtnBox>
     </S.Wrapper>

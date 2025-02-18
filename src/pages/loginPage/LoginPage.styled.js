@@ -20,14 +20,16 @@ export const Header = styled.div`
   justify-content: flex-end;
   margin-top: 6px;
   color: ${({ theme }) => theme.colors.mainColor};
-  font-family: ${({ theme }) => theme.fonts.SUITSemiBold["font-family"]};
+  font-family: ${({ theme }) =>
+    theme.fonts.SUITSemiBold["font-family"]};
 `;
 export const TitleInfo = styled.div`
   display: flex;
   width: 100%;
   font-size: 14px;
   color: ${({ theme }) => theme.colors.mainColor};
-  font-family: ${({ theme }) => theme.fonts.SUITMedium["font-family"]};
+  font-family: ${({ theme }) =>
+    theme.fonts.SUITMedium["font-family"]};
   margin-left: 70px;
 `;
 export const InputBox = styled.input`
@@ -38,7 +40,8 @@ export const InputBox = styled.input`
   align-items: center;
 
   border-radius: 20px;
-  border: 1px solid ${(props) => (props.isError ? "#ff6969" : "#e7e8eb")};
+  border: 1px solid
+    ${(props) => (props.$isError ? "#ff6969" : "#e7e8eb")};
   background: #fff;
 
   &::placeholder {
@@ -51,7 +54,8 @@ export const InputBox = styled.input`
   }
 
   &:focus {
-    border: 1px solid ${(props) => (props.isError ? "#ff6969" : "#e7e8eb")};
+    border: 1px solid
+      ${(props) => (props.$isError ? "#ff6969" : "#e7e8eb")};
     outline: none;
   }
 `;
@@ -79,17 +83,14 @@ export const Btn = styled.button`
   justify-content: center;
   align-items: center;
   width: 85.33%;
-  /* min-width: 300px; */
   height: 53px;
   border-radius: 50px;
 
   font-size: 16px;
+  font-family: ${({ theme }) => theme.fonts.SUITSemiBold};
 
-  font-family: ${({ theme }) => theme.fonts.SUITSemiBold["font-family"]};
-
-  background-color: ${({ type }) =>
-    type === "kakao" ? "#FFE812" : ({ theme }) => theme.colors.mainColor};
-  color: ${({ type }) => (type === "kakao" ? "#000000" : "#ffffff")};
+  background-color: ${({ theme }) => theme.colors.mainColor};
+  color: #ffffff;
 `;
 
 export const SignUp = styled.div`
@@ -100,7 +101,8 @@ export const SignUp = styled.div`
 
   font-size: 12px;
   color: #2a2a2a;
-  font-family: ${({ theme }) => theme.fonts.SUITMedium["font-family"]};
+  font-family: ${({ theme }) =>
+    theme.fonts.SUITMedium["font-family"]};
 `;
 
 export const SignUpLink = styled(Link)`
@@ -108,5 +110,6 @@ export const SignUpLink = styled(Link)`
   margin-left: 7px;
   text-decoration: none;
   color: ${({ theme }) => theme.colors.mainColor};
-  font-family: ${({ theme }) => theme.fonts.SUITExtraBold["font-family"]};
+  font-family: ${({ theme }) =>
+    theme.fonts.SUITExtraBold["font-family"]};
 `;

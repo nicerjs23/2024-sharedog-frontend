@@ -28,6 +28,7 @@ export const theme = {
     //디자인시스템 글씨색 설정
     white: "#FFFFFF",
     black: "#1C1C1E",
+
     gray03: "#3A3A3C",
     gray02: "#636366",
     gray01: "#9C9CA1",

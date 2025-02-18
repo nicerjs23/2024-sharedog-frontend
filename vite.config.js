@@ -2,8 +2,21 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import { VitePWA } from "vite-plugin-pwa";
+import dotenv from "dotenv";
 // https://vitejs.dev/config/
+import fs from "fs";
+// .env 파일 로드
+dotenv.config();
+
 export default defineConfig({
+  server: {
+    https: process.env.VERCEL
+      ? false
+      : {
+          key: fs.readFileSync(process.env.PEM_KEY_PATH),
+          cert: fs.readFileSync(process.env.PEM_CERT_PATH),
+        },
+  },
   plugins: [
     react(),
     VitePWA({
@@ -72,6 +85,7 @@ export default defineConfig({
       "@styles": path.resolve(__dirname, "src/styles"),
       "@assets": path.resolve(__dirname, "src/assets"),
       "@data": path.resolve(__dirname, "src/data"),
+      "@apis": path.resolve(__dirname, "src/apis"),
     },
   },
 });

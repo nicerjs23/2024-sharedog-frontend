@@ -3,10 +3,13 @@ import testNoPng from "@assets/images/testStartLogo.png";
 import resultBloodIcon from "@assets/icons/resultBlood.png";
 
 import { useCustomNavigate } from "@hooks/useCustomNavigate";
-import useKakaoShare from "@hooks/useKaKaoShare";
+import useShare from "@hooks/useShare";
 export const TestResultNoPage = () => {
   const { goTo } = useCustomNavigate();
-  const { shareKakao } = useKakaoShare();
+  const startUrl = ` ${window.location.origin}/testStart`; // 시작화면의 URL을 고정시킴
+  const { handleShare } = useShare({
+    url: startUrl,
+  });
   return (
     <S.Wrapper>
       {/* 위치조절용 div */}
@@ -26,7 +29,7 @@ export const TestResultNoPage = () => {
         </S.InfoBox>
       </S.ContentsBox>
       <S.NavBtnBox>
-        <S.Btn onClick={() => shareKakao()}>공유</S.Btn>
+        <S.Btn onClick={handleShare}>공유</S.Btn>
         <S.Btn
           props="ok"
           onClick={() => goTo("/main", { replace: true })}

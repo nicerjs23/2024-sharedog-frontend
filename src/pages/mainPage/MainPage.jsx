@@ -12,8 +12,10 @@ import { filter } from "@data/mainData/Posts";
 import { post } from "@data/mainData/Posts";
 import { useState, useEffect } from "react";
 import Post from "@components/main/Post";
-
+import LoginRequiredBox from "@components/main/LoginRequiredBox";
 import axiosInstance from "@apis/axiosInstance";
+import LoginRequiredModal from "@components/main/LoginRequiredModal";
+import { useCustomNavigate } from "@hooks/useCustomNavigate";
 
 export const MainPage = () => {
   // 🟢 활성화된 필터 상태 관리
@@ -21,10 +23,11 @@ export const MainPage = () => {
   const [activeFilter, setActiveFilter] = useState(
     filter[0]?.id || null
   );
-
+  const { goTo, goBack } = useCustomNavigate();
   const [userData, setUserData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false); // ✅ 초기값 false로 변경
   const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false); // ✅ 모달 상태 추가
 
   // ✅ API 호출 (로그인 여부에 따라 데이터 가져오기)
   useEffect(() => {
@@ -32,10 +35,11 @@ export const MainPage = () => {
       const token = localStorage.getItem("access"); // 로그인 토큰 확인
 
       if (!token) {
-        setIsLoading(false);
+        setUserData(null); // 로그인하지 않은 상태에서도 UI 렌더링 가능
+        setIsModalOpen(true); // ✅ 로그인 안 되어 있으면 모달 자동 띄우기
         return;
       }
-
+      setIsLoading(true); // ✅ API 호출 시점에서만 로딩 상태 적용
       try {
         const response = await axiosInstance.get("/api/home");
         console.log(response.data);
@@ -49,13 +53,24 @@ export const MainPage = () => {
 
     fetchData();
   }, []);
+  // ✅ userData가 변경될 때마다 실행 (로그인 여부 반영)
+  useEffect(() => {
+    if (userData === null) {
+      setIsModalOpen(true);
+      console.log("userData가 없어서 모달을 띄웁니다.");
+    }
+  }, [userData]);
 
   const handleFilterClick = (id) => {
     setActiveFilter(id); // 클릭된 버튼 활성화
   };
-
-  if (isLoading) return <p>로딩 중...</p>;
-  if (error) return <p>데이터를 불러오는 중 오류가 발생했습니다.</p>;
+  const handleCloseModal = () => {
+    setIsModalOpen(false); // ✅ X 버튼 클릭 시 모달 닫기
+  };
+  const handleLogin = () => {
+    goTo("/login");
+    console.log("로그인 페이지로 이동");
+  };
 
   return (
     <S.MainWrapper>
@@ -111,21 +126,33 @@ export const MainPage = () => {
         </S.FilterBox>
         {/* 게시글 map으로 더미데이터에서 출력 */}
         <S.PostsWrapper>
-          {post.map((content) => (
-            <Post
-              key={content.id}
-              category={content.category}
-              bloodType={content.bloodType}
-              region={content.region}
-              created_at={content.created_at}
-              title={content.title}
-              writer={content.writer}
-              content={content.content}
-              img={content.img}
-            />
-          ))}
+          {isLoading ? (
+            <p>로딩 중...</p> // ✅ 로딩 중 표시
+          ) : !userData ? (
+            <LoginRequiredBox /> // ✅ 로그인하지 않은 경우 로그인 유도 UI
+          ) : (
+            post.map((content) => (
+              <Post
+                key={content.id}
+                category={content.category}
+                bloodType={content.bloodType}
+                region={content.region}
+                created_at={content.created_at}
+                title={content.title}
+                writer={content.writer}
+                content={content.content}
+                img={content.img}
+              />
+            ))
+          )}
         </S.PostsWrapper>
       </S.ContentGapWrapper>
+      {/* ✅ 로그인 필요 모달 적용 */}
+      <LoginRequiredModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onLogin={handleLogin}
+      />
     </S.MainWrapper>
   );
 };

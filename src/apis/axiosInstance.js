@@ -1,6 +1,5 @@
-// axiosInstance.js
 import axios from "axios";
-import { refreshAccessToken } from "@apis/refreshTokenUtil"; // 리프레시 토큰 갱신 유틸리티 함수 가져오기
+import { refreshAccessToken } from "@apis/refreshTokenUtil";
 
 // Axios 인스턴스 생성
 const axiosInstance = axios.create({
@@ -11,50 +10,51 @@ const axiosInstance = axios.create({
 // 요청 인터셉터
 axiosInstance.interceptors.request.use(
   (config) => {
-    // 요청 전에 로컬 스토리지에서 Access Token을 가져와 Authorization 헤더에 추가
+    // 로컬 스토리지에서 Access Token을 가져와 Authorization 헤더에 추가
     const token = localStorage.getItem("access");
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`; // Bearer 토큰 형식으로 헤더 설정
+      config.headers.Authorization = `Bearer ${token}`;
     }
-    return config; // 수정된 요청 반환
+    return config;
   },
-  (error) => Promise.reject(error) // 요청 설정 중 에러 발생 시 그대로 에러 반환
+  (error) => Promise.reject(error)
 );
 
 // 응답 인터셉터
 axiosInstance.interceptors.response.use(
-  (response) => response, // 응답이 성공적이면 그대로 반환
+  (response) => response,
   async (error) => {
-    const originalRequest = error.config; // 원래 요청 객체 저장
+    const originalRequest = error.config;
 
-    // Access Token 만료로 인해 401 Unauthorized 응답이 왔을 경우
-    if (
-      error.response && // 서버로부터 응답이 존재하고
-      error.response.status === 401 && // 응답 상태 코드가 401이며
-      !originalRequest._retry // 원래 요청이 아직 재시도되지 않은 경우
-    ) {
-      originalRequest._retry = true; // 재시도 여부를 플래그로 설정
+    // Access Token이 만료된 경우
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true; // 재시도 플래그 설정
 
       try {
-        // Refresh Token을 사용해 새로운 Access Token 발급
         const newAccessToken = await refreshAccessToken();
 
-        // 새로운 Access Token을 Authorization 헤더에 추가
-        axios.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
+        if (!newAccessToken) {
+          throw new Error("새로운 Access Token을 받지 못했습니다.");
+        }
+
+        // 새로운 Access Token을 헤더에 추가
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
 
-        // 원래 요청을 새로 발급받은 Access Token으로 재시도
+        // 원래 요청을 다시 보냄
         return axiosInstance(originalRequest);
       } catch (refreshError) {
-        // Refresh Token 갱신 실패 시 에러 로그 출력 및 에러 반환
         console.error("토큰 갱신 실패:", refreshError);
-        return Promise.reject(refreshError); // 에러를 그대로 상위로 전달
+
+        // 토큰 갱신 실패 시, 로컬 스토리지에서 토큰 제거 및 로그아웃 처리
+        localStorage.removeItem("access");
+        localStorage.removeItem("refresh");
+
+        return Promise.reject(refreshError);
       }
     }
 
-    // 다른 에러는 그대로 반환
     return Promise.reject(error);
   }
 );
 
-export default axiosInstance; // Axios 인스턴스 내보내기
+export default axiosInstance;

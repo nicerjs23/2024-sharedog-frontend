@@ -29,22 +29,21 @@ export const MainPage = () => {
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false); // ✅ 모달 상태 추가
 
-  // ✅ API 호출 (로그인 여부에 따라 데이터 가져오기)
+  const token = localStorage.getItem("access"); // 로그인 토큰 확인
   useEffect(() => {
     const fetchData = async () => {
-      const token = localStorage.getItem("access"); // 로그인 토큰 확인
-
       if (!token) {
-        setUserData(null); // 로그인하지 않은 상태에서도 UI 렌더링 가능
-        setIsModalOpen(true); // ✅ 로그인 안 되어 있으면 모달 자동 띄우기
+        setUserData(null);
+        setIsModalOpen(true); // ✅ 로그인 안 되어 있으면 모달 띄우기
         return;
       }
-      setIsLoading(true); // ✅ API 호출 시점에서만 로딩 상태 적용
+
+      setIsLoading(true);
       try {
         const response = await axiosInstance.get("/api/home");
-        console.log(response.data);
         setUserData(response.data);
       } catch (err) {
+        console.error("API 요청 실패:", err);
         setError(err);
       } finally {
         setIsLoading(false);
@@ -52,14 +51,7 @@ export const MainPage = () => {
     };
 
     fetchData();
-  }, []);
-  // ✅ userData가 변경될 때마다 실행 (로그인 여부 반영)
-  useEffect(() => {
-    if (userData === null) {
-      setIsModalOpen(true);
-      console.log("userData가 없어서 모달을 띄웁니다.");
-    }
-  }, [userData]);
+  }, [token]); // ✅ 토큰 변경될 때마다 실행
 
   const handleFilterClick = (id) => {
     setActiveFilter(id); // 클릭된 버튼 활성화
@@ -85,7 +77,7 @@ export const MainPage = () => {
               <S.ProfileText>{userData.user_name}</S.ProfileText>
             </S.ProfileBox>
           ) : (
-            <S.ProfileBox>
+            <S.ProfileBox onClick={() => goTo("/login")}>
               <S.Profile />
               <S.ProfileText>로그인하기</S.ProfileText>
             </S.ProfileBox>
@@ -127,23 +119,27 @@ export const MainPage = () => {
         {/* 게시글 map으로 더미데이터에서 출력 */}
         <S.PostsWrapper>
           {isLoading ? (
-            <p>로딩 중...</p> // ✅ 로딩 중 표시
-          ) : !userData ? (
-            <LoginRequiredBox /> // ✅ 로그인하지 않은 경우 로그인 유도 UI
+            <p>로딩 중...</p>
+          ) : !token ? ( // ✅ 토큰 없으면 로그인 필요 UI 표시
+            <LoginRequiredBox />
+          ) : userData?.posts?.length > 0 ? (
+            userData.posts
+              .filter((content) => content.region === activeFilter)
+              .map((content) => (
+                <Post
+                  key={content.id}
+                  category={content.category}
+                  bloodType={content.blood}
+                  region={content.region}
+                  created_at={content.created_at}
+                  title={content.title}
+                  writer={userData.user_name}
+                  content={content.content}
+                  img={content.image_1}
+                />
+              ))
           ) : (
-            post.map((content) => (
-              <Post
-                key={content.id}
-                category={content.category}
-                bloodType={content.bloodType}
-                region={content.region}
-                created_at={content.created_at}
-                title={content.title}
-                writer={content.writer}
-                content={content.content}
-                img={content.img}
-              />
-            ))
+            <p>해당 지역의 긴급 헌혈 게시글이 없습니다.</p>
           )}
         </S.PostsWrapper>
       </S.ContentGapWrapper>

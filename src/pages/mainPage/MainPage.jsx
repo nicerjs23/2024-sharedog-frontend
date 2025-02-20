@@ -20,9 +20,7 @@ import { useCustomNavigate } from "@hooks/useCustomNavigate";
 export const MainPage = () => {
   // 🟢 활성화된 필터 상태 관리
   // 🟢 1번 필터를 초기 활성화 상태로 설정
-  const [activeFilter, setActiveFilter] = useState(
-    filter[0]?.id || null
-  );
+  const [activeFilter, setActiveFilter] = useState("전체");
   const { goTo, goBack } = useCustomNavigate();
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(false); // ✅ 초기값 false로 변경
@@ -34,14 +32,21 @@ export const MainPage = () => {
     const fetchData = async () => {
       if (!token) {
         setUserData(null);
-        setIsModalOpen(true); // ✅ 로그인 안 되어 있으면 모달 띄우기
+        setIsModalOpen(true);
         return;
       }
 
       setIsLoading(true);
       try {
-        const response = await axiosInstance.get("/api/home");
+        // ✅ 전체 게시글은 "/api/home", 특정 지역은 "/api/home?region=지역명"
+        const apiUrl =
+          activeFilter === "전체"
+            ? "/api/home"
+            : `/api/home?region=${activeFilter}`;
+
+        const response = await axiosInstance.get(apiUrl);
         setUserData(response.data);
+        console.log(`API 요청 (${activeFilter}):`, response.data);
       } catch (err) {
         console.error("API 요청 실패:", err);
         setError(err);
@@ -51,11 +56,12 @@ export const MainPage = () => {
     };
 
     fetchData();
-  }, [token]); // ✅ 토큰 변경될 때마다 실행
+  }, [token, activeFilter]); // ✅ 지역 선택 시 API 요청 변경
 
-  const handleFilterClick = (id) => {
-    setActiveFilter(id); // 클릭된 버튼 활성화
+  const handleFilterClick = (regionName) => {
+    setActiveFilter(regionName); // ✅ 클릭한 지역을 상태에 저장
   };
+
   const handleCloseModal = () => {
     setIsModalOpen(false); // ✅ X 버튼 클릭 시 모달 닫기
   };
@@ -77,7 +83,7 @@ export const MainPage = () => {
               <S.ProfileText>{userData.user_name}</S.ProfileText>
             </S.ProfileBox>
           ) : (
-            <S.ProfileBox onClick={() => goTo("/login")}>
+            <S.ProfileBox onClick={handleLogin}>
               <S.Profile />
               <S.ProfileText>로그인하기</S.ProfileText>
             </S.ProfileBox>
@@ -109,8 +115,8 @@ export const MainPage = () => {
           {filter.map((region) => (
             <S.Filter
               key={region.id}
-              $isActive={activeFilter === region.id}
-              onClick={() => handleFilterClick(region.id)}
+              $isActive={activeFilter === region.name}
+              onClick={() => handleFilterClick(region.name)}
             >
               {region.name}
             </S.Filter>
@@ -124,7 +130,11 @@ export const MainPage = () => {
             <LoginRequiredBox />
           ) : userData?.posts?.length > 0 ? (
             userData.posts
-              .filter((content) => content.region === activeFilter)
+              .filter(
+                (content) =>
+                  activeFilter === "전체" ||
+                  content.region === activeFilter
+              )
               .map((content) => (
                 <Post
                   key={content.id}
@@ -139,7 +149,9 @@ export const MainPage = () => {
                 />
               ))
           ) : (
-            <p>해당 지역의 긴급 헌혈 게시글이 없습니다.</p>
+            <S.ErrorText>
+              해당 지역의 긴급 헌혈 게시글이 없습니다.
+            </S.ErrorText>
           )}
         </S.PostsWrapper>
       </S.ContentGapWrapper>

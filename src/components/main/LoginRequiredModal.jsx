@@ -85,7 +85,7 @@ const ModalContents = styled.div`
 const ModalClose = styled.div`
   display: flex;
   margin-top: 20px;
-
+  justify-content: flex-end;
   box-sizing: border-box;
   width: 100%;
 

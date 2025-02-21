@@ -4,22 +4,23 @@ import { useState } from "react";
 import Check from "@assets/icons/Check.svg";
 import RedCheck from "@assets/icons/RedCheck.svg";
 import { useNavigate } from "react-router-dom";
+import { useSignup } from "../../context/SignupContext"; // ✅ Context API 사용
 
 export const GenSignUpPage = () => {
-  const [selectedGen, setSelectedGen] = useState("");
   const navigate = useNavigate();
+  const { signupData, updateSignupData } = useSignup(); // ✅ Context API 사용
 
   const handleGenClick = (gen) => {
-    setSelectedGen(gen);
-  }
+    updateSignupData("gender", gen); // ✅ Context에 저장
+  };
 
   const handleNext = () => {
-    if (!selectedGen) {
+    if (!signupData.gender) {
       console.log("성별을 선택해주세요!");
       return;
     }
-    console.log("다음 페이지로 이동!");
-    navigate("/signup/op");
+
+    navigate("/signup/op"); // 다음 페이지로 이동
   };
 
   return (
@@ -37,23 +38,23 @@ export const GenSignUpPage = () => {
                 style={{
                   borderRadius: "15px",
                   border:
-                    selectedGen === "female"
+                    signupData.gender === "female"
                       ? "1px solid #FFC5C5"
                       : "1px solid #E7E8EB",
                   background:
-                    selectedGen === "female" ? "#FFD7D7" : "transparent",
+                    signupData.gender === "female" ? "#FFD7D7" : "transparent",
                   cursor: "pointer",
                 }}
               >
                 <S.Check 
                   src={
-                    selectedGen === "female" ? RedCheck : Check // 조건부로 아이콘 변경
+                    signupData.gender === "female" ? RedCheck : Check // 조건부로 아이콘 변경
                   } 
                   alt="체크표시"
                 />
                 <S.GenText
                   style={{
-                    color: selectedGen === "female" ? "#FF6969" : "#BDBDBD", // 텍스트 색상 변경
+                    color: signupData.gender === "female" ? "#FF6969" : "#BDBDBD", // 텍스트 색상 변경
                   }}
                 >
                   여아
@@ -64,23 +65,23 @@ export const GenSignUpPage = () => {
                 style={{
                   borderRadius: "15px",
                   border:
-                    selectedGen === "male"
+                    signupData.gender === "male"
                       ? "1px solid #FFC5C5"
                       : "1px solid #E7E8EB",
                   background:
-                    selectedGen === "male" ? "#FFD7D7" : "transparent",
+                    signupData.gender === "male" ? "#FFD7D7" : "transparent",
                   cursor: "pointer",
                 }}
               >
                 <S.Check 
                   src={
-                    selectedGen === "male" ? RedCheck : Check // 조건부로 아이콘 변경
+                    signupData.gender === "male" ? RedCheck : Check // 조건부로 아이콘 변경
                   } 
                   alt="체크표시"
                 />
                 <S.GenText
                   style={{
-                    color: selectedGen === "male" ? "#FF6969" : "#BDBDBD", // 텍스트 색상 변경
+                    color: signupData.gender === "male" ? "#FF6969" : "#BDBDBD", // 텍스트 색상 변경
                   }}
                 >
                   남아
@@ -88,24 +89,27 @@ export const GenSignUpPage = () => {
               </S.MBtn>
             </S.GenderSelect>
           </S.GenderContainer>
+
+          {/* 이전 페이지 값 유지 (읽기 전용) */}
           <S.WeightContainer>
             <S.DynamicSpan active={false}>몸무게(kg)</S.DynamicSpan>
-            <S.AgePlace placeholder="예) 5" />
+            <S.AgePlace placeholder="예) 5" value={signupData.weight} readOnly />
           </S.WeightContainer>
           <S.AgeContainer>
             <S.DynamicSpan active={false}>나이(세)</S.DynamicSpan>
-            <S.AgePlace placeholder="예) 1" />
+            <S.AgePlace placeholder="예) 1" value={signupData.dog_age} readOnly />
           </S.AgeContainer>
           <S.NameContainer>
             <span>이름</span>
-            <S.NamePlace placeholder=" "/>
+            <S.NamePlace placeholder=" " value={signupData.dog_name} readOnly />
           </S.NameContainer> 
         </S.PetWrapper>
+
         <Button 
           type="button" 
           onClick={handleNext}
-          bgColor={selectedGen ? "#FF6969" : "#BDBDBD"} // 성별이 선택되면 버튼 활성화 색상
-          disabled={!selectedGen} // 성별이 선택되지 않으면 버튼 비활성화
+          bgColor={signupData.gender ? "#FF6969" : "#BDBDBD"} // 성별이 선택되면 버튼 활성화 색상
+          disabled={!signupData.gender} // 성별이 선택되지 않으면 버튼 비활성화
         >
           다음
         </Button>

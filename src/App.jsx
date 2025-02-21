@@ -7,6 +7,7 @@ import { router } from "./router";
 import { useEffect } from "react";
 
 import { KakaoAuthProvider } from "@hooks/useKakaoAuth";
+import { SignupProvider } from "./context/SignupContext";
 
 function App() {
   useEffect(() => {
@@ -23,10 +24,12 @@ function App() {
 
   return (
     <KakaoAuthProvider>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <RouterProvider router={router} />
-      </ThemeProvider>
+      <SignupProvider> {/* ✅ 회원가입 데이터 유지 */}
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <RouterProvider router={router} />
+        </ThemeProvider>
+      </SignupProvider>
     </KakaoAuthProvider>
   );
 }

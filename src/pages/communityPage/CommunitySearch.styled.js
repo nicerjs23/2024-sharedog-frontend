@@ -58,13 +58,41 @@ export const SearchIcon = styled.div`
   align-items: center;
 `;
 
-export const Text = styled.div`
-  color: #FFA1A1;
+export const SearchInput = styled.input`
+  width: 100%;
+  background: #FFE7E7;
+
+  color: #636366;
   font-family: SUIT;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+
+  &::placeholder {
+    color: #FFA1A1;
+    font-family: SUIT;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  &:focus {
+    outline: none; /* 기본 아웃라인 제거 */
+  }
+`;
+
+export const ClearButton = styled.button`
+  display: flex;
+  /* align-items: center; */
+
+  cursor: pointer;
+
+  img {
+    width: 12px;
+    height: 12px;
+  }
 `;
 
 export const MiddleContainer = styled.div`

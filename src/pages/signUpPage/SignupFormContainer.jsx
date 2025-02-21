@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axiosInstance from "@apis/axiosInstance"; // ✅ axiosInstance 사용
 import SignUpPage from "./SignUpPage";
 import PwSignUpPage from "./PwSignUpPage";
 import NameSignUpPage from "./NameSignUpPage";
@@ -35,11 +35,39 @@ const SignupFormContainer = () => {
         setError(null);
 
         try {
-            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/accounts/signup`, formData, {
-                withCredentials: true,
-            });
+            // ✅ 회원가입 API 호출
+            const response = await axiosInstance.post("/api/accounts/signup", formData);
+
             console.log("회원가입 성공:", response.data);
             alert("회원가입이 완료되었습니다.");
+
+            // ✅ 응답에서 토큰 추출
+            const accessToken = response.data.token.access;
+            const refreshToken = response.data.token.refresh;
+
+            if (!accessToken || !refreshToken) {
+                throw new Error("토큰이 반환되지 않았습니다.");
+            }
+
+            // ✅ 토큰을 localStorage에 저장
+            localStorage.setItem("access", accessToken);
+            localStorage.setItem("refresh", refreshToken);
+
+            console.log(
+                "저장된 access token:",
+                localStorage.getItem("access")
+            );
+            console.log(
+                "저장된 refresh token:",
+                localStorage.getItem("refresh")
+            );
+
+            // ✅ axiosInstance의 Authorization 헤더 즉시 업데이트
+            axiosInstance.defaults.headers.common[
+                "Authorization"
+            ] = `Bearer ${accessToken}`;
+
+            // ✅ 회원가입 후 자동 로그인 효과
             navigate("/signup/pro");
         } catch (err) {
             console.error("회원가입 오류:", err.response?.data || err.message);

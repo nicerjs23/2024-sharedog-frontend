@@ -46,6 +46,7 @@ const PostWrapper = styled.div`
   gap: 9px;
   border: 1px solid #eaeaea;
   border-radius: 10px;
+  background-color: #ffffff;
 `;
 
 const TagDayWrapper = styled.div`

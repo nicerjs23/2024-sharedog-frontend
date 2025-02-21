@@ -66,7 +66,7 @@ export const MainPage = () => {
     setIsModalOpen(false); // ✅ X 버튼 클릭 시 모달 닫기
   };
   const handleLogin = () => {
-    goTo("/login");
+    goTo("/");
     console.log("로그인 페이지로 이동");
   };
 

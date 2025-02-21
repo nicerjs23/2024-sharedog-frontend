@@ -24,7 +24,6 @@ export const TestResultNoPage = () => {
           <InfoText text="만 2~8세를 초과하였을 수 있어요." />
           <InfoText text="20~25kg에 미달하였을 수 있어요." />
           <InfoText text="혈액 및 바이러스 질병 이력이 있을 수 있어요." />
-          <InfoText text="만 2~8세를 초과하였을 수 있어요." />
           <InfoText text="주기적인 예방접종을 진행하지 않았을 수 있어요." />
         </S.InfoBox>
       </S.ContentsBox>

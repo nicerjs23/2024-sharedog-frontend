@@ -22,6 +22,8 @@ export const Header = styled.div`
   color: ${({ theme }) => theme.colors.mainColor};
   font-family: ${({ theme }) =>
     theme.fonts.SUITSemiBold["font-family"]};
+  user-select: none;
+  cursor: pointer;
 `;
 
 export const Title = styled.div`

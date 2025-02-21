@@ -4,47 +4,83 @@ import ProImagePlaceholder from "@assets/icons/ProImage.svg";
 import CameraIcon from "@assets/icons/CameraIcon.svg";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+import { useSignup } from "../../context/SignupContext";
 
 export const ProSignUpPage = () => {
   const navigate = useNavigate();
+  const { signupData, updateSignupData } = useSignup();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [name, setName] = useState("");
   const [showError, setShowError] = useState(false);
-  const [proImage, setProImage] = useState(ProImagePlaceholder); // 초기 프로필 이미지 상태
+  const [proImage, setProImage] = useState(signupData.dog_image || ProImagePlaceholder);
 
-  // 이미지 업로드 핸들러
+  // ✅ 이미지 업로드 및 FormData 저장
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setProImage(reader.result); // 업로드된 이미지를 Base64 URL로 저장
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+    if (!file) return;
 
-  // 이름 입력 핸들러
-  const handleNameChange = (e) => {
-    const value = e.target.value;
-    setName(value);
-    if (value.trim()) {
-      setShowError(false); // 에러 메시지 숨기기
-    }
-  };
-
-  // 다음 버튼 핸들러
-  const handleNext = () => {
-    if (!name.trim()) {
-      setShowError(true); // 이름이 비어있으면 에러 메시지 표시
+    // ✅ 확장자 검사: PNG, JPG만 허용
+    const allowedTypes = ["image/png", "image/jpeg"];
+    if (!allowedTypes.includes(file.type)) {
+      alert("PNG 또는 JPG 형식의 이미지만 업로드 가능합니다.");
       return;
     }
 
-    console.log("프로필 정보:", { name, proImage });
-    navigate("/signup/age"); // 다음 페이지로 이동
+    // ✅ 파일 크기 검사 (500KB 이하)
+    const maxSize = 500 * 1024;
+    if (file.size > maxSize) {
+      alert("이미지 파일이 너무 큽니다! 500KB 이하의 파일을 선택해주세요.");
+      return;
+    }
+
+    // ✅ 이미지 리사이징 및 최적화
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (e) => {
+      const img = new Image();
+      img.src = e.target.result;
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        const MAX_WIDTH = 300;
+        const scaleSize = MAX_WIDTH / img.width;
+        canvas.width = MAX_WIDTH;
+        canvas.height = img.height * scaleSize;
+
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const resizedFile = new File([blob], file.name, { type: file.type });
+
+            // ✅ 미리보기 이미지 업데이트
+            setProImage(URL.createObjectURL(blob));
+
+            // ✅ FormData 생성 및 Context API에 저장 (API 호출 없이)
+            const formData = new FormData();
+            formData.append("dog_image", resizedFile);
+
+            updateSignupData("dog_image", formData);
+          }
+        }, file.type, 0.7);
+      };
+    };
   };
 
-  // 모달 열기/닫기 핸들러
+  const handleNameChange = (e) => {
+    const value = e.target.value;
+    updateSignupData("dog_name", value);
+    if (value.trim()) setShowError(false);
+  };
+
+  const handleNext = () => {
+    if (!signupData.dog_name.trim()) {
+      setShowError(true);
+      return;
+    }
+    navigate("/signup/age");
+  };
+
   const handleModal = () => {
     setIsModalOpen(true);
   };
@@ -55,7 +91,7 @@ export const ProSignUpPage = () => {
 
   const handleConfirm = () => {
     setIsModalOpen(false);
-    navigate("/signup/last"); // 홈 또는 다른 페이지로 이동
+    navigate("/signup/last");
   };
 
   return (
@@ -69,7 +105,7 @@ export const ProSignUpPage = () => {
             <S.Text>반려견 정보는 나중에 추가로 등록할 수 있어요!</S.Text>
           </S.TextWrapper>
 
-          {/* 프로필 이미지 업로드 */}
+          {/* ✅ 프로필 이미지 업로드 */}
           <S.ProImageWrapper>
             <S.ProImage src={proImage} alt="프로필 이미지" />
             <S.Camera>
@@ -79,7 +115,7 @@ export const ProSignUpPage = () => {
               <input
                 id="imageUpload"
                 type="file"
-                accept="image/*"
+                accept="image/png, image/jpeg"
                 style={{ display: "none" }}
                 onChange={handleImageUpload}
               />
@@ -91,12 +127,10 @@ export const ProSignUpPage = () => {
             <span>반려견 이름</span>
             <S.ProPlace
               placeholder="반려견 이름 입력"
-              value={name}
+              value={signupData.dog_name}
               onChange={handleNameChange}
             />
-            {showError && (
-              <S.ErrorMessage>이름을 입력해주세요.</S.ErrorMessage>
-            )}
+            {showError && <S.ErrorMessage>이름을 입력해주세요.</S.ErrorMessage>}
           </S.ProContainer>
 
           {/* 나중에 등록 버튼 */}
@@ -107,18 +141,18 @@ export const ProSignUpPage = () => {
           </S.LaterWrapper>
         </S.ProWrapper>
 
-        {/* 다음 버튼 */}
+        {/* ✅ 다음 버튼 */}
         <Button
           type="button"
           onClick={handleNext}
-          bgColor={name.trim() ? "#FF6969" : "#BDBDBD"}
-          disabled={!name.trim()} // 이름이 없으면 비활성화
+          bgColor={signupData.dog_name.trim() ? "#FF6969" : "#BDBDBD"}
+          disabled={!signupData.dog_name.trim()}
         >
           다음
         </Button>
       </S.MainWrapper>
 
-      {/* 모달 */}
+      {/* ✅ 모달 유지 */}
       {isModalOpen && (
         <S.ModalOverlay>
           <S.Modal>

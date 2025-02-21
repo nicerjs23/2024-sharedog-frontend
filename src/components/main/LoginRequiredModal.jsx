@@ -23,6 +23,7 @@ const LoginRequiredModal = ({ isOpen, onClose, onLogin }) => {
               <ModalSkip onClick={onClose}>다음에 하기</ModalSkip>
             </ModalBtnBox>
           </ModalBody>
+          <div style={{ height: "50px", maxHeight: "50px" }} />
         </ModalContents>
       </ModalContainer>
     </ModalOverlay>
@@ -49,6 +50,7 @@ const ModalContainer = styled.div`
   width: 100%;
   flex-direction: column;
   height: calc(100% - 474px);
+  min-height: 2px;
   max-width: 540px; /* MainWrapper와 동일한 최대 너비 */
   margin: 0 auto;
   background-color: white;
@@ -73,12 +75,17 @@ const ModalContents = styled.div`
   padding: 0 21px;
   box-sizing: border-box;
   gap: 36px;
+  height: 100%;
+  justify-content: space-between;
+  @media screen and (max-height: 700px) {
+    gap: 10px;
+  }
 `;
 // ✅ 닫기 버튼 (X)
 const ModalClose = styled.div`
   display: flex;
   margin-top: 20px;
-
+  justify-content: flex-end;
   box-sizing: border-box;
   width: 100%;
 
@@ -86,6 +93,10 @@ const ModalClose = styled.div`
     cursor: pointer;
     width: 30px;
     height: auto;
+  }
+
+  @media screen and (max-height: 700px) {
+    margin-top: 5px;
   }
 `;
 const ModalBody = styled.div`
@@ -95,6 +106,9 @@ const ModalBody = styled.div`
   padding: 0 8px;
   box-sizing: border-box;
   gap: 19px;
+  @media screen and (max-height: 700px) {
+    gap: 10px;
+  }
 `;
 
 // ✅ 모달 제목

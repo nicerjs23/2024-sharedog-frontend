@@ -36,7 +36,8 @@ export const AnswerOption = styled.button`
     props.selected
       ? "0px 0px 5px 0px rgba(251, 107, 107, 0.50);"
       : "none"};
-
+  background-color: ${(props) =>
+    props.selected ? "#fff3f3" : "1px solid #FFE0E0"};
   border-radius: 10px;
 
   font-family: ${({ theme }) =>

@@ -12,7 +12,8 @@ export const Wrapper = styled.section`
 
   top: 50%;
 
-  font-family: ${({ theme }) => theme.fonts.SUITSemiBold["font-family"]};
+  font-family: ${({ theme }) =>
+    theme.fonts.SUITSemiBold["font-family"]};
 `;
 
 export const Header = styled.section`
@@ -59,9 +60,9 @@ export const ImgBox = styled.div`
 
 export const NameText = styled.div`
   font-size: 18px;
-  font-style: normal;
-  font-weight: 600;
+
   line-height: 1; /* 텍스트가 정렬되지 않는 경우 조정 */
+  font-family: ${({ theme }) => theme.fonts.SUITBold["font-family"]};
 `;
 
 export const InfoBox = styled.section`
@@ -86,10 +87,10 @@ export const CategoryText = styled.div`
   gap: 11.518px;
 
   color: var(--Grayscale-Gray400, #8490a0);
-  font-family: SUIT;
+  font-family: ${({ theme }) =>
+    theme.fonts.SUITSemiBold["font-family"]};
   font-size: 11.518px;
-  font-style: normal;
-  font-weight: 600;
+
   line-height: 100%; /* 11.518px */
 `;
 
@@ -99,10 +100,9 @@ export const CategoryDetail = styled.div`
   justify-content: space-between; /* 양쪽 끝으로 배치 */
 
   color: var(--Grayscale-Gray600, #333d4b);
-  font-family: SUIT;
+  font-family: ${({ theme }) =>
+    theme.fonts.SUITMedium["font-family"]};
   font-size: 13.438px;
-  font-style: normal;
-  font-weight: 800;
   line-height: 160%; /* 21.5px */
   letter-spacing: -0.269px;
 `;

@@ -20,7 +20,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 188px;
+  height: 188px; /* 자동 높이 조정 */
 
   border-radius: 25px;
   background-color: #ffecec;
@@ -30,8 +30,13 @@ const Contents = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 5px 0;
+  box-sizing: border-box;
   gap: 40px;
   margin-top: 7px;
+  @media screen and (max-height: 700px) {
+    gap: 5px;
+  }
   img {
     width: 46.5px;
     height: auto;

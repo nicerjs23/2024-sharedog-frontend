@@ -39,6 +39,8 @@ export const ProfileBox = styled.div`
   display: flex;
   gap: 10px;
   align-items: center;
+  user-select: none;
+  cursor: pointer;
 `;
 export const Profile = styled.div`
   display: flex;
@@ -53,6 +55,8 @@ export const ProfileText = styled.div`
   font-size: 0.875rem;
   font-family: ${({ theme }) =>
     theme.fonts.SUITSemiBold["font-family"]};
+  user-select: none;
+  cursor: pointer;
 `;
 export const AlarmBox = styled.button`
   display: flex;
@@ -185,4 +189,18 @@ export const PostsWrapper = styled.section`
   &::-webkit-scrollbar-track {
     background: transparent;
   }
+`;
+
+export const ErrorText = styled.p`
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+  justify-content: center;
+  align-items: center;
+
+  color: #9c9ca1;
+  font-size: 0.875rem;
+  font-family: ${({ theme }) =>
+    theme.fonts.SUITRegular["font-family"]};
 `;

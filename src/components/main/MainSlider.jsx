@@ -5,7 +5,7 @@ import * as S from "./MainSlider.styled";
 import TestSlide from "@components/main/TestSlide";
 import PetSlide from "@components/main/PetSlide";
 import CountSlide from "@components/main/CountSlide";
-const MainSlider = () => {
+const MainSlider = ({ isTest }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -17,19 +17,17 @@ const MainSlider = () => {
     appendDots: (dots) => <S.CustomDots>{dots}</S.CustomDots>, // Dots를 슬라이더 내부로 이동
     customPaging: () => <S.Dot />, // 개별 Dot 디자인
   };
+  // ✅ isTest 값에 따라 슬라이드 순서 변경
+  const slides = isTest
+    ? [<PetSlide />, <CountSlide />, <TestSlide />] // isTest가 true이면 TestSlide를 뒤로
+    : [<TestSlide />, <PetSlide />, <CountSlide />]; // 기본 순서
+
   return (
     <S.SliderContainer>
       <Slider {...settings}>
-        <S.SlideWrapper>
-          {/* 슬라이더 내부는 컴포넌트로 구현 */}
-          <TestSlide />
-        </S.SlideWrapper>
-        <S.SlideWrapper>
-          <PetSlide />
-        </S.SlideWrapper>
-        <S.SlideWrapper>
-          <CountSlide />
-        </S.SlideWrapper>
+        {slides.map((slide, index) => (
+          <S.SlideWrapper key={index}>{slide}</S.SlideWrapper>
+        ))}
       </Slider>
     </S.SliderContainer>
   );

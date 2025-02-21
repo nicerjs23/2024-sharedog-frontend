@@ -70,6 +70,8 @@ export const MainPage = () => {
     console.log("로그인 페이지로 이동");
   };
 
+  const isTest = userData?.is_test || false; // isTest 값 가져오기 (없으면 기본값 false)
+
   return (
     <S.MainWrapper>
       <S.SliderBox>
@@ -93,7 +95,7 @@ export const MainPage = () => {
           </S.AlarmBox>
         </S.Header>
         {/* 슬라이더부분 컴포넌트로 구현 */}
-        <MainSlider />
+        <MainSlider isTest={isTest} />
       </S.SliderBox>
 
       <S.ContentGapWrapper>

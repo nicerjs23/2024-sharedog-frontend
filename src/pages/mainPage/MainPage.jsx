@@ -20,31 +20,35 @@ import { useCustomNavigate } from "@hooks/useCustomNavigate";
 export const MainPage = () => {
   // 🟢 활성화된 필터 상태 관리
   // 🟢 1번 필터를 초기 활성화 상태로 설정
-  const [activeFilter, setActiveFilter] = useState(
-    filter[0]?.id || null
-  );
+  const [activeFilter, setActiveFilter] = useState("전체");
   const { goTo, goBack } = useCustomNavigate();
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(false); // ✅ 초기값 false로 변경
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false); // ✅ 모달 상태 추가
 
-  // ✅ API 호출 (로그인 여부에 따라 데이터 가져오기)
+  const token = localStorage.getItem("access"); // 로그인 토큰 확인
   useEffect(() => {
     const fetchData = async () => {
-      const token = localStorage.getItem("access"); // 로그인 토큰 확인
-
       if (!token) {
-        setUserData(null); // 로그인하지 않은 상태에서도 UI 렌더링 가능
-        setIsModalOpen(true); // ✅ 로그인 안 되어 있으면 모달 자동 띄우기
+        setUserData(null);
+        setIsModalOpen(true);
         return;
       }
-      setIsLoading(true); // ✅ API 호출 시점에서만 로딩 상태 적용
+
+      setIsLoading(true);
       try {
-        const response = await axiosInstance.get("/api/home");
-        console.log(response.data);
+        // ✅ 전체 게시글은 "/api/home", 특정 지역은 "/api/home?region=지역명"
+        const apiUrl =
+          activeFilter === "전체"
+            ? "/api/home"
+            : `/api/home?region=${activeFilter}`;
+
+        const response = await axiosInstance.get(apiUrl);
         setUserData(response.data);
+        console.log(`API 요청 (${activeFilter}):`, response.data);
       } catch (err) {
+        console.error("API 요청 실패:", err);
         setError(err);
       } finally {
         setIsLoading(false);
@@ -52,25 +56,21 @@ export const MainPage = () => {
     };
 
     fetchData();
-  }, []);
-  // ✅ userData가 변경될 때마다 실행 (로그인 여부 반영)
-  useEffect(() => {
-    if (userData === null) {
-      setIsModalOpen(true);
-      console.log("userData가 없어서 모달을 띄웁니다.");
-    }
-  }, [userData]);
+  }, [token, activeFilter]); // ✅ 지역 선택 시 API 요청 변경
 
-  const handleFilterClick = (id) => {
-    setActiveFilter(id); // 클릭된 버튼 활성화
+  const handleFilterClick = (regionName) => {
+    setActiveFilter(regionName); // ✅ 클릭한 지역을 상태에 저장
   };
+
   const handleCloseModal = () => {
     setIsModalOpen(false); // ✅ X 버튼 클릭 시 모달 닫기
   };
   const handleLogin = () => {
-    goTo("/login");
+    goTo("/");
     console.log("로그인 페이지로 이동");
   };
+
+  const isTest = userData?.is_test || false; // isTest 값 가져오기 (없으면 기본값 false)
 
   return (
     <S.MainWrapper>
@@ -85,7 +85,7 @@ export const MainPage = () => {
               <S.ProfileText>{userData.user_name}</S.ProfileText>
             </S.ProfileBox>
           ) : (
-            <S.ProfileBox>
+            <S.ProfileBox onClick={handleLogin}>
               <S.Profile />
               <S.ProfileText>로그인하기</S.ProfileText>
             </S.ProfileBox>
@@ -95,7 +95,7 @@ export const MainPage = () => {
           </S.AlarmBox>
         </S.Header>
         {/* 슬라이더부분 컴포넌트로 구현 */}
-        <MainSlider />
+        <MainSlider isTest={isTest} />
       </S.SliderBox>
 
       <S.ContentGapWrapper>
@@ -117,8 +117,8 @@ export const MainPage = () => {
           {filter.map((region) => (
             <S.Filter
               key={region.id}
-              $isActive={activeFilter === region.id}
-              onClick={() => handleFilterClick(region.id)}
+              $isActive={activeFilter === region.name}
+              onClick={() => handleFilterClick(region.name)}
             >
               {region.name}
             </S.Filter>
@@ -127,23 +127,33 @@ export const MainPage = () => {
         {/* 게시글 map으로 더미데이터에서 출력 */}
         <S.PostsWrapper>
           {isLoading ? (
-            <p>로딩 중...</p> // ✅ 로딩 중 표시
-          ) : !userData ? (
-            <LoginRequiredBox /> // ✅ 로그인하지 않은 경우 로그인 유도 UI
+            <p>로딩 중...</p>
+          ) : !token ? ( // ✅ 토큰 없으면 로그인 필요 UI 표시
+            <LoginRequiredBox />
+          ) : userData?.posts?.length > 0 ? (
+            userData.posts
+              .filter(
+                (content) =>
+                  activeFilter === "전체" ||
+                  content.region === activeFilter
+              )
+              .map((content) => (
+                <Post
+                  key={content.id}
+                  category={content.category}
+                  bloodType={content.blood}
+                  region={content.region}
+                  created_at={content.created_at}
+                  title={content.title}
+                  writer={userData.user_name}
+                  content={content.content}
+                  img={content.image_1}
+                />
+              ))
           ) : (
-            post.map((content) => (
-              <Post
-                key={content.id}
-                category={content.category}
-                bloodType={content.bloodType}
-                region={content.region}
-                created_at={content.created_at}
-                title={content.title}
-                writer={content.writer}
-                content={content.content}
-                img={content.img}
-              />
-            ))
+            <S.ErrorText>
+              해당 지역의 긴급 헌혈 게시글이 없습니다.
+            </S.ErrorText>
           )}
         </S.PostsWrapper>
       </S.ContentGapWrapper>

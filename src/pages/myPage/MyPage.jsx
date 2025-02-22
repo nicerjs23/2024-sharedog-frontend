@@ -1,6 +1,6 @@
 import * as S from "./MyPage.styled";
 import Profile from "@assets/images/profileimg.png";
-import myBackIcon from "@assets/icons/myBackIcon.svg";
+import myBackIcon from "@assets/icons/Next.svg";
 import { useNavigate } from "react-router-dom"; // React Router의 useNavigate 가져오기
 
 import axiosInstance from "@apis/axiosInstance";

@@ -66,6 +66,7 @@ export const AccountManagement = () => {
       </S.Header>
       <S.InfoBox>
         <S.CategoryText>계정 정보</S.CategoryText>
+        {/* 왜안올라갔지 */}
         <S.CategoryDetail>
           로그인 계정
           <S.MailText> {email && `${email}`}</S.MailText>

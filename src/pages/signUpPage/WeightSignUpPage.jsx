@@ -45,7 +45,7 @@ export const WeightSignUpPage = () => {
           <S.WeightContainer>
             <S.DynamicSpan active={true}>몸무게(kg)</S.DynamicSpan>
             <S.AgePlace 
-              placeholder="예) 5kg" 
+              placeholder="예) 5" 
               value={signupData.weight} // ✅ Context에서 불러오기
               onChange={handleWeightChange}
               style={{

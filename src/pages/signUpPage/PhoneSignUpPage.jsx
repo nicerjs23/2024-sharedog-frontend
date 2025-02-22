@@ -10,14 +10,14 @@ const PhoneSignUpPage = ({ formData, updateFormData, nextStep }) => {
         updateFormData("phone", phone);
 
         // 전화번호 유효성 검사 (정규식)
-        const phoneRegex = /^010-\d{4}-\d{4}$/;
+        const phoneRegex = /^(010-\d{4}-\d{4}|010\d{8})$/;
         if (phoneRegex.test(phone)) {
             setShowError(false);
         }
     };
 
     const handleNext = () => {
-        if (!formData.phone.match(/^010-\d{4}-\d{4}$/)) {
+        if (!formData.phone.match(/^(010-\d{4}-\d{4}|010\d{8})$/)) {
             setShowError(true);
             return;
         }
@@ -38,8 +38,8 @@ const PhoneSignUpPage = ({ formData, updateFormData, nextStep }) => {
             <Button
                 type="button"
                 onClick={handleNext}
-                bgColor={formData.phone.match(/^010-\d{4}-\d{4}$/) ? "#FF6969" : "#BDBDBD"}
-                disabled={!formData.phone.match(/^010-\d{4}-\d{4}$/)}
+                bgColor={formData.phone.match(/^(010-\d{4}-\d{4}|010\d{8})$/) ? "#FF6969" : "#BDBDBD"}
+                disabled={!formData.phone.match(/^(010-\d{4}-\d{4}|010\d{8})$/)}
             >
                 다음
             </Button>

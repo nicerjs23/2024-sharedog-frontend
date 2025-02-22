@@ -7,7 +7,7 @@ import { WelcomePage } from "@pages/loginPage/WelcomePage";
 // import { SignUpPage } from "@pages/signUpPage/SignUpPage";
 import SignupFormContainer from "@pages/signUpPage/SignupFormContainer";
 import { LoginPage } from "@pages/loginPage/LoginPage";
-import { CommunityPage } from "@pages/communityPage/Community";
+import { CommunityNew } from "@pages/communityPage/CommunityNew";
 import { CommunitySearch } from "@pages/communityPage/CommunitySearch";
 import { ChatPage } from "@pages/chatPage/ChatPage";
 import { MyPage } from "@pages/myPage/MyPage";
@@ -33,6 +33,7 @@ import { TestResultOkPage } from "@pages/testPage/TestResultOkPage";
 import { TestResultNoPage } from "@pages/testPage/TestResultNoPage";
 import { KakaoCallbackPage } from "@pages/loginPage/KakaoCallbackPage";
 import { CommunityWrite } from "@pages/communityPage/CommunityWrite";
+import { PetSignUpLayout } from "@layout/PetSignUpLayout";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -56,27 +57,30 @@ export const router = createBrowserRouter([
         element: <SignUpLayout />,
         children: [
           { path: "", element: <SignupFormContainer /> }, // 기본 회원가입 단계 관리
-        ],
-      },
+          {
+            element: <PetSignUpLayout />,
+            children: [
+              { path: "age", element: <AgeSignUpPage /> },
+              { path: "weight", element: <WeightSignUpPage /> },
+              { path: "gen", element: <GenSignUpPage /> },
+              { path: "op", element: <OpSignUpPage /> },
+              { path: "blood", element: <BloodSignUpPage /> },
 
-      // 🔥 추가 회원가입 정보 (개별 페이지)
+              // 🔥 최종 회원가입 완료 페이지
+              { path: "last", element: <LastSignUpPage /> },
+          ]
+        },
+      ]
+    },
       { path: "signup/pro", element: <ProSignUpPage /> },
-      { path: "signup/age", element: <AgeSignUpPage /> },
-      { path: "signup/weight", element: <WeightSignUpPage /> },
-      { path: "signup/gen", element: <GenSignUpPage /> },
-      { path: "signup/op", element: <OpSignUpPage /> },
-      { path: "signup/blood", element: <BloodSignUpPage /> },
-
-      // 🔥 최종 회원가입 완료 페이지
-      { path: "signup/last", element: <LastSignUpPage /> },
     ],
-  },
+  },  
   //헌혈견테스트쪽은 아예따로 뺐음 테스트 시작화면만 디폴트레이아웃에 속하도록함
   {
     path: "community",
     element: <DefaultLayout />,
     children: [
-      { path: "", element: <CommunityPage /> },
+      { path: "", element: <CommunityNew /> },
       { path: "search", element: <CommunitySearch /> },
       { path: "write", element: <CommunityWrite /> },
     ],

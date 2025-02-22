@@ -45,7 +45,7 @@ export const AgeSignUpPage = () => {
           <S.AgeContainer>
             <S.DynamicSpan active={true}>나이(세)</S.DynamicSpan>
             <S.AgePlace
-              placeholder="예) 1세"
+              placeholder="예) 1"
               value={signupData.dog_age} // ✅ Context에서 불러오기
               onChange={handleAgeChange}
               style={{

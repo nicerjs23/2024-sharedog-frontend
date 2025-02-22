@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as S from "./CommunitySearch.styled";
 import Left from "@assets/icons/Left.svg";
 import Search from "@assets/icons/Search.svg";
 import SearchX from "@assets/icons/SearchX.svg";
 
+import { useLocation, useNavigate } from "react-router-dom";
 export const CommunitySearch = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    if (location.state?.query) {
+      setSearchTerm(location.state.query);
+    }
+  }, [location.state]);
 
   const handleClearSearch = () => {
     setSearchTerm("");
@@ -16,7 +25,7 @@ export const CommunitySearch = () => {
       <S.Wrapper>
         <S.Header>
           <S.HeaderLeft>
-            <img src={Left} alt="백 버튼"/>
+            <img src={Left} alt="백 버튼" />
           </S.HeaderLeft>
           <S.HeaderRight>
             <S.RightContainer>

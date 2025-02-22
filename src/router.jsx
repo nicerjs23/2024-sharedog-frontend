@@ -7,7 +7,7 @@ import { WelcomePage } from "@pages/loginPage/WelcomePage";
 // import { SignUpPage } from "@pages/signUpPage/SignUpPage";
 import SignupFormContainer from "@pages/signUpPage/SignupFormContainer";
 import { LoginPage } from "@pages/loginPage/LoginPage";
-import { CommunityPage } from "@pages/communityPage/Community";
+import { CommunityNew } from "@pages/communityPage/CommunityNew";
 import { CommunitySearch } from "@pages/communityPage/CommunitySearch";
 import { ChatPage } from "@pages/chatPage/ChatPage";
 import { MyPage } from "@pages/myPage/MyPage";
@@ -76,7 +76,7 @@ export const router = createBrowserRouter([
     path: "community",
     element: <DefaultLayout />,
     children: [
-      { path: "", element: <CommunityPage /> },
+      { path: "", element: <CommunityNew /> },
       { path: "search", element: <CommunitySearch /> },
       { path: "write", element: <CommunityWrite /> },
     ],

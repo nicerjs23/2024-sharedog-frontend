@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 import Next from "@assets/icons/Next.svg";
 import { useKakaoAuth } from "@hooks/useKakaoAuth"; // useKakaoAuth 훅 가져오기
 import axios from "@apis/axiosInstance"; // axiosInstance 가져오기
-import LeftButton from "@assets/icons/Left.svg";
+import backIconNew from "@assets/icons/backIconNew.svg";
 
 export const AccountManagement = () => {
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false); // 로그아웃 모달 상태
-  const [isWithdrawModalOpen, setIsWithdrawModalOpen] = useState(false); // 탈퇴 모달 상태
+  const [isWithdrawModalOpen, setIsWithdrawModalOpen] =
+    useState(false); // 탈퇴 모달 상태
   const [email, setEmail] = useState(""); // 이메일 상태 추가
   const navigate = useNavigate();
   const BackClick = () => {
@@ -58,15 +59,17 @@ export const AccountManagement = () => {
     <S.Wrapper>
       <S.Header>
         <S.BackButton>
-          <img src={LeftButton} alt="백 버튼" onClick={BackClick} />
+          <img src={backIconNew} alt="백 버튼" onClick={BackClick} />
         </S.BackButton>
         <div>계정 관리</div>
         <S.Blank></S.Blank>
       </S.Header>
       <S.InfoBox>
         <S.CategoryText>계정 정보</S.CategoryText>
+        {/* 왜안올라갔지 */}
         <S.CategoryDetail>
-          카카오 로그인<S.MailText> {email && `${email}`}</S.MailText>
+          로그인 계정
+          <S.MailText> {email && `${email}`}</S.MailText>
         </S.CategoryDetail>
         <S.CategoryText>계정 관리</S.CategoryText>
         <S.CategoryDetail onClick={() => setIsLogoutModalOpen(true)}>
@@ -75,7 +78,9 @@ export const AccountManagement = () => {
             <img src={Next} alt="다음 아이콘" />
           </S.NextIcon>
         </S.CategoryDetail>
-        <S.CategoryDetail onClick={() => setIsWithdrawModalOpen(true)}>
+        <S.CategoryDetail
+          onClick={() => setIsWithdrawModalOpen(true)}
+        >
           회원 탈퇴{" "}
           <S.NextIcon>
             <img src={Next} alt="다음 아이콘" />
@@ -89,10 +94,15 @@ export const AccountManagement = () => {
           <S.ModalBox>
             <p>로그아웃 하시겠어요?</p>
             <S.ModalButtonContainer>
-              <S.ModalButton cancel onClick={() => setIsLogoutModalOpen(false)}>
+              <S.ModalButton
+                cancel
+                onClick={() => setIsLogoutModalOpen(false)}
+              >
                 취소
               </S.ModalButton>
-              <S.ModalButton onClick={handleLogout}>로그아웃</S.ModalButton>
+              <S.ModalButton onClick={handleLogout}>
+                로그아웃
+              </S.ModalButton>
             </S.ModalButtonContainer>
           </S.ModalBox>
         </S.ModalOverlay>
@@ -110,7 +120,9 @@ export const AccountManagement = () => {
               >
                 취소
               </S.ModalButton>
-              <S.ModalButton onClick={handleWithdraw}>탈퇴</S.ModalButton>
+              <S.ModalButton onClick={handleWithdraw}>
+                탈퇴
+              </S.ModalButton>
             </S.ModalButtonContainer>
           </S.ModalBox>
         </S.ModalOverlay>

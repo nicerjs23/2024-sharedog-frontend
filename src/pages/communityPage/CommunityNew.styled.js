@@ -12,7 +12,6 @@ export const Wrapper = styled.section`
 `;
 
 export const Contents = styled.div`
-  border: 1px solid blue;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,6 +20,7 @@ export const Contents = styled.div`
   min-width: 330px;
 
   gap: 20px;
+  margin-bottom: 98px;
 `;
 
 export const Title = styled.div`
@@ -31,10 +31,11 @@ export const Title = styled.div`
     theme.fonts.SUITExtraBold["font-family"]};
 `;
 
-export const NavContainer = styled.div`
+export const TopContentsContainer = styled.div`
   display: flex;
   width: 97%;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   gap: 20px;
 `;
@@ -105,4 +106,69 @@ export const SearchInput = styled.input`
     color: #ffa1a1;
     opacity: 1;
   }
+`;
+
+export const NavContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  max-width: 330px;
+  margin-top: 4px;
+`;
+
+export const Nav = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+`;
+
+export const NavIcon = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 49px;
+  height: 49px;
+  border-radius: 49px;
+  background: #ffecec;
+  img {
+    display: flex;
+    height: 20px;
+    width: auto;
+  }
+
+  ${({ $isSelected }) =>
+    $isSelected &&
+    `
+    border: 1px solid #ff6969;
+
+  `}
+`;
+
+export const NavText = styled.div`
+  display: flex;
+  font-size: 0.75rem;
+  font-family: ${({ theme }) =>
+    theme.fonts.SUITSemiBold["font-family"]};
+  color: #dadada;
+
+  ${({ $isSelected }) =>
+    $isSelected &&
+    `
+      color: #ff6969;
+
+  `}
+`;
+
+export const Line = styled.div`
+  width: 100%;
+  background-color: #eee;
+  height: 1px;
+`;
+
+export const DropDownContainer = styled.div`
+  display: flex;
+  width: 100%;
+  gap: 12px;
 `;

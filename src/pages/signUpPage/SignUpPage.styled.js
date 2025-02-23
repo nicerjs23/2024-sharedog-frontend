@@ -294,7 +294,6 @@ export const BloodWrapper = styled.section`
 
 export const BloodSelect = styled.div`
   display: flex;
-  width: 74px;
   height: 14px;
   flex-direction: column;
   justify-content: center;

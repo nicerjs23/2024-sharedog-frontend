@@ -289,9 +289,10 @@ export const BloodWrapper = styled.section`
   border-radius: 20px;
   border: 1px solid #E7E8EB;
   background: #FFF;
+  color: #E7E8EB;
 `;
 
-export const BloodSelect = styled.input`
+export const BloodSelect = styled.div`
   display: flex;
   width: 74px;
   height: 14px;
@@ -434,7 +435,7 @@ export const DropdownItemBottom = styled.div`
   }
 `;
 
-export const DynamicSpan = styled.span`
+export const DynamicSpan = styled.div`
   display: flex;
   height: 13px;
   flex-direction: column;

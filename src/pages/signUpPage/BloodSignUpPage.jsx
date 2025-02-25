@@ -2,6 +2,7 @@ import * as S from "./SignUpPage.styled";
 import Button from "@components/common/CommonButton";
 import { useState } from "react";
 import Check from "@assets/icons/Check.svg";
+import RedCheck from "@assets/icons/RedCheck.svg";
 import Drop from "@assets/icons/Drop.svg";
 import { useNavigate } from "react-router-dom";
 import { useSignup } from "../../context/SignupContext"; // ✅ Context API 사용
@@ -41,13 +42,11 @@ export const BloodSignUpPage = () => {
           </S.Text>
           <S.BloodContainer>
             <S.DynamicSpan active={true}>혈액형</S.DynamicSpan>
-            <S.BloodWrapper>
-              <S.BloodSelect
-                onClick={toggleDropdown}
-                value={signupData.blood || "혈액형 선택"} // ✅ Context에서 불러오기
-                readOnly
-              />
-              <S.Drop src={Drop} alt="드롭다운" onClick={toggleDropdown} />
+            <S.BloodWrapper onClick={toggleDropdown}>
+              <S.BloodSelect>
+                {signupData.blood ? signupData.blood : "혈액형 선택"}
+              </S.BloodSelect>
+              <S.Drop src={Drop} alt="드롭다운" />
               {isOpen && (
                 <S.DropdownContent>
                   <S.DropdownItemTop onClick={() => selectOption("잘 모르겠어요")}>잘 모르겠어요</S.DropdownItemTop>
@@ -69,21 +68,39 @@ export const BloodSignUpPage = () => {
             <S.OpSelect>
               <S.OBtn
                 style={{
-                  opacity: signupData.neuter === "yes" ? 1 : 0.5,
+                  border:
+                    signupData.neuter === "yes"
+                      ? "1px solid #FFC5C5"
+                      : "1px solid #E7E8EB",
+                  background:
+                    signupData.neuter === "yes" ? "#FFD7D7" : "transparent",
                   cursor: "default",
                 }}
               >
-                <S.Check src={Check} alt="체크표시" />
-                <S.OpText>했어요</S.OpText>
+                <S.Check src={signupData.neuter === "yes" ? RedCheck : Check} alt="체크표시" />
+                <S.OpText 
+                  style={{
+                    color: signupData.neuter === "yes" ? "#FF6969" : "#BDBDBD", // 텍스트 색상 변경
+                  }}
+                >했어요</S.OpText>
               </S.OBtn>
               <S.XBtn
                 style={{
-                  opacity: signupData.neuter === "no" ? 1 : 0.5,
+                  border:
+                    signupData.neuter === "no"
+                      ? "1px solid #FFC5C5"
+                      : "1px solid #E7E8EB",
+                  background:
+                    signupData.neuter === "no" ? "#FFD7D7" : "transparent",
                   cursor: "default",
                 }}
               >
-                <S.Check src={Check} alt="체크표시" />
-                <S.OpText>안했어요</S.OpText>
+                <S.Check src={signupData.neuter === "no" ? RedCheck : Check} alt="체크표시" />
+                <S.OpText
+                  style={{
+                    color: signupData.neuter === "no" ? "#FF6969" : "#BDBDBD", // 텍스트 색상 변경
+                  }}
+                >안했어요</S.OpText>
               </S.XBtn>
             </S.OpSelect>
           </S.OpContainer>
@@ -93,21 +110,31 @@ export const BloodSignUpPage = () => {
             <S.GenderSelect>
               <S.WBtn
                 style={{
-                  opacity: signupData.gender === "female" ? 1 : 0.5,
+                  border: signupData.gender === "female" ? "1px solid #FFC5C5" : "1px solid #E7E8EB",
+                  background: signupData.gender === "female" ? "#FFD7D7" : "transparent",
                   cursor: "default",
                 }}
               >
-                <S.Check src={Check} alt="체크표시" />
-                <S.GenText>여아</S.GenText>
+                <S.Check src={signupData.gender === "female" ? RedCheck : Check} alt="체크표시" />
+                <S.GenText
+                  style={{
+                    color: signupData.gender === "female" ? "#FF6969" : "#BDBDBD", // 텍스트 색상 변경
+                  }}
+                >여아</S.GenText>
               </S.WBtn>
               <S.MBtn
                 style={{
-                  opacity: signupData.gender === "male" ? 1 : 0.5,
+                  border: signupData.gender === "male" ? "1px solid #FFC5C5" : "1px solid #E7E8EB",
+                  background: signupData.gender === "male" ? "#FFD7D7" : "transparent",
                   cursor: "default",
                 }}
               >
-                <S.Check src={Check} alt="체크표시" />
-                <S.GenText>남아</S.GenText>
+                <S.Check src={signupData.gender === "male" ? RedCheck : Check} alt="체크표시" />
+                <S.GenText
+                  style={{
+                    color: signupData.gender === "male" ? "#FF6969" : "#BDBDBD", // 텍스트 색상 변경
+                  }}
+                >남아</S.GenText>
               </S.MBtn>
             </S.GenderSelect>
           </S.GenderContainer>

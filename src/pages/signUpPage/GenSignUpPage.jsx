@@ -36,7 +36,6 @@ export const GenSignUpPage = () => {
               <S.WBtn
                 onClick={() => handleGenClick("female")}
                 style={{
-                  borderRadius: "15px",
                   border:
                     signupData.gender === "female"
                       ? "1px solid #FFC5C5"
@@ -63,7 +62,6 @@ export const GenSignUpPage = () => {
               <S.MBtn
                 onClick={() => handleGenClick("male")}
                 style={{
-                  borderRadius: "15px",
                   border:
                     signupData.gender === "male"
                       ? "1px solid #FFC5C5"

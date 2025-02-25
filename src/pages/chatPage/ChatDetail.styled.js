@@ -27,6 +27,15 @@ export const ChatHeader = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 14px;
+
+  position: fixed;
+  width: 100%;
+  max-width: 540px;
+  padding: 0 30px;
+  box-sizing: border-box;
+  top: 0; /* 최상단에 고정 */
+  background-color: ${({ theme }) => theme.colors.pageBgColor};
+  z-index: 100; /* 다른 요소 위에 배치 */
 `;
 
 export const BackIcon = styled.img`

@@ -8,7 +8,6 @@ export const Wrapper = styled.section`
   justify-content: center;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.pageBgColor};
-  /* position: fixed; */
 `;
 
 export const Contents = styled.div`
@@ -171,4 +170,25 @@ export const DropDownContainer = styled.div`
   display: flex;
   width: 100%;
   gap: 12px;
+`;
+
+export const WriteBtn = styled.img`
+  position: fixed; /* 화면 고정 */
+  width: 55px;
+  height: 55px;
+  bottom: 108px;
+  right: calc((50% - 540px / 2) + 20px); /* 부모 요소 안에서 정렬 */
+
+  cursor: pointer;
+  z-index: 100;
+
+  @media (max-width: 540px) {
+    right: 20px; /* 화면이 작아지면 버튼 위치 조정 */
+  }
+
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: ${(props) => (props.$isVisible ? 1 : 0)};
+  transform: ${(props) =>
+    props.$isVisible ? "translateY(0)" : "translateY(20px)"};
+  pointer-events: ${(props) => (props.$isVisible ? "auto" : "none")};
 `;

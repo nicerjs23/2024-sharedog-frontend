@@ -45,12 +45,16 @@ export const CommunitySearch = () => {
     }
   };
 
+  const handleBack = () => {
+    navigate("/community");
+  }
+
   return (
     <>
       <S.Wrapper>
         <S.Header>
           <S.HeaderLeft>
-            <img src={Left} alt="백 버튼" />
+            <img src={Left} onClick={handleBack} alt="백 버튼" />
           </S.HeaderLeft>
           <S.HeaderRight>
             <S.RightContainer>

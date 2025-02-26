@@ -106,12 +106,11 @@ export const MiddleContainer = styled.div`
 
 export const MiddleContent = styled.div`
   display: flex;
-  width: 327px;
+  width: 88%;
 
   justify-content: space-between;
   align-items: center;
-  align-self: stretch;
-  margin: 0 24px 30px 24px;
+  margin-bottom: 30px;
 `;
 
 export const ResultContainer = styled.div`

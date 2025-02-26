@@ -39,12 +39,12 @@ export const CommonFooter = () => {
             커뮤니티
           </S.IconText>
         </S.IconBox>
-        <S.IconBox onClick={() => handleIconClick("/chat")}>
+        <S.IconBox onClick={() => handleIconClick("/chatList")}>
           <S.Icon
-            src={pathname === "/chat" ? ChatIconActive : ChatIcon}
+            src={pathname === "/chatList" ? ChatIconActive : ChatIcon}
             alt="채팅아이콘"
           />
-          <S.IconText $isActive={pathname === "/chat"}>
+          <S.IconText $isActive={pathname === "/chatList"}>
             채팅
           </S.IconText>
         </S.IconBox>

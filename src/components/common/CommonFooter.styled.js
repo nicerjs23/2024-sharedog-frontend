@@ -9,7 +9,9 @@ export const Wrapper = styled.section`
   align-items: center;
   width: 100%;
   max-width: 540px;
-  height: 78px;
+  height: 88px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: 0px -6px 14px 0px rgba(47, 47, 47, 0.04);
 `;

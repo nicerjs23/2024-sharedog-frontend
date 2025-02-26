@@ -17,6 +17,7 @@ export const CommunitySearch = () => {
   useEffect(() => {
     if (location.state?.query) {
       setSearchTerm(location.state.query);
+      handleSearch(location.state.query);
     }
   }, [location.state]);
 
@@ -25,12 +26,13 @@ export const CommunitySearch = () => {
     setSearchResults([]);
   };
 
-  const handleSearch = async () => {
-    if (!searchTerm.trim()) return;
+  const handleSearch = async (query) => {
+    const searchQuery = query || searchTerm;
+    if (!searchQuery.trim()) return;
 
     try {
       const response = await axiosInstance.get("/api/community/home", {
-        params: { search: searchTerm },
+        params: { search: searchQuery },
       });
       setSearchResults(response.data);
       console.log(response.data);

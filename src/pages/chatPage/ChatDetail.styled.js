@@ -18,6 +18,8 @@ export const Contents = styled.div`
   width: 100%;
 
   min-width: 300px;
+
+  margin-top: 64px;
 `;
 
 export const ChatHeader = styled.div`
@@ -26,7 +28,6 @@ export const ChatHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 14px;
 
   position: fixed;
   width: 100%;

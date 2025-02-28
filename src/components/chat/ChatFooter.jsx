@@ -3,9 +3,23 @@ import cameraIcon from "@assets/icons/ChatCamera.svg";
 import sendIcon from "@assets/icons/ChatSend.svg";
 import xIcon from "@assets/icons/X.svg";
 import { useState } from "react";
-const ChatFooter = () => {
-  const [previewImage, setPreviewImage] = useState(null);
-  // 파일 선택 시 미리보기 설정
+import axiosInstance from "@apis/axiosInstance";
+const ChatFooter = ({
+  ws,
+  roomId,
+  currentUserEmail,
+  setChatData,
+}) => {
+  const [message, setMessage] = useState(""); // 입력된 텍스트
+  const [previewImage, setPreviewImage] = useState(null); // 이미지 미리보기
+  const [imageFile, setImageFile] = useState(null); // 실제 전송할 이미지 파일
+
+  // 📌 메시지 입력 핸들러
+  const handleInputChange = (e) => {
+    setMessage(e.target.value);
+  };
+
+  // 📌 이미지 업로드 핸들러
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -14,16 +28,63 @@ const ChatFooter = () => {
         setPreviewImage(reader.result); // 이미지 URL 저장
       };
       reader.readAsDataURL(file);
+      setImageFile(file);
     }
   };
 
-  // 이미지 미리보기 삭제
+  // 📌 이미지 미리보기 삭제
   const handleRemovePreview = () => {
     setPreviewImage(null);
+    setImageFile(null);
   };
+  //메세지전송
+  const sendMessage = () => {
+    if (!message.trim()) return;
+
+    const tempId = `temp-${Date.now()}`; // ✅ 임시 ID 생성
+    const newMessage = {
+      id: tempId,
+      message: message.trim(),
+      sender_email: currentUserEmail,
+      formatted_time: "방금",
+      is_sender: true,
+    };
+
+    // ✅ UI에서 먼저 추가 (즉시 보이도록)
+    setChatData((prevData) => {
+      const today = new Date().toISOString().split("T")[0];
+      const lastChat = prevData.find((chat) => chat.date === today);
+
+      if (lastChat) {
+        return prevData.map((chat) =>
+          chat.date === today
+            ? { ...chat, messages: [...chat.messages, newMessage] }
+            : chat
+        );
+      } else {
+        return [...prevData, { date: today, messages: [newMessage] }];
+      }
+    });
+
+    // ✅ 웹소켓으로 메시지 전송
+    const messageData = JSON.stringify({
+      message: message.trim(),
+      sender_email: currentUserEmail,
+    });
+
+    if (ws.current && ws.current.readyState === WebSocket.OPEN) {
+      console.log("📤 웹소켓으로 메시지 전송:", messageData);
+      ws.current.send(messageData);
+    } else {
+      console.error("❌ 웹소켓 연결이 닫혀 있음!");
+    }
+
+    setMessage(""); // 입력창 초기화
+  };
+
   return (
     <Wrapper>
-      {/* 사진 미리보기 (이미지 있을 때만 보이게) */}
+      {/* 📌 사진 미리보기 (있을 때만 표시) */}
       {previewImage && (
         <PreviewContainer>
           <CloseButton onClick={handleRemovePreview}>
@@ -32,7 +93,10 @@ const ChatFooter = () => {
           <PreviewImage src={previewImage} alt="미리보기" />
         </PreviewContainer>
       )}
+
+      {/* 📌 메시지 입력 UI */}
       <ChatSendBox>
+        {/* 이미지 업로드 버튼 */}
         <input
           type="file"
           accept="image/*"
@@ -46,11 +110,21 @@ const ChatFooter = () => {
           onClick={() => document.getElementById("fileInput").click()}
           style={{ width: "20px", height: "20px" }}
         />
-        <ChatText placeholder="메시지를 작성해주세요." />
+
+        {/* 메시지 입력창 */}
+        <ChatText
+          placeholder="메시지를 작성해주세요."
+          value={message}
+          onChange={handleInputChange}
+          onKeyDown={(e) => e.key === "Enter" && sendMessage()} // 엔터로 전송
+        />
+
+        {/* 전송 버튼 */}
         <img
           src={sendIcon}
           alt="전송아이콘"
-          style={{ width: "10px", height: "10px" }}
+          onClick={sendMessage}
+          style={{ width: "15px", height: "15px" }}
         />
       </ChatSendBox>
     </Wrapper>

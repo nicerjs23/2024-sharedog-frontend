@@ -11,10 +11,29 @@ import { useNavigate } from "react-router-dom";
 
 import DropDown from "@components/community/DropDown";
 import axiosInstance from "@apis/axiosInstance";
-
+import writeIcon from "@assets/icons/writeIcon.svg";
 export const CommunityNew = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
+
+  const [showButton, setShowButton] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  // 📌 스크롤 이벤트 핸들러
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY) {
+        // 아래로 스크롤하면 숨김
+        setShowButton(false);
+      } else {
+        // 위로 스크롤하면 다시 표시
+        setShowButton(true);
+      }
+      setLastScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   const [selectedNav, setSelectedNav] = useState("blood");
   const navItems = [
@@ -182,6 +201,12 @@ export const CommunityNew = () => {
           <div>게시글이 없습니다.</div>
         )}
       </S.Contents>
+      <S.WriteBtn
+        src={writeIcon}
+        alt="글쓰기아이콘"
+        onClick={() => navigate("/community/write")}
+        $isVisible={showButton}
+      />
     </S.Wrapper>
   );
 };

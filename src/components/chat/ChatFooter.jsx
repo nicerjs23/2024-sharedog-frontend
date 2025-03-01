@@ -3,13 +3,8 @@ import cameraIcon from "@assets/icons/ChatCamera.svg";
 import sendIcon from "@assets/icons/ChatSend.svg";
 import xIcon from "@assets/icons/X.svg";
 import { useState } from "react";
-import axiosInstance from "@apis/axiosInstance";
-const ChatFooter = ({
-  ws,
-  roomId,
-  currentUserEmail,
-  setChatData,
-}) => {
+
+const ChatFooter = ({ ws, currentUserEmail }) => {
   const [message, setMessage] = useState(""); // 입력된 텍스트
   const [previewImage, setPreviewImage] = useState(null); // 이미지 미리보기
   const [imageFile, setImageFile] = useState(null); // 실제 전송할 이미지 파일
@@ -37,43 +32,30 @@ const ChatFooter = ({
     setPreviewImage(null);
     setImageFile(null);
   };
-  //메세지전송
+
+  // 📌 메시지 전송
   const sendMessage = () => {
-    if (!message.trim()) return;
+    if (!message.trim()) return; // 빈 메시지 전송 방지
 
-    const tempId = `temp-${Date.now()}`; // ✅ 임시 ID 생성
-    const newMessage = {
-      id: tempId,
-      message: message.trim(),
-      sender_email: currentUserEmail,
-      formatted_time: "방금",
-      is_sender: true,
-    };
+    // ✅ 현재 시간 포맷 생성
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const period = hours >= 12 ? "오후" : "오전";
+    const formattedTime = `${period} ${hours % 12 || 12}:${minutes
+      .toString()
+      .padStart(2, "0")}`;
 
-    // ✅ UI에서 먼저 추가 (즉시 보이도록)
-    setChatData((prevData) => {
-      const today = new Date().toISOString().split("T")[0];
-      const lastChat = prevData.find((chat) => chat.date === today);
-
-      if (lastChat) {
-        return prevData.map((chat) =>
-          chat.date === today
-            ? { ...chat, messages: [...chat.messages, newMessage] }
-            : chat
-        );
-      } else {
-        return [...prevData, { date: today, messages: [newMessage] }];
-      }
-    });
-
-    // ✅ 웹소켓으로 메시지 전송
+    // ✅ 웹소켓으로 보낼 메시지 객체
     const messageData = JSON.stringify({
       message: message.trim(),
       sender_email: currentUserEmail,
+      formatted_time: formattedTime, // ✅ 시간 추가
     });
 
+    console.log("📤 웹소켓으로 메시지 전송:", messageData);
+
     if (ws.current && ws.current.readyState === WebSocket.OPEN) {
-      console.log("📤 웹소켓으로 메시지 전송:", messageData);
       ws.current.send(messageData);
     } else {
       console.error("❌ 웹소켓 연결이 닫혀 있음!");
@@ -133,8 +115,8 @@ const ChatFooter = ({
 
 export default ChatFooter;
 
+// ✅ 스타일 코드 (기존과 동일)
 export const Wrapper = styled.section`
-  /* border: 1px solid green; */
   position: fixed;
   bottom: 0;
   display: flex;
@@ -142,7 +124,7 @@ export const Wrapper = styled.section`
   align-items: center;
   width: 100%;
   max-width: 540px;
-  height: 82px; //67+15px
+  height: 82px;
   padding: 0 18px;
   padding-bottom: 15px;
   box-sizing: border-box;
@@ -194,7 +176,6 @@ const CloseButton = styled.button`
   position: absolute;
   top: 0px;
   right: 0px;
-
   cursor: pointer;
   width: 20px;
   height: 20px;
@@ -212,5 +193,5 @@ const CloseButton = styled.button`
 const PreviewImage = styled.img`
   max-width: 300px;
   max-height: 150px;
-  border-radius: 10px; /* ✅ 둥글게 만들기 */
+  border-radius: 10px;
 `;

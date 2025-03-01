@@ -1,6 +1,5 @@
 import * as S from "./ChatDetail.styled";
 import backIconNew from "@assets/icons/backIconNew.svg";
-
 import ChatFooter from "@components/chat/ChatFooter";
 import MyChat from "@components/chat/MyChat";
 import PeerChat from "@components/chat/PeerChat";
@@ -8,19 +7,19 @@ import postImg2 from "@assets/images/postImg2.png";
 import { useCustomNavigate } from "@hooks/useCustomNavigate";
 import axiosInstance from "@apis/axiosInstance";
 import { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom"; // useParams 추가
+import { useParams } from "react-router-dom";
 
 export const ChatDetailPage = () => {
   const { goTo, goBack } = useCustomNavigate();
-  const { id } = useParams(); // URL에서 roomId 가져오기
-  const roomId = parseInt(id, 10); // 문자열을 숫자로 변환
-  const [chatData, setChatData] = useState([]); // 날짜별 메시지 데이터
-  const [currentUserId, setCurrentUserId] = useState(null); // 로그인한 유저 ID
-  const [opponentName, setOpponentName] = useState(""); // 상대방 이름
+  const { id } = useParams();
+  const roomId = parseInt(id, 10);
+  const [chatData, setChatData] = useState([]);
+  const [currentUserEmail, setCurrentUserEmail] = useState("");
+  const [opponentName, setOpponentName] = useState("");
+  const [isDataLoaded, setIsDataLoaded] = useState(false); // ✅ 데이터 로딩 상태 추가
   const ws = useRef(null);
-  const chatEndRef = useRef(null); // ✅ 최신 채팅 위치로 이동할 Ref 추가
-  const [currentUserEmail, setCurrentUserEmail] = useState(""); // ✅ 이메일 추가
-  // 📌 1. 기존 채팅 불러오기 (날짜별 그룹화)
+  const chatEndRef = useRef(null);
+
   const fetchMessages = async () => {
     try {
       console.log(`📌 GET 요청: /api/chat/${roomId}/messages`);
@@ -31,23 +30,26 @@ export const ChatDetailPage = () => {
 
       if (response.data) {
         const { user_info, messages_by_date } = response.data;
-
-        // 📌 현재 로그인한 유저 ID 저장
-        setCurrentUserId(user_info.current_user.user_id);
-
-        // 📌 상대방 이름 저장
+        setCurrentUserEmail(user_info.current_user.email || "");
         setOpponentName(user_info.opponent.name);
-
-        // 📌 채팅 데이터 저장 (날짜별 메시지)
         setChatData(messages_by_date);
-        // ✅ 이메일 저장
-        setCurrentUserEmail(user_info.current_user.email);
+        setIsDataLoaded(true); // ✅ 데이터 로딩 완료
       }
     } catch (error) {
       console.error("❌ 채팅 데이터 불러오기 실패:", error);
     }
   };
-  // ✅ 웹소켓 연결 함수
+
+  useEffect(() => {
+    if (!roomId) return;
+    fetchMessages();
+  }, [roomId]);
+
+  useEffect(() => {
+    if (!currentUserEmail) return;
+    connectWebSocket();
+  }, [currentUserEmail]);
+
   const connectWebSocket = () => {
     if (ws.current && ws.current.readyState === WebSocket.OPEN)
       return;
@@ -60,9 +62,7 @@ export const ChatDetailPage = () => {
       return;
     }
 
-    // ✅ 토큰을 URL에 포함하여 웹소켓 연결
     const socketUrl = `wss://sharedog.shop/ws/room/${roomId}/messages?token=${token}`;
-
     console.log(`📌 웹소켓 연결 시도: ${socketUrl}`);
 
     ws.current = new WebSocket(socketUrl);
@@ -71,62 +71,54 @@ export const ChatDetailPage = () => {
       console.log("✅ 웹소켓 연결 성공!");
     };
     ws.current.onmessage = (event) => {
-      console.log("📩 웹소켓 메시지 수신:", event.data);
       let newMessage;
-
       try {
         newMessage = JSON.parse(event.data);
+        console.log("📩 웹소켓 메시지 수신:", newMessage);
       } catch (error) {
         console.error("❌ JSON 파싱 오류:", error);
         return;
       }
 
-      // 🚨 빈 메시지 필터링
-      if (!newMessage.message?.trim()) {
-        console.warn(
-          "⚠️ 빈 메시지 수신 - 추가하지 않음:",
-          newMessage
-        );
-        return;
-      }
+      console.log("현재 유저 이메일:", currentUserEmail);
+      console.log(
+        "받은 메시지 발신자 이메일:",
+        newMessage.sender_email
+      );
 
-      // 🚨 한글이 깨지는 경우, 디코딩 시도
-      try {
-        newMessage.message = decodeURIComponent(
-          escape(newMessage.message)
-        );
-      } catch (e) {
-        console.warn("⚠️ 메시지 디코딩 실패:", newMessage.message);
-      }
+      const isSender =
+        newMessage.sender_email.trim().toLowerCase() ===
+        currentUserEmail.trim().toLowerCase();
+
+      const now = new Date();
+      const formattedTime = `${
+        now.getHours() >= 12 ? "오후" : "오전"
+      } ${now.getHours() % 12 || 12}:${now
+        .getMinutes()
+        .toString()
+        .padStart(2, "0")}`;
+
+      console.log("📤 보낸 메시지의 시간:", formattedTime);
+
+      const formattedMessage = {
+        ...newMessage,
+        text: newMessage.message,
+        is_sender: isSender,
+        formatted_time: formattedTime,
+      };
 
       setChatData((prevData) => {
-        const lastDate = prevData[prevData.length - 1]?.date;
-        if (lastDate === newMessage.date) {
-          return prevData.map((day) =>
-            day.date === lastDate
-              ? {
-                  ...day,
-                  messages: [
-                    ...day.messages,
-                    {
-                      ...newMessage,
-                      id: newMessage.id || Date.now(),
-                    },
-                  ],
-                }
-              : day
-          );
-        } else {
-          return [
-            ...prevData,
-            {
-              date: newMessage.date,
-              messages: [
-                { ...newMessage, id: newMessage.id || Date.now() },
-              ],
-            },
-          ];
-        }
+        if (!isDataLoaded) return prevData; // 데이터가 로드되지 않았다면 변경하지 않음
+
+        // ✅ WebSocket 메시지는 날짜를 추가하지 않고, 기존 날짜 그룹에 메시지만 추가
+        return prevData.map((chat) =>
+          chat.date === prevData[prevData.length - 1].date
+            ? {
+                ...chat,
+                messages: [...chat.messages, formattedMessage],
+              }
+            : chat
+        );
       });
 
       scrollToBottom();
@@ -142,29 +134,13 @@ export const ChatDetailPage = () => {
         event.code,
         event.reason
       );
-
-      // 1000 (정상 종료) 외에는 자동 재연결
       if (event.code !== 1000) {
         console.log("🔄 웹소켓 자동 재연결 시도...");
-        setTimeout(connectWebSocket, 2000); // 2초 후 재연결
+        setTimeout(connectWebSocket, 2000);
       }
     };
   };
 
-  useEffect(() => {
-    if (!roomId) return;
-
-    fetchMessages();
-    connectWebSocket();
-
-    return () => {
-      if (ws.current) {
-        ws.current.close();
-      }
-    };
-  }, [roomId]);
-
-  // ✅ 3️⃣ 채팅이 갱신될 때 스크롤을 맨 아래로 이동
   const scrollToBottom = () => {
     if (chatEndRef.current) {
       chatEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -172,13 +148,12 @@ export const ChatDetailPage = () => {
   };
 
   useEffect(() => {
-    scrollToBottom(); // ✅ 채팅 데이터가 변경될 때마다 실행
+    scrollToBottom();
   }, [chatData]);
 
   return (
     <S.Wrapper>
       <S.Contents>
-        {/* 채팅헤더 */}
         <S.ChatHeader>
           <S.BackIcon
             src={backIconNew}
@@ -189,18 +164,13 @@ export const ChatDetailPage = () => {
           <S.HeaderPromise>약속잡기</S.HeaderPromise>
         </S.ChatHeader>
 
-        {/* 📌 날짜별 메시지 렌더링 */}
         {chatData.map((chatGroup) => (
           <div style={{ width: "100%" }} key={chatGroup.date}>
-            {" "}
-            {/* ✅ date를 key로 사용 */}
             <S.Date>{chatGroup.date}</S.Date>
             {chatGroup.messages.map((msg, index) => (
               <S.ChatContainer
                 key={msg.id || `${chatGroup.date}-${index}`}
               >
-                {" "}
-                {/* ✅ msg.id가 없을 경우, 안전한 key 값 사용 */}
                 {msg.is_sender ? (
                   <MyChat time={msg.formatted_time} text={msg.text} />
                 ) : (
@@ -216,14 +186,7 @@ export const ChatDetailPage = () => {
         ))}
         <div ref={chatEndRef} />
       </S.Contents>
-
-      {/* ✅ ChatFooter에 웹소켓 인스턴스 전달 */}
-      <ChatFooter
-        ws={ws}
-        roomId={roomId}
-        currentUserEmail={currentUserEmail}
-        setChatData={setChatData}
-      />
+      <ChatFooter ws={ws} currentUserEmail={currentUserEmail} />
     </S.Wrapper>
   );
 };

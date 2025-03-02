@@ -3,9 +3,18 @@ import cameraIcon from "@assets/icons/ChatCamera.svg";
 import sendIcon from "@assets/icons/ChatSend.svg";
 import xIcon from "@assets/icons/X.svg";
 import { useState } from "react";
-const ChatFooter = () => {
-  const [previewImage, setPreviewImage] = useState(null);
-  // 파일 선택 시 미리보기 설정
+
+const ChatFooter = ({ ws, currentUserEmail }) => {
+  const [message, setMessage] = useState(""); // 입력된 텍스트
+  const [previewImage, setPreviewImage] = useState(null); // 이미지 미리보기
+  const [imageFile, setImageFile] = useState(null); // 실제 전송할 이미지 파일
+
+  // 📌 메시지 입력 핸들러
+  const handleInputChange = (e) => {
+    setMessage(e.target.value);
+  };
+
+  // 📌 이미지 업로드 핸들러
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -14,16 +23,50 @@ const ChatFooter = () => {
         setPreviewImage(reader.result); // 이미지 URL 저장
       };
       reader.readAsDataURL(file);
+      setImageFile(file);
     }
   };
 
-  // 이미지 미리보기 삭제
+  // 📌 이미지 미리보기 삭제
   const handleRemovePreview = () => {
     setPreviewImage(null);
+    setImageFile(null);
   };
+
+  // 📌 메시지 전송
+  const sendMessage = () => {
+    if (!message.trim()) return; // 빈 메시지 전송 방지
+
+    // ✅ 현재 시간 포맷 생성
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const period = hours >= 12 ? "오후" : "오전";
+    const formattedTime = `${period} ${hours % 12 || 12}:${minutes
+      .toString()
+      .padStart(2, "0")}`;
+
+    // ✅ 웹소켓으로 보낼 메시지 객체
+    const messageData = JSON.stringify({
+      message: message.trim(),
+      sender_email: currentUserEmail,
+      formatted_time: formattedTime, // ✅ 시간 추가
+    });
+
+    console.log("📤 웹소켓으로 메시지 전송:", messageData);
+
+    if (ws.current && ws.current.readyState === WebSocket.OPEN) {
+      ws.current.send(messageData);
+    } else {
+      console.error("❌ 웹소켓 연결이 닫혀 있음!");
+    }
+
+    setMessage(""); // 입력창 초기화
+  };
+
   return (
     <Wrapper>
-      {/* 사진 미리보기 (이미지 있을 때만 보이게) */}
+      {/* 📌 사진 미리보기 (있을 때만 표시) */}
       {previewImage && (
         <PreviewContainer>
           <CloseButton onClick={handleRemovePreview}>
@@ -32,7 +75,10 @@ const ChatFooter = () => {
           <PreviewImage src={previewImage} alt="미리보기" />
         </PreviewContainer>
       )}
+
+      {/* 📌 메시지 입력 UI */}
       <ChatSendBox>
+        {/* 이미지 업로드 버튼 */}
         <input
           type="file"
           accept="image/*"
@@ -46,11 +92,21 @@ const ChatFooter = () => {
           onClick={() => document.getElementById("fileInput").click()}
           style={{ width: "20px", height: "20px" }}
         />
-        <ChatText placeholder="메시지를 작성해주세요." />
+
+        {/* 메시지 입력창 */}
+        <ChatText
+          placeholder="메시지를 작성해주세요."
+          value={message}
+          onChange={handleInputChange}
+          onKeyDown={(e) => e.key === "Enter" && sendMessage()} // 엔터로 전송
+        />
+
+        {/* 전송 버튼 */}
         <img
           src={sendIcon}
           alt="전송아이콘"
-          style={{ width: "10px", height: "10px" }}
+          onClick={sendMessage}
+          style={{ width: "15px", height: "15px" }}
         />
       </ChatSendBox>
     </Wrapper>
@@ -59,8 +115,8 @@ const ChatFooter = () => {
 
 export default ChatFooter;
 
+// ✅ 스타일 코드 (기존과 동일)
 export const Wrapper = styled.section`
-  /* border: 1px solid green; */
   position: fixed;
   bottom: 0;
   display: flex;
@@ -68,7 +124,7 @@ export const Wrapper = styled.section`
   align-items: center;
   width: 100%;
   max-width: 540px;
-  height: 82px; //67+15px
+  height: 82px;
   padding: 0 18px;
   padding-bottom: 15px;
   box-sizing: border-box;
@@ -120,7 +176,6 @@ const CloseButton = styled.button`
   position: absolute;
   top: 0px;
   right: 0px;
-
   cursor: pointer;
   width: 20px;
   height: 20px;
@@ -138,5 +193,5 @@ const CloseButton = styled.button`
 const PreviewImage = styled.img`
   max-width: 300px;
   max-height: 150px;
-  border-radius: 10px; /* ✅ 둥글게 만들기 */
+  border-radius: 10px;
 `;

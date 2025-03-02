@@ -44,6 +44,8 @@ export const Cancel = styled.div`
   font-style: normal;
   font-weight: 600;
   line-height: 30px; /* 187.5% */
+
+  cursor: pointer;
 `;
 
 export const Write = styled.div`
@@ -61,6 +63,8 @@ export const Write = styled.div`
   font-style: normal;
   font-weight: 700;
   line-height: 30px; /* 187.5% */
+
+  cursor: pointer;
 `;
 
 export const Upload = styled.div`

@@ -94,11 +94,6 @@ export const CommunityWrite = () => {
 
       console.log("✅ 게시글 등록 성공:", response.data);
       setIsModalOpen(true);
-
-      setTimeout(() => {
-        setIsModalOpen(false);
-        navigate("/community");
-      }, 2000);
     } catch (error) {
       console.error("❌ 게시글 등록 실패:", error);
       alert("게시글 등록에 실패했습니다.");
@@ -120,7 +115,7 @@ export const CommunityWrite = () => {
             </S.Upload>
           </S.Header>
           {/* 모달 */}
-          <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+          <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false); navigate("/community");}} />
           <S.Category>
             <S.Title>카테고리</S.Title>
             <S.CateBox>

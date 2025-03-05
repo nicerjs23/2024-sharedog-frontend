@@ -15,6 +15,7 @@ export const Wrapper = styled.section`
 export const Container = styled.div`
   display: flex;
   width: 88%;
+  flex-direction: column;
   align-items: center;
 `;
 
@@ -25,7 +26,7 @@ export const Header = styled.div`
 `;
 
 export const Back = styled.div`
-  .img {
+  img {
     width: 11px;
     height: 17px;
   }
@@ -46,6 +47,7 @@ export const HeaderTitle = styled.div`
 export const Main = styled.div`
   display: flex;
   width: 80%;
+  flex-direction: column;
   align-items: center;
 `;
 

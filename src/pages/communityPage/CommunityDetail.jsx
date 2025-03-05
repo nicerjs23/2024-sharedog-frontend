@@ -18,6 +18,7 @@ export const CommunityDetail = () => {
       setLoading(true);
       try {
         const response = await axiosInstance.get(`/api/community/home/${id}`);
+        console.log(response.data);
         setPost(response.data);
       } catch (error) {
         console.error("❌ 게시글 불러오기 실패:", error);
@@ -50,6 +51,7 @@ export const CommunityDetail = () => {
           <S.HeaderTitle>
             <span>긴급헌혈</span>
           </S.HeaderTitle>
+          <S.Empty></S.Empty>
         </S.Header>
         <S.Main>
           <S.MainHeader>
@@ -60,7 +62,7 @@ export const CommunityDetail = () => {
                 <S.Blood>{post.blood}</S.Blood>
               </S.HeaderLeft>
               <S.HeaderRight>
-                <S.Update>{post.updated_at}</S.Update>
+                <S.Create>{post.created_at}</S.Create>
                 <S.Delete>
                   <img src={Delete} alt="삭제 버튼" />
                 </S.Delete>
@@ -68,7 +70,7 @@ export const CommunityDetail = () => {
             </S.HeaderTop>
             <S.HeaderBottom>
               <S.Title>{post.title}</S.Title>
-              <S.Write>{post.writer}</S.Write>
+              <S.Write>| {post.writer}</S.Write>
             </S.HeaderBottom>
           </S.MainHeader>
           <S.MainImg>
@@ -77,17 +79,18 @@ export const CommunityDetail = () => {
             {post.image_3 && <img src={post.image_3} alt="게시물 이미지 3" />}
           </S.MainImg>
           <S.Content>{post.content}</S.Content>
-          <S.MainBottom>
-            <S.Like>
-              <S.Icon src={Like} />
-              <S.IconNum>{post.like_cnt}</S.IconNum>
-            </S.Like>
-            <S.Cnt>
-              <S.Icon src={Comment} />
-              <S.IconNum>{post.comment_cnt}</S.IconNum>
-            </S.Cnt>
-          </S.MainBottom>
         </S.Main>
+        <S.MainBottom>
+          <S.Like>
+            <S.Icon><img src={Like} /></S.Icon>
+            <S.IconNum>{post.like_cnt}</S.IconNum>
+          </S.Like>
+          <S.Cnt>
+            <S.Icon><img src={Comment} /></S.Icon>
+            <S.IconNum>{post.comments_cnt}</S.IconNum>
+          </S.Cnt>
+        </S.MainBottom>
+        <S.Line></S.Line>
       </S.Container>
     </S.Wrapper>
   );

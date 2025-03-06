@@ -32,6 +32,7 @@ export const CommunityWrite = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newPostId, setNewPostId] = useState(null);
   const navigate = useNavigate();
 
   const isFormComplete = selectedCategory && selectedRegion && selectedBloodType
@@ -93,15 +94,20 @@ export const CommunityWrite = () => {
       });
 
       console.log("✅ 게시글 등록 성공:", response.data);
+      setNewPostId(response.data.id);
       setIsModalOpen(true);
-
-      setTimeout(() => {
-        setIsModalOpen(false);
-        navigate("/community");
-      }, 2000);
     } catch (error) {
       console.error("❌ 게시글 등록 실패:", error);
       alert("게시글 등록에 실패했습니다.");
+    }
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    if (newPostId) {
+      navigate(`/community/${newPostId}`); // ✅ 상세 페이지로 이동
+    } else {
+      navigate("/community"); // 혹시 ID가 없으면 기본 목록 페이지로 이동
     }
   };
 
@@ -120,7 +126,7 @@ export const CommunityWrite = () => {
             </S.Upload>
           </S.Header>
           {/* 모달 */}
-          <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+          <Modal isOpen={isModalOpen} onClose={handleModalClose} />
           <S.Category>
             <S.Title>카테고리</S.Title>
             <S.CateBox>

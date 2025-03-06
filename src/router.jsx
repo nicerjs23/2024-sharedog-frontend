@@ -33,6 +33,7 @@ import { TestResultOkPage } from "@pages/testPage/TestResultOkPage";
 import { TestResultNoPage } from "@pages/testPage/TestResultNoPage";
 import { KakaoCallbackPage } from "@pages/loginPage/KakaoCallbackPage";
 import { CommunityWrite } from "@pages/communityPage/CommunityWrite";
+import { CommunityDetail } from "@pages/communityPage/CommunityDetail";
 import { PetSignUpLayout } from "@layout/PetSignUpLayout";
 import { ChatDetailPage } from "@pages/chatPage/ChatDetailPage";
 export const router = createBrowserRouter([
@@ -85,6 +86,7 @@ export const router = createBrowserRouter([
       { path: "", element: <CommunityNew /> },
       { path: "search", element: <CommunitySearch /> },
       { path: "write", element: <CommunityWrite /> },
+      { path: ":id", element: <CommunityDetail /> },
     ],
   },
   {

@@ -153,7 +153,9 @@ export const Create = styled.div`
   line-height: normal;
 `;
 
-export const Delete = styled.div``;
+export const Delete = styled.div`
+  cursor: pointer;
+`;
 
 export const HeaderBottom = styled.div`
   display: flex;

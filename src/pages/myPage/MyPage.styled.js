@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Wrapper = styled.section`
   display: flex;
@@ -13,7 +13,7 @@ export const Wrapper = styled.section`
   top: 50%;
 
   font-family: ${({ theme }) =>
-    theme.fonts.SUITSemiBold["font-family"]};
+    theme.fonts.SUITSemiBold['font-family']};
 `;
 
 export const Header = styled.section`
@@ -62,7 +62,7 @@ export const NameText = styled.div`
   font-size: 18px;
 
   line-height: 1; /* 텍스트가 정렬되지 않는 경우 조정 */
-  font-family: ${({ theme }) => theme.fonts.SUITBold["font-family"]};
+  font-family: ${({ theme }) => theme.fonts.SUITBold['font-family']};
 `;
 
 export const InfoBox = styled.section`
@@ -88,7 +88,7 @@ export const CategoryText = styled.div`
 
   color: var(--Grayscale-Gray400, #8490a0);
   font-family: ${({ theme }) =>
-    theme.fonts.SUITSemiBold["font-family"]};
+    theme.fonts.SUITSemiBold['font-family']};
   font-size: 11.518px;
 
   line-height: 100%; /* 11.518px */
@@ -101,7 +101,7 @@ export const CategoryDetail = styled.div`
 
   color: var(--Grayscale-Gray600, #333d4b);
   font-family: ${({ theme }) =>
-    theme.fonts.SUITMedium["font-family"]};
+    theme.fonts.SUITMedium['font-family']};
   font-size: 13.438px;
   line-height: 160%; /* 21.5px */
   letter-spacing: -0.269px;
@@ -114,4 +114,19 @@ export const NextIcon = styled.div`
 
   width: 15.357px;
   height: 15.357px;
+`;
+
+export const Contents = styled.div`
+  border: 1px solid blue;
+  display: flex;
+  width: 88%;
+  flex-direction: column;
+`;
+export const ProfileCard = styled.div`
+  display: flex;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(234, 234, 234, 0.8);
+  background: #fff;
+  height: 88px;
 `;

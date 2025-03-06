@@ -41,6 +41,17 @@ export const CommunityDetail = () => {
     return <S.Wrapper>로딩 중...</S.Wrapper>;
   }
 
+  const deletePost = async () => {
+    try {
+      await axiosInstance.delete(`/api/community/home/${id}`);
+      alert("게시글이 삭제되었습니다.");
+      navigate("/community");
+    } catch(error) {
+      console.error("게시글 삭제 실패", error);
+      alert("게시글 삭제에 실패했습니다");
+    }
+  }
+
   return (
     <S.Wrapper>
       <S.Container>
@@ -63,7 +74,7 @@ export const CommunityDetail = () => {
               </S.HeaderLeft>
               <S.HeaderRight>
                 <S.Create>{post.created_at}</S.Create>
-                <S.Delete>
+                <S.Delete onClick={deletePost}>
                   <img src={Delete} alt="삭제 버튼" />
                 </S.Delete>
               </S.HeaderRight>

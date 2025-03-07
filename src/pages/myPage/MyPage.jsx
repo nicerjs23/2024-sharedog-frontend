@@ -1,10 +1,19 @@
 import * as S from './MyPage.styled';
-import Profile from '@assets/images/profileimg.png';
+import defaultImg from '@assets/images/profileimg.png';
 import myBackIcon from '@assets/icons/Next.svg';
+import profileEditIcon from '@assets/icons/profileEditIcon.svg';
 import { useNavigate } from 'react-router-dom'; // React Router의 useNavigate 가져오기
 
 import axiosInstance from '@apis/axiosInstance';
 import { useState, useEffect } from 'react';
+
+import MyNextBtn from '@components/mypage/MyNextBtn';
+import MyPageAccount from '@assets/icons/myPage/MyPageAccount.svg';
+import dogAccount from '@assets/icons/myPage/dogAccount.svg';
+import MypageWrite from '@assets/icons/myPage/MypageWrite.svg';
+import MyPageHeart from '@assets/icons/myPage/MypageHeart.svg';
+import MyPageInquiry from '@assets/icons/myPage/MyPageInquiry.svg';
+import MyPageNote from '@assets/icons/myPage/MyPageNote.svg';
 export const MyPage = () => {
   const navigate = useNavigate(); // useNavigate 훅 초기화
 
@@ -36,51 +45,115 @@ export const MyPage = () => {
   return (
     <S.Wrapper>
       <S.Header>마이페이지</S.Header>
-      <S.NameBox>
-        <S.ImgBox>
-          {/* 이미지가 있을 때만 렌더링 */}
-          {profileImage && (
-            <img
-              src={profileImage}
-              alt="프로필 사진"
-              style={{
-                width: '52px',
-                height: '52px',
-                borderRadius: '50%',
-              }}
-            />
-          )}
-        </S.ImgBox>
-        <S.NameText>{userName}</S.NameText>
-      </S.NameBox>
-      <S.InfoBox>
-        <S.CategoryText>내 정보</S.CategoryText>
-        <S.CategoryDetail
-          onClick={() => handleNavigate('/accountmanagement')}
-        >
-          계정 관리{' '}
-          <S.NextIcon>
-            <img src={myBackIcon} alt="다음 아이콘" />
-          </S.NextIcon>
-        </S.CategoryDetail>
-        <S.CategoryDetail onClick={() => handleNavigate('/petinfo')}>
-          반려견 정보 관리{' '}
-          <S.NextIcon>
-            <img src={myBackIcon} alt="다음 아이콘" />
-          </S.NextIcon>
-        </S.CategoryDetail>
-        <S.CategoryText>긴급헌혈 예약 내역</S.CategoryText>
-        <S.CategoryDetail
-          onClick={() => handleNavigate('/reservation')}
-        >
-          예약 내역{' '}
-          <S.NextIcon>
-            <img src={myBackIcon} alt="다음 아이콘" />
-          </S.NextIcon>
-        </S.CategoryDetail>
-      </S.InfoBox>
+
       <S.Contents>
-        <S.ProfileCard></S.ProfileCard>
+        <S.ProfileCard>
+          <S.ProfileImg
+            src={profileImage || defaultImg}
+            alt="프로필 사진"
+          />
+          <S.ProfileInfo>
+            <S.ProfileName>{userName}</S.ProfileName>
+            <S.ProfileEditBtn>
+              <img src={profileEditIcon} alt="글쓰기아이콘" />
+              <p>프로필 수정</p>
+            </S.ProfileEditBtn>
+          </S.ProfileInfo>
+        </S.ProfileCard>
+        {/* 나의정보 */}
+        <S.MyPageCard>
+          <S.CardTitle>나의 정보</S.CardTitle>
+          <S.CardNav
+            onClick={() => handleNavigate('/accountmanagement')}
+          >
+            <S.CardNavContents>
+              <img
+                src={MyPageAccount}
+                alt="톱니바퀴아이콘"
+                className="Icon"
+              />
+              <S.CardNavText>계정 관리</S.CardNavText>
+            </S.CardNavContents>
+            <MyNextBtn />
+          </S.CardNav>
+
+          <S.CardNav onClick={() => handleNavigate('/petInfo')}>
+            <S.CardNavContents>
+              <img
+                src={dogAccount}
+                alt="반려견 정보관리 아이콘"
+                className="Icon"
+              />
+              <S.CardNavText>반려견 정보 관리</S.CardNavText>
+            </S.CardNavContents>
+            <MyNextBtn />
+          </S.CardNav>
+
+          <S.CardNav>
+            <S.CardNavContents>
+              <img
+                src={MypageWrite}
+                alt="내가쓴글 아이콘"
+                className="Icon"
+              />
+              <S.CardNavText>내가 쓴 글</S.CardNavText>
+            </S.CardNavContents>
+            <MyNextBtn />
+          </S.CardNav>
+        </S.MyPageCard>
+        {/* 나의약속 */}
+        <S.MyPageCard>
+          <S.CardTitle>나의 약속</S.CardTitle>
+          <S.CardNav onClick={() => handleNavigate('/reservation')}>
+            <S.CardNavContents>
+              <img
+                src={MyPageHeart}
+                alt="나의 긴급헌혈 약속 아이콘"
+                className="Icon"
+              />
+              <S.CardNavText>나의 긴급헌혈 약속</S.CardNavText>
+            </S.CardNavContents>
+            <MyNextBtn />
+          </S.CardNav>
+        </S.MyPageCard>
+        {/* 고객정보 */}
+        <S.MyPageCard>
+          <S.CardTitle>고객 지원</S.CardTitle>
+          <S.CardNav>
+            <S.CardNavContents>
+              <img
+                src={MyPageInquiry}
+                alt="1:1 문의하기 아이콘"
+                className="Icon"
+              />
+              <S.CardNavText>1:1 문의하기</S.CardNavText>
+            </S.CardNavContents>
+            <MyNextBtn />
+          </S.CardNav>
+
+          <S.CardNav>
+            <S.CardNavContents>
+              <img
+                src={MyPageNote}
+                alt="이용약관 아이콘"
+                className="Icon"
+              />
+              <S.CardNavText>이용약관</S.CardNavText>
+            </S.CardNavContents>
+            <MyNextBtn />
+          </S.CardNav>
+          <S.CardNav>
+            <S.CardNavContents>
+              <img
+                src={MyPageNote}
+                alt="개인정보 처리방침"
+                className="Icon"
+              />
+              <S.CardNavText>개인정보 처리방침</S.CardNavText>
+            </S.CardNavContents>
+            <MyNextBtn />
+          </S.CardNav>
+        </S.MyPageCard>
       </S.Contents>
     </S.Wrapper>
   );

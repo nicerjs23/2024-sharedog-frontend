@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-
 export const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
@@ -10,10 +9,9 @@ export const Wrapper = styled.section`
   background-color: ${({ theme }) => theme.colors.pageBgColor};
   /* position: fixed; */
 
-  top: 50%;
-
   font-family: ${({ theme }) =>
     theme.fonts.SUITSemiBold['font-family']};
+  margin-bottom: 98px;
 `;
 
 export const Header = styled.section`
@@ -29,104 +27,112 @@ export const Header = styled.section`
   font-weight: 600;
 `;
 
-export const NameBox = styled.section`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-  width: 80%;
-  height: 88px;
-  padding: 19px 130px 18px 17px;
-  margin-top: 26px;
-
-  border-radius: 11.587px;
-  border: 1.159px solid rgba(234, 234, 234, 0.8);
-  background: #fff;
-`;
-
-export const ImgBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 52px;
-  height: 52px;
-  margin-right: 12px; /* 이미지와 텍스트 사이 간격 조정 */
-  flex-shrink: 0;
-
-  border-radius: 50%;
-  overflow: hidden; /* 이미지가 둥근 모양에 맞게 잘리도록 설정 */
-  background: lightgray; /* 백업 색상 */
-`;
-
-export const NameText = styled.div`
-  font-size: 18px;
-
-  line-height: 1; /* 텍스트가 정렬되지 않는 경우 조정 */
-  font-family: ${({ theme }) => theme.fonts.SUITBold['font-family']};
-`;
-
-export const InfoBox = styled.section`
-  display: flex;
-  width: 80%;
-  padding: 19.197px;
-  flex-direction: column;
-  justify-content: center;
-  gap: 26.876px;
-
-  margin-top: 19px;
-
-  border-radius: 11.587px;
-  border: 1.159px solid rgba(234, 234, 234, 0.8);
-  background: #fff;
-`;
-
-export const CategoryText = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 11.518px;
-
-  color: var(--Grayscale-Gray400, #8490a0);
-  font-family: ${({ theme }) =>
-    theme.fonts.SUITSemiBold['font-family']};
-  font-size: 11.518px;
-
-  line-height: 100%; /* 11.518px */
-`;
-
-export const CategoryDetail = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* 양쪽 끝으로 배치 */
-
-  color: var(--Grayscale-Gray600, #333d4b);
-  font-family: ${({ theme }) =>
-    theme.fonts.SUITMedium['font-family']};
-  font-size: 13.438px;
-  line-height: 160%; /* 21.5px */
-  letter-spacing: -0.269px;
-`;
-
-export const NextIcon = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: right;
-
-  width: 15.357px;
-  height: 15.357px;
-`;
-
 export const Contents = styled.div`
-  border: 1px solid blue;
   display: flex;
   width: 88%;
   flex-direction: column;
+  gap: 20px;
+  margin-top: 15px;
 `;
 export const ProfileCard = styled.div`
   display: flex;
+  align-items: center;
   width: 100%;
   border-radius: 12px;
   border: 1px solid rgba(234, 234, 234, 0.8);
   background: #fff;
   height: 88px;
+  padding: 0 17px;
+  box-sizing: border-box;
+  gap: 16px;
+`;
+export const ProfileImg = styled.img`
+  display: flex;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
+`;
+
+export const ProfileInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+export const ProfileName = styled.div`
+  color: ${({ theme }) => theme.colors.black};
+  font-family: ${({ theme }) => theme.fonts.SUITBold['font-family']};
+  font-size: 1.125rem;
+`;
+
+export const ProfileEditBtn = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 20px;
+  gap: 4px;
+
+  border-radius: 10px;
+  background-color: #f6f7f8;
+
+  img {
+    display: flex;
+    width: 16px;
+    height: 16px;
+  }
+
+  p {
+    color: #8490a0;
+    font-family: ${({ theme }) =>
+      theme.fonts.SUITSemiBold['font-family']};
+    font-size: 0.625rem;
+  }
+`;
+
+export const MyPageCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px 26px;
+  box-sizing: border-box;
+
+  border-radius: 12px;
+  border: 1px solid #eff1f3;
+  background: #fff;
+  box-shadow: 0px 7.679px 19.197px 0px rgba(154, 170, 207, 0.1);
+
+  gap: 20px;
+`;
+export const CardTitle = styled.div`
+  display: flex;
+  width: 100%;
+  color: ${({ theme }) => theme.colors.gray400};
+  font-family: ${({ theme }) =>
+    theme.fonts.SUITSemiBold['font-family']};
+  font-size: 0.75rem;
+`;
+export const CardNav = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-right: 6px;
+  box-sizing: border-box;
+`;
+
+export const CardNavContents = styled.div`
+  display: flex;
+  gap: 8px;
+
+  &.Icon {
+    width: 16px;
+    height: auto;
+  }
+`;
+
+export const CardNavText = styled.div`
+  color: ${({ theme }) => theme.colors.gray600};
+  font-family: ${({ theme }) =>
+    theme.fonts.SUITMedium['font-family']};
+  font-size: 0.875rem;
 `;

@@ -107,7 +107,7 @@ export const MiddleContainer = styled.div`
 export const MiddleContent = styled.div`
   display: flex;
   width: 88%;
-
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
@@ -261,3 +261,56 @@ export const SearchResult = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
+export const DeleteHeader = styled.div`
+  display: flex;
+  width: 88%;
+
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+`;
+
+export const RecentList = styled.div`
+  display: flex;
+  width: 88%;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 9px;
+`;
+
+export const RecentItem = styled.div`
+  display: flex;
+  width: fit-content;
+  max-width: 30%;
+  min-width: 30%;
+  padding: 8px 13px 8px 15px;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 23.175px;
+  border: 1px solid #DADADA;
+  background: #FFF;
+
+  color: #636366;
+  text-align: center;
+  font-family: SUIT;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+
+  span {
+    max-width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+`;
+
+export const DeleteButton = styled.div`
+  img {
+    width: 20px;
+    height: 20px;
+  }
+`;
+

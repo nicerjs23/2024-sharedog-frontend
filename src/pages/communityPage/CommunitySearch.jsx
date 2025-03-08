@@ -6,6 +6,7 @@ import SearchX from "@assets/icons/SearchX.svg";
 import axiosInstance from "@apis/axiosInstance";
 import Like from "@assets/icons/good.svg";
 import Comment from "@assets/icons/comment.svg";
+import DelBtn from "@assets/icons/X.svg";
 
 import { useLocation, useNavigate } from "react-router-dom";
 export const CommunitySearch = () => {
@@ -13,12 +14,14 @@ export const CommunitySearch = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [recentSearches, setRecentSearches] = useState([]);
 
   useEffect(() => {
     if (location.state?.query) {
       setSearchTerm(location.state.query);
       handleSearch(location.state.query);
     }
+    fetchRecentSearches();
   }, [location.state]);
 
   const handleClearSearch = () => {
@@ -35,11 +38,39 @@ export const CommunitySearch = () => {
         params: { search: searchQuery },
       });
       setSearchResults(response.data);
+      fetchRecentSearches();
       console.log(response.data);
     } catch (error) {
       console.log("검색 실패:", error);
     }
   }
+
+  const fetchRecentSearches = async () => {
+    try {
+      const response = await axiosInstance.get("/api/community/search");
+      setRecentSearches(response.data);
+    } catch (error) {
+      console.log("최근 검색어 불러오기 실패: ", error);
+    }
+  }
+
+  const deleteSearchKeyword = async (id) => {
+    try {
+      await axiosInstance.delete(`api/community/search/${id}`);
+      setRecentSearches((prevSearches) => prevSearches.filter((item) => item.id !== id));
+    } catch (error) {
+      console.log("검색어 삭제 실패: ", error);
+    }
+  };
+
+  const deleteAllSearchKeywords = async () => {
+    try {
+      await axiosInstance.delete("/api/community/search");
+      setRecentSearches([]);
+    } catch(error) {
+      console.log("전체 검색어 삭제 실패: ", error);
+    }
+  };
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -110,12 +141,23 @@ export const CommunitySearch = () => {
             ))
           ) : (
             <S.MiddleContent>
-              <S.Recent>👍 최근 검색어</S.Recent>
-              <S.Delete>전체 삭제</S.Delete>
+              <S.DeleteHeader>
+                <S.Recent>👍 최근 검색어</S.Recent>
+                <S.Delete onClick={deleteAllSearchKeywords}>전체 삭제</S.Delete>
+              </S.DeleteHeader>
+              <S.RecentList>
+                {recentSearches.map((item) => (
+                  <S.RecentItem key={item.id}>
+                    <span onClick={() => handleSearch(item.keyword)}>{item.keyword}</span>
+                    <S.DeleteButton onClick={() => deleteSearchKeyword(item.id)}>
+                      <img src={DelBtn} alt="삭제 버튼" />
+                    </S.DeleteButton>
+                  </S.RecentItem>
+                ))}
+              </S.RecentList>
             </S.MiddleContent>
           )}
         </S.MiddleContainer>
-
       </S.Wrapper>
     </>
   );

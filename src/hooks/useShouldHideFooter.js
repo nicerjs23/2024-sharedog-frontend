@@ -19,7 +19,8 @@ export const useShouldHideFooter = () => {
   // Footer를 숨길 동적 경로: 동적 경로가 많아질 경우 확장 가능
   const hideFooterDynamic =
     location.pathname.startsWith("/signup") ||
-    location.pathname.startsWith("/chat/");
+    location.pathname.startsWith("/chat/") ||
+    /^\/community\/\d+$/.test(location.pathname);
   //예시
   // location.pathname.startsWith("/test/") ||
   // location.pathname.startsWith("/post/") ||

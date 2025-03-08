@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import * as S from "./CommunityWrite.styled";
 import ImageUpload from "@assets/icons/ImageUpload.svg";
 import Circle from "@assets/icons/Circle.svg";
+import axiosInstance from "@apis/axiosInstance";
 
 const Modal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
@@ -31,6 +32,7 @@ export const CommunityWrite = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newPostId, setNewPostId] = useState(null);
   const navigate = useNavigate();
 
   const isFormComplete = selectedCategory && selectedRegion && selectedBloodType
@@ -46,27 +48,68 @@ export const CommunityWrite = () => {
       return;
     }
   
-    const newImages = [];
+    const newImagePreviews = files.map((file) => ({
+      file,
+      preview: URL.createObjectURL(file), // ✅ 미리보기용 URL 생성
+    }));
   
-    files.forEach((file) => {
-      const reader = new FileReader(); // 파일을 읽기 위한 FileReader 객체 생성
-      reader.readAsDataURL(file); // 파일을 Base64 URL 형식으로 변환 (브라우저에서 미리보기용)
-      reader.onload = () => {
-        newImages.push(reader.result); // 변환된 이미지 URL을 배열에 추가
-        if (newImages.length === files.length) {
-          setSelectedImages((prev) => [...prev, ...newImages].slice(0, 3)); // 최대 3개까지 유지
-        }
-      };
-    });
+    setSelectedImages((prev) => [...prev, ...newImagePreviews].slice(0, 3));
   };
 
   const handleRemoveImage = (index) => {
-    setSelectedImages((prev) => prev.filter((_, i) => i !== index));
+    setSelectedImages((prev) => {
+      // ✅ 삭제된 이미지의 URL을 해제해서 메모리 누수를 방지
+      URL.revokeObjectURL(prev[index].preview);
+      
+      return prev.filter((_, i) => i !== index);
+    });
   };
 
   const handleCancel = () => {
-    navigate("/community/search");
+    navigate("/community");
   }
+  
+  const handleSubmit = async () => {
+    if (!isFormComplete) {
+      alert("모든 필드를 입력해주세요.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("category", selectedCategory);
+    formData.append("region", selectedRegion);
+    formData.append("blood", selectedBloodType);
+
+    selectedImages.forEach((image, index) => {
+      formData.append(`image_${index + 1}`, image.file); // File 객체 추가
+    });
+
+    try {
+      const response = await axiosInstance.post("/api/community/home", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      console.log("✅ 게시글 등록 성공:", response.data);
+      setNewPostId(response.data.id);
+      setIsModalOpen(true);
+    } catch (error) {
+      console.error("❌ 게시글 등록 실패:", error);
+      alert("게시글 등록에 실패했습니다.");
+    }
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    if (newPostId) {
+      navigate(`/community/${newPostId}`); // ✅ 상세 페이지로 이동
+    } else {
+      navigate("/community"); // 혹시 ID가 없으면 기본 목록 페이지로 이동
+    }
+  };
 
   return (
     <>
@@ -77,15 +120,13 @@ export const CommunityWrite = () => {
             <S.Write>글쓰기</S.Write>
             <S.Upload
               isFormComplete={isFormComplete}
-              onClick={() => {
-                if(isFormComplete) setIsModalOpen(true);
-              }}
+              onClick={handleSubmit}
             >
               등록
             </S.Upload>
           </S.Header>
           {/* 모달 */}
-          <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+          <Modal isOpen={isModalOpen} onClose={handleModalClose} />
           <S.Category>
             <S.Title>카테고리</S.Title>
             <S.CateBox>
@@ -157,7 +198,7 @@ export const CommunityWrite = () => {
             <S.ImageList>
             {selectedImages.map((image, index) => (
               <S.ImagePreview key={index}>
-                <img src={image} alt={`업로드된 이미지 ${index + 1}`} />
+                <img src={image.preview} alt={`업로드된 이미지 ${index + 1}`} />
                 <S.RemoveButton onClick={() => handleRemoveImage(index)}>×</S.RemoveButton>
               </S.ImagePreview>
             ))}

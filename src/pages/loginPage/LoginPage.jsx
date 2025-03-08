@@ -20,15 +20,18 @@ export const LoginPage = () => {
     }
 
     try {
-      let refreshToken = localStorage.getItem('refresh') || null;
+      const loginData = { email, password };
+      const refreshToken = localStorage.getItem('refresh');
+
+      if (refreshToken) {
+        loginData.refresh_token = refreshToken;
+      }
+
+      console.log('📌 로그인 요청 데이터:', loginData);
 
       const response = await axiosInstance.post(
         '/api/accounts/login',
-        {
-          email,
-          password,
-          refresh_token: refreshToken,
-        }
+        loginData
       );
 
       const accessToken = response.data.token.access;
@@ -38,22 +41,20 @@ export const LoginPage = () => {
         throw new Error('토큰이 반환되지 않았습니다.');
       }
 
-      // ✅ 토큰을 localStorage에 저장
+      // ✅ [1] 토큰을 먼저 localStorage에 저장
       localStorage.setItem('access', accessToken);
       localStorage.setItem('refresh', newRefreshToken);
 
       console.log('저장된 access token:', accessToken);
       console.log('저장된 refresh token:', newRefreshToken);
 
-      // ✅ axiosInstance의 Authorization 헤더를 업데이트 (여기서부터 중요)
+      // ✅ [2] axiosInstance의 Authorization 헤더 즉시 업데이트
       axiosInstance.defaults.headers.common[
         'Authorization'
       ] = `Bearer ${accessToken}`;
 
-      // ✅ 새로고침 없이 상태 업데이트 보장 (토큰 저장 후 navigate)
-      setTimeout(() => {
-        goTo('/main');
-      }, 100);
+      // ✅ [3] 로그인 성공 후 main 페이지로 이동 (리렌더링 유도)
+      goTo('/main');
     } catch (err) {
       console.error(
         '로그인 오류:',

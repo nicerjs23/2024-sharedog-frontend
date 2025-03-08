@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 export const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
@@ -21,7 +21,7 @@ export const Header = styled.div`
   margin-top: 6px;
   color: ${({ theme }) => theme.colors.mainColor};
   font-family: ${({ theme }) =>
-    theme.fonts.SUITSemiBold["font-family"]};
+    theme.fonts.SUITSemiBold['font-family']};
 `;
 export const TitleInfo = styled.div`
   display: flex;
@@ -29,7 +29,7 @@ export const TitleInfo = styled.div`
   font-size: 14px;
   color: ${({ theme }) => theme.colors.mainColor};
   font-family: ${({ theme }) =>
-    theme.fonts.SUITMedium["font-family"]};
+    theme.fonts.SUITMedium['font-family']};
   margin-left: 70px;
 `;
 export const InputBox = styled.input`
@@ -41,7 +41,7 @@ export const InputBox = styled.input`
 
   border-radius: 20px;
   border: 1px solid
-    ${(props) => (props.$isError ? "#ff6969" : "#e7e8eb")};
+    ${(props) => (props.$isError ? '#ff6969' : '#e7e8eb')};
   background: #fff;
 
   &::placeholder {
@@ -55,7 +55,7 @@ export const InputBox = styled.input`
 
   &:focus {
     border: 1px solid
-      ${(props) => (props.$isError ? "#ff6969" : "#e7e8eb")};
+      ${(props) => (props.$isError ? '#ff6969' : '#e7e8eb')};
     outline: none;
   }
 `;
@@ -102,7 +102,7 @@ export const SignUp = styled.div`
   font-size: 12px;
   color: #2a2a2a;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITMedium["font-family"]};
+    theme.fonts.SUITMedium['font-family']};
 `;
 
 export const SignUpLink = styled(Link)`
@@ -111,5 +111,13 @@ export const SignUpLink = styled(Link)`
   text-decoration: none;
   color: ${({ theme }) => theme.colors.mainColor};
   font-family: ${({ theme }) =>
-    theme.fonts.SUITExtraBold["font-family"]};
+    theme.fonts.SUITExtraBold['font-family']};
+`;
+
+export const ErrorMessage = styled.div`
+  color: #ff6969;
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: center;
+  font-family: ${({ theme }) => theme.fonts.SUITMedium};
 `;

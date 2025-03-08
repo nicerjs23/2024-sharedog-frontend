@@ -71,10 +71,19 @@ export const AccountManagement = () => {
       </S.Header>
       <S.InfoBox>
         <S.CategoryText>계정 정보</S.CategoryText>
-        {/* 왜안올라갔지 */}
+
         <S.CategoryDetail>
           로그인 계정
           <S.MailText> {email && `${email}`}</S.MailText>
+        </S.CategoryDetail>
+
+        <S.CategoryDetail>
+          비밀번호 재설정
+          <img
+            src={Next}
+            alt="다음 아이콘"
+            style={{ height: '16px', width: 'auto' }}
+          />
         </S.CategoryDetail>
         <S.CategoryText>계정 관리</S.CategoryText>
         <S.CategoryDetail onClick={() => setIsLogoutModalOpen(true)}>
@@ -104,7 +113,6 @@ export const AccountManagement = () => {
             <p>로그아웃 하시겠어요?</p>
             <S.ModalButtonContainer>
               <S.ModalButton
-                cancel
                 onClick={() => setIsLogoutModalOpen(false)}
               >
                 취소
@@ -124,7 +132,6 @@ export const AccountManagement = () => {
             <p>더 이상 이용을 원치 않으신가요?</p>
             <S.ModalButtonContainer>
               <S.ModalButton
-                cancel
                 onClick={() => setIsWithdrawModalOpen(false)}
               >
                 취소

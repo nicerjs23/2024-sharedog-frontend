@@ -247,6 +247,7 @@ export const Line = styled.div`
   height: 1.018px;
   background: #EEE;
   margin-top: 20px;
+  margin-bottom: 23px;
 `
 
 export const CommentWrapper = styled.div`
@@ -277,8 +278,20 @@ export const CommentLeft = styled.div`
   gap: 8px;
 `;
 
-export const Circle = styled.div`
 
+export const Circle = styled.img`
+  width: 23px;
+  height: 23px;
+`;
+
+export const ProfileImage = styled.div`
+  img {
+    width: 23px;
+    height: 23px;
+    border-radius: 383px;
+    background: url(<path-to-image>) lightgray 50% / cover no-repeat;
+    box-shadow: 0px 1.55px 3.11px 0px rgba(0, 0, 0, 0.15);
+  }
 `;
 
 export const CommentText = styled.input`
@@ -302,4 +315,14 @@ export const CommentText = styled.input`
 export const CommentSub = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
+`;
+
+export const CommentList = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 80%;
+  gap: 18px;
 `;

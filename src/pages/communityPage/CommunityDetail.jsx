@@ -7,13 +7,18 @@ import Delete from "@assets/icons/Delete.svg";
 import Like from "@assets/icons/good.svg";
 import Comment from "@assets/icons/comment.svg";
 import Circle from "@assets/icons/ComCir.svg";
+import Default from "@assets/icons/ProImage.svg";
 import Send from "@assets/icons/Send.svg";
+import CommentComponent from "@components/community/Comment";
 
 export const CommunityDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [comment, setComment] = useState("");
+  const [comments, setComments] = useState([]);
+  const [profile, setProfile] = useState(null);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -22,6 +27,7 @@ export const CommunityDetail = () => {
         const response = await axiosInstance.get(`/api/community/home/${id}`);
         console.log(response.data);
         setPost(response.data);
+        setComments(response.data.comments);
       } catch (error) {
         console.error("❌ 게시글 불러오기 실패:", error);
         if (error.response) {
@@ -39,6 +45,19 @@ export const CommunityDetail = () => {
     }
   }, [id, navigate]);
 
+  useEffect(() => {
+    const Profile = async () => {
+      try {
+        const response = await axiosInstance.get(`/api/home`);
+        console.log(response.data);
+        setProfile(response.data.profile_image);
+      } catch(error) {
+        console.log("유저 정보 받아오기 실패", error);
+      }
+    }
+    Profile();
+  }, []) //의존성 배열 추가해서 한 번만 렌더링 되도록 설정
+
   if (!post) {
     return <S.Wrapper>로딩 중...</S.Wrapper>;
   }
@@ -51,6 +70,23 @@ export const CommunityDetail = () => {
     } catch(error) {
       console.error("게시글 삭제 실패", error);
       alert("게시글 삭제에 실패했습니다");
+    }
+  }
+
+  const commentPost = async () => {
+    if (!comment.trim()) {
+      alert("댓글을 입력하세요.");
+      return;
+    }
+    try {
+      const response = await axiosInstance.post(`/api/community/home/${id}/comments`, 
+        {content: comment}
+      );
+      console.log(response.data);
+      setComments((prev) => [...prev, response.data]);
+      setComment("");
+    } catch(error) {
+      console.log("댓글 등록 실패", error);
     }
   }
 
@@ -76,9 +112,11 @@ export const CommunityDetail = () => {
               </S.HeaderLeft>
               <S.HeaderRight>
                 <S.Create>{post.created_at}</S.Create>
-                <S.Delete onClick={deletePost}>
-                  <img src={Delete} alt="삭제 버튼" />
-                </S.Delete>
+                {post.is_writer && 
+                  <S.Delete onClick={deletePost}>
+                    <img src={Delete} alt="삭제 버튼" />
+                  </S.Delete>
+                }
               </S.HeaderRight>
             </S.HeaderTop>
             <S.HeaderBottom>
@@ -105,16 +143,35 @@ export const CommunityDetail = () => {
         </S.MainBottom>
         <S.Line></S.Line>
       </S.Container>
+      <S.CommentList>
+          {comments.length > 0 && (
+            comments.map((cmt) => (
+              <CommentComponent
+                key={cmt.id}
+                writer={cmt.writer}
+                profile={cmt.profile_image || Default}
+                content={cmt.content}
+                created_at={cmt.created_at}
+              />
+            ))
+          )}
+        </S.CommentList>
       <S.CommentWrapper>
         <S.CommentContainer>
           <S.CommentLeft>
-            <S.Circle><img src={Circle} alt="댓글 원" /></S.Circle>
+            {profile ? (
+                <S.ProfileImage src={profile} alt="프로필 이미지" />
+              ) : (
+                <S.Circle src={Default} alt="기본 이미지" /> 
+              )}
             <S.CommentText
               type="text"
               placeholder="댓글을 입력하세요."
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
             />
           </S.CommentLeft>
-          <S.CommentSub><img src={Send} alt="전송 버튼" /></S.CommentSub>
+          <S.CommentSub><img src={Send} onClick={commentPost} alt="전송 버튼" /></S.CommentSub>
         </S.CommentContainer>
       </S.CommentWrapper>
     </S.Wrapper>

@@ -248,3 +248,58 @@ export const Line = styled.div`
   background: #EEE;
   margin-top: 20px;
 `
+
+export const CommentWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 17px;
+  width: 100%;
+  padding: 15px 18px 10px 18px;
+  background: #FFF;
+  box-shadow: 0px -6px 14px 0px rgba(47, 47, 47, 0.04);
+`;
+
+export const CommentContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 7px 13px;
+  border-radius: 19.129px;
+  background: #FFF3F3;
+`;
+
+export const CommentLeft = styled.div`
+  display: flex;
+  align-items: center;
+  width: 95%;
+  gap: 8px;
+`;
+
+export const Circle = styled.div`
+
+`;
+
+export const CommentText = styled.input`
+  width: 100%;
+  background: #FFF3F3;
+
+  &::placeholder {
+    color: var(--Gray-Gray02, #9C9CA1);
+    font-family: SUIT;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const CommentSub = styled.div`
+  display: flex;
+  align-items: center;
+`;

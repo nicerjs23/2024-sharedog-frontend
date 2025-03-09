@@ -6,6 +6,8 @@ import Left from "@assets/icons/Left.svg";
 import Delete from "@assets/icons/Delete.svg";
 import Like from "@assets/icons/good.svg";
 import Comment from "@assets/icons/comment.svg";
+import Circle from "@assets/icons/ComCir.svg";
+import Send from "@assets/icons/Send.svg";
 
 export const CommunityDetail = () => {
   const { id } = useParams();
@@ -103,6 +105,18 @@ export const CommunityDetail = () => {
         </S.MainBottom>
         <S.Line></S.Line>
       </S.Container>
+      <S.CommentWrapper>
+        <S.CommentContainer>
+          <S.CommentLeft>
+            <S.Circle><img src={Circle} alt="댓글 원" /></S.Circle>
+            <S.CommentText
+              type="text"
+              placeholder="댓글을 입력하세요."
+            />
+          </S.CommentLeft>
+          <S.CommentSub><img src={Send} alt="전송 버튼" /></S.CommentSub>
+        </S.CommentContainer>
+      </S.CommentWrapper>
     </S.Wrapper>
   );
 };

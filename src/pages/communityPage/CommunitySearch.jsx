@@ -4,7 +4,7 @@ import Left from "@assets/icons/Left.svg";
 import Search from "@assets/icons/Search.svg";
 import SearchX from "@assets/icons/SearchX.svg";
 import axiosInstance from "@apis/axiosInstance";
-import Like from "@assets/icons/good.svg";
+import Wlike from "@assets/icons/Wlike.svg";
 import Comment from "@assets/icons/comment.svg";
 import DelBtn from "@assets/icons/X.svg";
 
@@ -129,7 +129,7 @@ export const CommunitySearch = () => {
                 </S.ContainerMiddle>
                 <S.ContainerBottom>
                   <S.IconContainer>
-                    <S.Icon src={Like} />
+                    <S.Icon src={Wlike} />
                     <S.IconNum>{result.like_cnt}</S.IconNum>
                   </S.IconContainer>
                   <S.IconContainer>

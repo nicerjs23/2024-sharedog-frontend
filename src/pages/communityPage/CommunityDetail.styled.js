@@ -215,6 +215,7 @@ export const MainBottom = styled.div`
 export const Like = styled.div`
   display: flex;
   gap: 1px;
+  align-items: center;
 `;
 
 export const Icon = styled.div`
@@ -239,6 +240,7 @@ export const IconNum = styled.div`
 export const Cnt = styled.div`
   display: flex;
   gap: 1px;
+  align-items: center;
 `;
 
 export const Line = styled.div`
@@ -284,14 +286,12 @@ export const Circle = styled.img`
   height: 23px;
 `;
 
-export const ProfileImage = styled.div`
-  img {
-    width: 23px;
-    height: 23px;
-    border-radius: 383px;
-    background: url(<path-to-image>) lightgray 50% / cover no-repeat;
-    box-shadow: 0px 1.55px 3.11px 0px rgba(0, 0, 0, 0.15);
-  }
+export const ProfileImage = styled.img`
+  width: 23px;
+  height: 23px;
+  border-radius: 383px;
+  background: url(<path-to-image>) lightgray 50% / cover no-repeat;
+  box-shadow: 0px 1.55px 3.11px 0px rgba(0, 0, 0, 0.15);
 `;
 
 export const CommentText = styled.input`

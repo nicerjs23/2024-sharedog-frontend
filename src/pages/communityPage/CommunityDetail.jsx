@@ -5,8 +5,8 @@ import axiosInstance from "@apis/axiosInstance";
 import Left from "@assets/icons/Left.svg";
 import Delete from "@assets/icons/Delete.svg";
 import Like from "@assets/icons/good.svg";
+import Wlike from "@assets/icons/Wlike.svg";
 import Comment from "@assets/icons/comment.svg";
-import Circle from "@assets/icons/ComCir.svg";
 import Default from "@assets/icons/ProImage.svg";
 import Send from "@assets/icons/Send.svg";
 import CommentComponent from "@components/community/Comment";
@@ -19,6 +19,7 @@ export const CommunityDetail = () => {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [profile, setProfile] = useState(null);
+  const [liked, setLiked] = useState(false);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -28,6 +29,9 @@ export const CommunityDetail = () => {
         console.log(response.data);
         setPost(response.data);
         setComments(response.data.comments);
+        if(response.data.is_liked) {
+          setLiked(response.data.is_liked);
+        }
       } catch (error) {
         console.error("❌ 게시글 불러오기 실패:", error);
         if (error.response) {
@@ -90,6 +94,24 @@ export const CommunityDetail = () => {
     }
   }
 
+  const handleLike = async () => {
+    try {
+        const response = await axiosInstance.post(`/api/community/home/${id}/likes`);
+        console.log(response.data);
+
+        if (response.data.success === "좋아요 성공") {
+          setLiked(true);
+        } else if (response.data.success === "좋아요 취소 성공") {
+          setLiked(false);
+        } else if (response.data.error === "본인이 작성한 글에는 좋아요를 누를 수 없습니다.") {
+          alert("본인이 작성한 글에는 좋아요를 누를 수 없습니다.");
+        }
+
+    } catch(error) {
+      console.log("좋아요 실패", error);
+    }
+  }
+
   return (
     <S.Wrapper>
       <S.Container>
@@ -133,7 +155,7 @@ export const CommunityDetail = () => {
         </S.Main>
         <S.MainBottom>
           <S.Like>
-            <S.Icon><img src={Like} /></S.Icon>
+            <S.Icon onClick={handleLike}><img src={liked ? Like : Wlike} /></S.Icon>
             <S.IconNum>{post.like_cnt}</S.IconNum>
           </S.Like>
           <S.Cnt>

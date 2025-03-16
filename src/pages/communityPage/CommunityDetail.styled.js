@@ -220,6 +220,7 @@ export const Like = styled.div`
 
 export const Icon = styled.div`
   display: flex;
+  cursor: pointer;
   img {
     width: 13px;
     height: 11px;

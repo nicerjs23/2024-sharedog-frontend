@@ -11,6 +11,7 @@ import Fire from "@assets/icons/fire4X.png";
 import { filter } from "@data/mainData/Posts";
 import { post } from "@data/mainData/Posts";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Post from "@components/main/Post";
 import LoginRequiredBox from "@components/main/LoginRequiredBox";
 import axiosInstance from "@apis/axiosInstance";
@@ -26,6 +27,7 @@ export const MainPage = () => {
   const [isLoading, setIsLoading] = useState(false); // ✅ 초기값 false로 변경
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false); // ✅ 모달 상태 추가
+  const navigate = useNavigate();
 
   const token = localStorage.getItem("access"); // 로그인 토큰 확인
   useEffect(() => {
@@ -69,6 +71,10 @@ export const MainPage = () => {
     goTo("/");
     console.log("로그인 페이지로 이동");
   };
+
+  const handlePostClick = (id) => {
+    navigate(`/community/${id}`);
+  }
 
   const isTest = userData?.is_test || false; // isTest 값 가져오기 (없으면 기본값 false)
 
@@ -148,6 +154,7 @@ export const MainPage = () => {
                   writer={userData.user_name}
                   content={content.content}
                   img={content.image_1}
+                  onClick={() => handlePostClick(content.id)}
                 />
               ))
           ) : (

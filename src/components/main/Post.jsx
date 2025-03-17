@@ -8,9 +8,10 @@ const Post = ({
   writer,
   content,
   img,
+  onClick,
 }) => {
   return (
-    <PostWrapper>
+    <PostWrapper onClick={onClick}>
       <TagDayWrapper>
         <TagWrapper>
           <Tag>{category}</Tag>

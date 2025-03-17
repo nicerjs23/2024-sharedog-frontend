@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
+  /* position: relative; */
   width: 100%;
   max-width: 540px;
   justify-content: center;
@@ -25,7 +26,10 @@ export const Header = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 11px;
+  max-width: 540px;
+  position: fixed;
+  z-index: 1;
+  background: #FAFAFC;
 `;
 
 export const Back = styled.div`
@@ -44,18 +48,20 @@ export const HeaderTitle = styled.div`
 `;
 
 export const Empty = styled.div`
+  display: flex;
   width: 31px;
 `
 
 export const Main = styled.div`
   display: flex;
-  width: 80%;
+  width: 88%;
   flex-direction: column;
   padding: 16px 16px 1px 16px;
   border-radius: 10px 10px 0 0;
   border: 1px solid #EAEAEA;
   background: #FFF;
   gap: 17px;
+  margin-top: 72px;
 `;
 
 export const MainHeader = styled.div`
@@ -203,7 +209,7 @@ export const Content = styled.div`
 
 export const MainBottom = styled.div`
   display: flex;
-  width: 80%;
+  width: 88%;
   height: 30px;
   padding: 9px 16px;
   align-items: center;
@@ -246,7 +252,7 @@ export const Cnt = styled.div`
 
 export const Line = styled.div`
   display: flex;
-  width: 80%;
+  width: 88%;
   height: 1.018px;
   background: #EEE;
   margin-top: 20px;
@@ -256,11 +262,13 @@ export const Line = styled.div`
 export const CommentWrapper = styled.div`
   display: flex;
   justify-content: center;
-  position: absolute;
-  bottom: 17px;
+  position: fixed;
+  bottom: 0;
   width: 100%;
+  max-width: 540px;
   padding: 15px 18px 10px 18px;
   background: #FFF;
+  z-index: 1;
   box-shadow: 0px -6px 14px 0px rgba(47, 47, 47, 0.04);
 `;
 
@@ -324,6 +332,7 @@ export const CommentList = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 80%;
+  width: 88%;
   gap: 18px;
+  padding-bottom: 35px;
 `;

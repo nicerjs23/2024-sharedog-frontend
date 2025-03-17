@@ -117,12 +117,12 @@ export const CommunityDetail = () => {
       <S.Container>
         <S.Header>
           <S.Back>
-            <img src={Left} onClick={() => navigate("/community")} alt="뒤로가기 버튼" />
+            <img src={Left} onClick={() => navigate(-1)} alt="뒤로가기 버튼" />
           </S.Back>
           <S.HeaderTitle>
             <span>긴급헌혈</span>
           </S.HeaderTitle>
-          <S.Empty></S.Empty>
+          <S.Empty />
         </S.Header>
         <S.Main>
           <S.MainHeader>

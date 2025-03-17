@@ -82,6 +82,10 @@ export const CommunitySearch = () => {
     navigate("/community");
   }
 
+  const handlePostClick = (id) => {
+    navigate(`/community/${id}`);
+  };  
+
   return (
     <>
       <S.Wrapper>
@@ -112,7 +116,7 @@ export const CommunitySearch = () => {
         <S.MiddleContainer>
           {searchResults.length > 0 ? (
             searchResults.map((result, index) => (
-              <S.ResultContainer key={index}>
+              <S.ResultContainer key={index} onClick={() => handlePostClick(result.id)}>
                 <S.ContainerMiddle>
                   <S.ContainerHeader>
                     <S.ResultCategory>{result.category}</S.ResultCategory>

@@ -122,7 +122,7 @@ export const CommunityDetail = () => {
           <S.HeaderTitle>
             <span>긴급헌혈</span>
           </S.HeaderTitle>
-          <S.Empty></S.Empty>
+          <S.Empty />
         </S.Header>
         <S.Main>
           <S.MainHeader>

@@ -13,9 +13,10 @@ const CommunityPost = ({
   img,
   like_cnt,
   comment_cnt,
+  onClick
 }) => {
   return (
-    <PostWrapper>
+    <PostWrapper onClick={onClick}>
       <PostContents>
         <TagDayWrapper>
           <TagWrapper>

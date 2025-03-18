@@ -1,11 +1,13 @@
-import styled from "styled-components";
-import Logo from "@assets/icons/Logo.png";
-const PeerChat = ({ time, text, img }) => {
+import styled from 'styled-components';
+import Logo from '@assets/icons/Logo.png';
+const PeerChat = ({ read, time, text, img }) => {
   return (
     <Wrapper>
       <ProfileImg src={img || Logo} alt="프로필 이미지" />
       <ChatBox>{text}</ChatBox>
-      <TimeText>{time}</TimeText>
+      <TimeText>
+        {time} <ReadText> {read ? '0' : '1'}</ReadText>
+      </TimeText>
     </Wrapper>
   );
 };
@@ -38,7 +40,7 @@ export const ChatBox = styled.div`
   color: #2a2a2a;
   font-size: 0.75rem;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITMedium["font-family"]};
+    theme.fonts.SUITMedium['font-family']};
 
   word-break: break-word; /* 💡 긴 단어나 문장이 자동으로 줄바꿈되도록 설정 */
   white-space: pre-line; /* 💡 줄바꿈(\n)이 있으면 반영 */
@@ -48,7 +50,16 @@ export const TimeText = styled.div`
   color: rgba(156, 156, 161, 0.7);
   font-size: 0.75rem;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITMedium["font-family"]};
+    theme.fonts.SUITMedium['font-family']};
   /* height: 100%; */
   align-items: flex-end;
+  gap: 5px;
+`;
+
+export const ReadText = styled.div`
+  color: ${({ theme }) => theme.colors.mainColor};
+  font-size: 0.75rem;
+  font-family: ${({ theme }) =>
+    theme.fonts.SUITMedium['font-family']};
+  /* height: 100%; */
 `;

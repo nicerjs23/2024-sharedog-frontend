@@ -64,7 +64,11 @@ export const LoginPage = () => {
       setErrorMessage(err.response?.data?.error || '로그인 실패');
     }
   };
-
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleLogin();
+    }
+  };
   return (
     <S.Wrapper>
       <S.Header onClick={() => goTo('/main')}>둘러보기</S.Header>
@@ -80,6 +84,7 @@ export const LoginPage = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           $isError={isError && !email} // ✅ 수정: $isError 사용
+          onKeyDown={handleKeyPress} // ✅ [5] Enter 입력 시 로그인 실행
         />
         <S.TitleInfo>비밀번호</S.TitleInfo>
         <S.InputBox
@@ -88,8 +93,11 @@ export const LoginPage = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           $isError={isError && !password} // ✅ 수정: $isError 사용
+          onKeyDown={handleKeyPress} // ✅ [5] Enter 입력 시 로그인 실행
         />
-        {isError && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
+        <div style={{ width: '100%', height: '30px' }}>
+          {isError && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
+        </div>
         <S.Btn onClick={handleLogin}>로그인</S.Btn>
       </S.BtnWrapper>
     </S.Wrapper>

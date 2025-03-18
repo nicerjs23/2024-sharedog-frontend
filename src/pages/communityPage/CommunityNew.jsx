@@ -114,6 +114,10 @@ export const CommunityNew = () => {
     }
   };
 
+  const handlePostClick = (id) => {
+    navigate(`/community/${id}`);
+  }; 
+
   // 📌 5. 필터 변경될 때마다 API 호출
   useEffect(() => {
     fetchPosts();
@@ -195,6 +199,7 @@ export const CommunityNew = () => {
               img={post.image_1} // 이미지 URL
               like_cnt={post.like_cnt}
               comment_cnt={post.comments_cnt}
+              onClick={() => handlePostClick(post.id)}
             />
           ))
         ) : (

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const MainWrapper = styled.section`
   //푸터네브바에 안가려지게  78px+여유공간20px띄워둠
@@ -11,7 +11,7 @@ export const MainWrapper = styled.section`
   align-items: center;
 
   font-family: ${({ theme }) =>
-    theme.fonts.SUITSemiBold["font-family"]};
+    theme.fonts.SUITSemiBold['font-family']};
 
   height: calc(var(--vh, 1vh) * 100);
 `;
@@ -42,7 +42,7 @@ export const ProfileBox = styled.div`
   user-select: none;
   cursor: pointer;
 `;
-export const Profile = styled.div`
+export const Profile = styled.img`
   display: flex;
   width: 32px;
   height: 32px;
@@ -54,7 +54,7 @@ export const ProfileText = styled.div`
   color: #fff;
   font-size: 0.875rem;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITSemiBold["font-family"]};
+    theme.fonts.SUITSemiBold['font-family']};
   user-select: none;
   cursor: pointer;
 `;
@@ -99,7 +99,7 @@ export const PostsTitle = styled.div`
   display: flex;
   align-items: center;
   font-size: 1rem;
-  font-family: ${({ theme }) => theme.fonts.SUITBold["font-family"]};
+  font-family: ${({ theme }) => theme.fonts.SUITBold['font-family']};
   color: #373737;
   gap: 5px;
   margin-bottom: 15px;
@@ -145,7 +145,7 @@ export const Filter = styled.button`
   color: #9c9ca1;
   font-size: 0.75rem;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITRegular["font-family"]};
+    theme.fonts.SUITRegular['font-family']};
 
   /* 🖱️ Hover 상태 */
   &:hover {
@@ -202,5 +202,5 @@ export const ErrorText = styled.p`
   color: #9c9ca1;
   font-size: 0.875rem;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITRegular["font-family"]};
+    theme.fonts.SUITRegular['font-family']};
 `;

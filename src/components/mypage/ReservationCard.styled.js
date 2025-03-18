@@ -1,5 +1,5 @@
 // ReservationCard.styled.js
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Wrapper = styled.section`
   display: flex;
@@ -9,7 +9,8 @@ export const Wrapper = styled.section`
   justify-content: center;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.pageBgColor};
-  font-family: ${({ theme }) => theme.fonts.SUITSemiBold["font-family"]};
+  font-family: ${({ theme }) =>
+    theme.fonts.SUITSemiBold['font-family']};
 `;
 
 export const DateSection = styled.section`
@@ -90,9 +91,9 @@ export const Progress = styled.div`
   flex-shrink: 0;
 
   border-radius: 15.659px;
-  background: #ffecec;
-
-  color: var(--Red-Red04, #ff6969);
+  background: ${({ isPast }) => (isPast ? '#FF6969' : '#FFECEC')};
+  color: ${({ isPast }) =>
+    isPast ? '#FFF' : 'var(--Red-Red04, #FF6969)'};
   text-align: center;
   font-family: SUIT;
   font-size: 10.526px;

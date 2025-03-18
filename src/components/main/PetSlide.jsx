@@ -1,8 +1,12 @@
-import styled from "styled-components";
-import slide2Png from "@assets/images/petImg.png";
-import arrowIcon from "@assets/icons/ArrowIcon.svg";
-import PostImg3 from "@assets/images/postImg3.jpg";
-const PetSlide = () => {
+import styled from 'styled-components';
+import slide2Png from '@assets/images/petImg.png';
+import arrowIcon from '@assets/icons/ArrowIcon.svg';
+import PostImg3 from '@assets/images/postImg3.jpg';
+import { useCustomNavigate } from '@hooks/useCustomNavigate';
+
+const PetSlide = ({ profile }) => {
+  const { goTo, goBack } = useCustomNavigate();
+
   return (
     <Wrapper>
       <SlideContent>
@@ -11,13 +15,16 @@ const PetSlide = () => {
           추가로 등록할 수 있어요!
         </SlideTitle>
         <SlideBtn>
-          <BtnText>반려견 정보 등록하기</BtnText>
+          <BtnText onClick={() => goTo('/petInfo')}>
+            반려견 정보 등록하기
+          </BtnText>
+
           <img src={arrowIcon} alt="화살표아이콘" />
         </SlideBtn>
       </SlideContent>
       <ImgFlexDiv>
         <SlideImgBox>
-          <SlideImg src={slide2Png} alt="반려견이미지" />
+          <SlideImg src={profile || slide2Png} alt="반려견이미지" />
         </SlideImgBox>
       </ImgFlexDiv>
     </Wrapper>
@@ -47,7 +54,7 @@ const SlideTitle = styled.div`
   font-size: 1rem;
   color: #fff;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITExtraBold["font-family"]};
+    theme.fonts.SUITExtraBold['font-family']};
   line-height: 25px;
 `;
 const SlideBtn = styled.button`
@@ -65,7 +72,7 @@ const BtnText = styled.div`
   color: #7c7f91;
   font-size: 0.75rem;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITSemiBold["font-family"]};
+    theme.fonts.SUITSemiBold['font-family']};
 `;
 
 //이미지 하단정렬용 div

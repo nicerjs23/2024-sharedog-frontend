@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-
+import { useCustomNavigate } from '@hooks/useCustomNavigate';
 const PromiseCard = ({ day, time, place }) => {
+  const { goTo, goBack } = useCustomNavigate();
   return (
     <Wrapper>
       <TextContainer>
@@ -9,7 +10,9 @@ const PromiseCard = ({ day, time, place }) => {
         <Body>시간: {time}</Body>
         <Body>장소: {place}</Body>
       </TextContainer>
-      <PromiseBtn>약속 보기</PromiseBtn>
+      <PromiseBtn onClick={() => goTo('/reservation')}>
+        약속 보기
+      </PromiseBtn>
     </Wrapper>
   );
 };

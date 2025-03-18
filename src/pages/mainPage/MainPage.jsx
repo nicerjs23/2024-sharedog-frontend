@@ -1,27 +1,27 @@
-import * as S from "./MainPage.styled";
+import * as S from './MainPage.styled';
 
-import MainSlider from "@components/main/MainSlider";
-import BellIcon from "@assets/icons/BellIcon.svg";
-import NavBtn from "@components/main/NavBtn";
-import Nav1 from "@assets/icons/nav1.png";
-import Nav2 from "@assets/icons/nav2.png";
-import Nav3 from "@assets/icons/nav3.png";
-import Fire from "@assets/icons/fire4X.png";
+import MainSlider from '@components/main/MainSlider';
+import BellIcon from '@assets/icons/BellIcon.svg';
+import NavBtn from '@components/main/NavBtn';
+import Nav1 from '@assets/icons/nav1.png';
+import Nav2 from '@assets/icons/nav2.png';
+import Nav3 from '@assets/icons/nav3.png';
+import Fire from '@assets/icons/fire4X.png';
 
-import { filter } from "@data/mainData/Posts";
-import { post } from "@data/mainData/Posts";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import Post from "@components/main/Post";
-import LoginRequiredBox from "@components/main/LoginRequiredBox";
-import axiosInstance from "@apis/axiosInstance";
-import LoginRequiredModal from "@components/main/LoginRequiredModal";
-import { useCustomNavigate } from "@hooks/useCustomNavigate";
+import { filter } from '@data/mainData/Posts';
+import { post } from '@data/mainData/Posts';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Post from '@components/main/Post';
+import LoginRequiredBox from '@components/main/LoginRequiredBox';
+import axiosInstance from '@apis/axiosInstance';
+import LoginRequiredModal from '@components/main/LoginRequiredModal';
+import { useCustomNavigate } from '@hooks/useCustomNavigate';
 
 export const MainPage = () => {
   // 🟢 활성화된 필터 상태 관리
   // 🟢 1번 필터를 초기 활성화 상태로 설정
-  const [activeFilter, setActiveFilter] = useState("전체");
+  const [activeFilter, setActiveFilter] = useState('전체');
   const { goTo, goBack } = useCustomNavigate();
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(false); // ✅ 초기값 false로 변경
@@ -29,7 +29,7 @@ export const MainPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // ✅ 모달 상태 추가
   const navigate = useNavigate();
 
-  const token = localStorage.getItem("access"); // 로그인 토큰 확인
+  const token = localStorage.getItem('access'); // 로그인 토큰 확인
   useEffect(() => {
     const fetchData = async () => {
       if (!token) {
@@ -42,15 +42,15 @@ export const MainPage = () => {
       try {
         // ✅ 전체 게시글은 "/api/home", 특정 지역은 "/api/home?region=지역명"
         const apiUrl =
-          activeFilter === "전체"
-            ? "/api/home"
+          activeFilter === '전체'
+            ? '/api/home'
             : `/api/home?region=${activeFilter}`;
 
         const response = await axiosInstance.get(apiUrl);
         setUserData(response.data);
         console.log(`API 요청 (${activeFilter}):`, response.data);
       } catch (err) {
-        console.error("API 요청 실패:", err);
+        console.error('API 요청 실패:', err);
         setError(err);
       } finally {
         setIsLoading(false);
@@ -68,16 +68,16 @@ export const MainPage = () => {
     setIsModalOpen(false); // ✅ X 버튼 클릭 시 모달 닫기
   };
   const handleLogin = () => {
-    goTo("/");
-    console.log("로그인 페이지로 이동");
+    goTo('/');
+    console.log('로그인 페이지로 이동');
   };
 
   const handlePostClick = (id) => {
     navigate(`/community/${id}`);
-  }
+  };
 
   const isTest = userData?.is_test || false; // isTest 값 가져오기 (없으면 기본값 false)
-
+  const profile = userData?.profile_image;
   return (
     <S.MainWrapper>
       <S.SliderBox>
@@ -101,7 +101,7 @@ export const MainPage = () => {
           </S.AlarmBox>
         </S.Header>
         {/* 슬라이더부분 컴포넌트로 구현 */}
-        <MainSlider isTest={isTest} />
+        <MainSlider isTest={isTest} profile={profile} />
       </S.SliderBox>
 
       <S.ContentGapWrapper>
@@ -116,7 +116,7 @@ export const MainPage = () => {
         {/* <S.Line />*/}
         <S.PostsTitle>
           <div>지역별 긴급헌혈 현황</div>
-          <img src={Fire} style={{ width: "16px", height: "16px" }} />
+          <img src={Fire} style={{ width: '16px', height: '16px' }} />
         </S.PostsTitle>
 
         <S.FilterBox>
@@ -140,7 +140,7 @@ export const MainPage = () => {
             userData.posts
               .filter(
                 (content) =>
-                  activeFilter === "전체" ||
+                  activeFilter === '전체' ||
                   content.region === activeFilter
               )
               .map((content) => (

@@ -11,7 +11,8 @@ import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
 import PromiseCard from '@components/chat/PromiseCard'; // ✅ 약속 카드 컴포넌트 추가
-
+import DateInput from '@components/chat/DateInput';
+import TimeInput from '@components/chat/TimeInput';
 export const ChatDetailPage = () => {
   const { goTo, goBack } = useCustomNavigate();
   const { id } = useParams();
@@ -298,15 +299,14 @@ export const ChatDetailPage = () => {
               <S.FormContents>
                 <S.PromiseField>
                   <S.FieldLabel>
-                    날짜 <S.Required>*</S.Required>
+                    날짜<S.Required>*</S.Required>
                   </S.FieldLabel>
-                  <S.Input
-                    type="date"
-                    value={promiseData.day}
-                    onChange={(e) =>
+                  <DateInput
+                    dateValue={promiseData.day}
+                    onDateChange={(newDate) =>
                       setPromiseData((prev) => ({
                         ...prev,
-                        day: e.target.value,
+                        day: newDate,
                       }))
                     }
                   />
@@ -316,13 +316,12 @@ export const ChatDetailPage = () => {
                   <S.FieldLabel>
                     시간 <S.Required>*</S.Required>
                   </S.FieldLabel>
-                  <S.Input
-                    type="time"
-                    value={promiseData.time}
-                    onChange={(e) =>
+                  <TimeInput
+                    timeValue={promiseData.time}
+                    onTimeChange={(newTime) =>
                       setPromiseData((prev) => ({
                         ...prev,
-                        time: e.target.value,
+                        time: newTime,
                       }))
                     }
                   />
@@ -346,14 +345,14 @@ export const ChatDetailPage = () => {
             </S.PromiseForm>
 
             <S.ButtonContainer>
-              <S.ConfirmButton onClick={handlePromiseClick}>
-                약속 확정
-              </S.ConfirmButton>
               <S.CancelButton
                 onClick={() => setShowPromiseModal(false)}
               >
                 취소
               </S.CancelButton>
+              <S.ConfirmButton onClick={handlePromiseClick}>
+                약속 확정
+              </S.ConfirmButton>
             </S.ButtonContainer>
           </S.ModalWrapper>
         </S.ModalOverlay>

@@ -1,14 +1,36 @@
-import * as S from "./PetCard.styled";
-import Medal from "@assets/icons/medal.svg";
-import PetProfile from "@assets/images/petprofile.png";
-import Pencil from "@assets/icons/pencil.svg";
-import { useNavigate } from "react-router-dom"; // React Router의 useNavigate 가져오기
+import * as S from './PetCard.styled';
+import Medal from '@assets/icons/medal.svg';
+import PetProfile from '@assets/images/petprofile.png';
+import Pencil from '@assets/icons/pencil.svg';
+import { useNavigate } from 'react-router-dom'; // React Router의 useNavigate 가져오기
 
-export const PetCard = ({ name, age, weight, gender, neutered, bloodType }) => {
+export const PetCard = ({
+  id,
+  profileImage,
+  represent,
+  name,
+  age,
+  weight,
+  gender,
+  neutered,
+  bloodType,
+}) => {
   const navigate = useNavigate(); // useNavigate 훅 초기화
 
-  const handleNavigate = (path) => {
-    navigate(path); // path에 따라 페이지 이동
+  const handleEdit = () => {
+    navigate('/petedit', {
+      state: {
+        id,
+        represent,
+        profileImage,
+        name,
+        age,
+        weight,
+        gender,
+        neutered,
+        bloodType,
+      },
+    });
   };
 
   return (
@@ -16,9 +38,9 @@ export const PetCard = ({ name, age, weight, gender, neutered, bloodType }) => {
       <S.Card>
         <S.CardContents>
           <S.NameSection>
-            <img src={Medal} alt="대표강아지 아이콘" />
+            {represent && <img src={Medal} alt="대표강아지 아이콘" />}
             {name}
-            <S.ProfileEdit onClick={() => handleNavigate("/petedit")}>
+            <S.ProfileEdit onClick={handleEdit}>
               <img src={Pencil} alt="연필 아이콘" />
               프로필 수정
             </S.ProfileEdit>
@@ -36,8 +58,8 @@ export const PetCard = ({ name, age, weight, gender, neutered, bloodType }) => {
             <S.TitleText>
               중성화:
               <S.DetailText>
-                {" "}
-                {neutered ? "수술 진행" : "수술 미진행"}
+                {' '}
+                {neutered ? '수술 진행' : '수술 미진행'}
               </S.DetailText>
             </S.TitleText>
             <S.TitleText>
@@ -46,7 +68,10 @@ export const PetCard = ({ name, age, weight, gender, neutered, bloodType }) => {
           </S.TitleSection>
         </S.CardContents>
 
-        <S.ProfileImage src={PetProfile} alt="강아지 프로필사진" />
+        <S.ProfileImage
+          src={profileImage || PetProfile}
+          alt="강아지 프로필사진"
+        />
       </S.Card>
     </S.Wrapper>
   );

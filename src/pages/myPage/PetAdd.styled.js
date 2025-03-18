@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Wrapper = styled.section`
   display: flex;
@@ -41,8 +41,8 @@ export const Save = styled.section`
   align-items: center;
   gap: 10px;
   border-radius: 1550px;
-  background: ${({ isFilled }) => (isFilled ? "#FF6969" : "#ECECEC")};
-  color: ${({ isFilled }) => (isFilled ? "#FFF" : "#BDBDBD")};
+  background: ${({ isFilled }) => (isFilled ? '#FF6969' : '#ECECEC')};
+  color: ${({ isFilled }) => (isFilled ? '#FFF' : '#BDBDBD')};
   font-family: SUIT;
   font-size: 16px;
   font-weight: 700;
@@ -125,9 +125,10 @@ export const YesCheckBox = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 15px;
-  border: 1px solid ${({ selected }) => (selected ? "#FFC5C5" : "#E7E8EB")};
-  background: ${({ selected }) => (selected ? "#FFD7D7" : "#F9F9FB")};
-  color: ${({ selected }) => (selected ? "#FF6969" : "#BDBDBD")};
+  border: 1px solid
+    ${({ selected }) => (selected ? '#FFC5C5' : '#E7E8EB')};
+  background: ${({ selected }) => (selected ? '#FFD7D7' : '#F9F9FB')};
+  color: ${({ selected }) => (selected ? '#FF6969' : '#BDBDBD')};
   cursor: pointer;
 `;
 
@@ -139,9 +140,10 @@ export const NoCheckBox = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 15px;
-  border: 1px solid ${({ selected }) => (selected ? "#FFC5C5" : "#E7E8EB")};
-  background: ${({ selected }) => (selected ? "#FFD7D7" : "#F9F9FB")};
-  color: ${({ selected }) => (selected ? "#FF6969" : "#BDBDBD")};
+  border: 1px solid
+    ${({ selected }) => (selected ? '#FFC5C5' : '#E7E8EB')};
+  background: ${({ selected }) => (selected ? '#FFD7D7' : '#F9F9FB')};
+  color: ${({ selected }) => (selected ? '#FF6969' : '#BDBDBD')};
   cursor: pointer;
 `;
 
@@ -172,4 +174,170 @@ export const Blank = styled.div`
   display: flex;
   width: 11px;
   height: 17px;
+`;
+
+export const BloodContainer = styled.section`
+  display: flex;
+  width: 304px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 33px;
+`;
+
+export const BloodWrapper = styled.section`
+  position: relative;
+  display: flex;
+  width: 100%;
+  padding: 16px 16px 15px 19px;
+  justify-content: space-between;
+  align-items: center;
+  gap: auto;
+  border-radius: 20px;
+  border: 1px solid #e7e8eb;
+  background: #fff;
+`;
+
+export const BloodSelect = styled.div`
+  display: flex;
+  height: 14px;
+  flex-direction: column;
+  justify-content: center;
+  color: ${({ hasValue }) => (hasValue ? '#202020' : '#bdbdbd')};
+
+  font-size: 1rem;
+  font-family: SUIT;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%; /* 25.6px */
+`;
+
+export const Drop = styled.img`
+  width: 20px;
+  height: 20px;
+`;
+
+export const DropdownContent = styled.div`
+  position: absolute;
+  top: 52px;
+  left: 0;
+  width: 304px;
+  height: 416px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 20px 20px 20px 20px;
+  border-top: 1px solid #e7e8eb;
+  border-right: 1px solid #e7e8eb;
+  border-left: 1px solid #e7e8eb;
+  border-bottom: 1px solid #e7e8eb;
+  background: #fff;
+`;
+
+export const DropdownItem = styled.div`
+  display: flex;
+  height: 52px;
+  padding: 0px 182px 0px 32px;
+  align-items: center;
+  align-self: stretch;
+  border-top: 1px solid #e7e8eb;
+  border-right: 1px solid #e7e8eb;
+  border-left: 1px solid #e7e8eb;
+  border-bottom: 1px solid #e7e8eb;
+  background: #fff;
+
+  color: #2a2a2a;
+  font-family: SUIT;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%; /* 25.6px */
+
+  &:hover {
+    color: #ff6969;
+    font-family: SUIT;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 160%; /* 25.6px */
+
+    height: 52px;
+    border-right: 1px solid #e7e8eb;
+    border-left: 1px solid #e7e8eb;
+    background: rgba(255, 215, 215, 0.6);
+  }
+`;
+
+export const DropdownItemTop = styled.div`
+  display: flex;
+  height: 52px;
+  padding: 0px 80px 0px 32px;
+  align-items: center;
+  align-self: stretch;
+  border-radius: 20px 20px 0px 0px;
+  border-top: 1px solid #e7e8eb;
+  border-right: 1px solid #e7e8eb;
+  border-left: 1px solid #e7e8eb;
+  border-bottom: 1px solid #e7e8eb;
+  background: #fff;
+
+  color: #2a2a2a;
+  font-family: SUIT;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%; /* 25.6px */
+
+  &:hover {
+    color: #ff6969;
+    font-family: SUIT;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 160%; /* 25.6px */
+
+    height: 52px;
+    border-radius: 15px 15px 0px 0px;
+    border-right: 1px solid #e7e8eb;
+    border-left: 1px solid #e7e8eb;
+    background: rgba(255, 215, 215, 0.6);
+  }
+`;
+
+export const DropdownItemBottom = styled.div`
+  display: flex;
+  height: 52px;
+  padding: 0px 182px 0px 32px;
+  align-items: center;
+  align-self: stretch;
+  border-radius: 0px 0px 20px 20px;
+  border-top: 1px solid #e7e8eb;
+  border-right: 1px solid #e7e8eb;
+  border-left: 1px solid #e7e8eb;
+  border-bottom: 1px solid #e7e8eb;
+  background: #fff;
+  cursor: pointer;
+
+  color: #2a2a2a;
+  font-family: SUIT;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%; /* 25.6px */
+
+  &:hover {
+    color: #ff6969;
+    font-family: SUIT;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 160%; /* 25.6px */
+
+    height: 52px;
+    border-radius: 0px 0px 20px 20px;
+    border-right: 1px solid #e7e8eb;
+    border-left: 1px solid #e7e8eb;
+    background: rgba(255, 215, 215, 0.6);
+  }
 `;

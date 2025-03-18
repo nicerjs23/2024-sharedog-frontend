@@ -94,7 +94,7 @@ export const ModalOverlay = styled.div`
 `;
 
 export const ModalWrapper = styled.div`
-  width: 70%;
+  width: 80%;
   max-width: 400px;
   background: white;
   border: 2px #eaeaea solid;
@@ -145,31 +145,47 @@ export const PromiseField = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  font-size: 0.9rem;
+  width: 100%;
   position: relative;
 `;
 
 export const FieldLabel = styled.label`
-  font-size: 0.9rem;
-  font-family: ${({ theme }) =>
-    theme.fonts.SUITSemiBold['font-family']};
-  color: #333;
+  font-size: 0.625rem;
+  font-family: ${({ theme }) => theme.fonts.SUITBold['font-family']};
+  color: #32333f;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 3px;
 `;
 
 export const Required = styled.span`
+  height: 15px;
+  font-family: ${({ theme }) => theme.fonts.SUITBold['font-family']};
   color: #ff3b30;
-  font-size: 0.8rem;
+  font-size: 6px;
+  display: flex;
+  vertical-align: top;
 `;
 
 export const Input = styled.input`
+  width: 120px;
+  text-align: right;
+  padding-right: 20px;
+  box-sizing: border-box;
   border: none;
   outline: none;
   background: transparent;
-  font-size: 0.9rem;
-  flex: 1;
+  font-family: ${({ theme }) =>
+    theme.fonts.SUITMedium['font-family']};
+  color: #7c7f91;
+  font-size: 0.625rem;
+
+  &::placeholder {
+    font-family: ${({ theme }) =>
+      theme.fonts.SUITMedium['font-family']};
+    color: #7c7f91;
+    font-size: 0.625rem;
+  }
 `;
 
 export const Icon = styled.img`
@@ -183,41 +199,44 @@ export const Icon = styled.img`
 //약속잡기,취소 버튼
 export const ButtonContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  margin-top: 10px;
+  width: 100%;
+  height: 48px;
+
+  border-radius: 0 0 20px 20px;
+
+  border-top: 1px solid rgba(60, 60, 67, 0.36);
 `;
 
 export const CancelButton = styled.button`
-  width: 100%;
-  background: #ddd;
-  color: #333;
-  padding: 12px;
-  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  color: #ff6969;
+  font-size: 0.875rem;
   font-family: ${({ theme }) =>
     theme.fonts.SUITSemiBold['font-family']};
   border: none;
-  border-radius: 8px;
-  cursor: pointer;
-
+  border-right: 1px solid rgba(60, 60, 67, 0.36);
   &:hover {
-    background: #bbb;
+    font-size: 0.9rem;
   }
 `;
 export const ConfirmButton = styled.button`
-  width: 100%;
-  background: #ff6969;
-  color: #fff;
-  padding: 12px;
-  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+
+  color: #ff6969;
+  font-size: 0.875rem;
   font-family: ${({ theme }) =>
     theme.fonts.SUITSemiBold['font-family']};
   border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 10px;
 
   &:hover {
-    background: #ff4d4d;
+    font-size: 0.9rem;
   }
 `;

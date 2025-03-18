@@ -5,9 +5,12 @@ import MyChat from '@components/chat/MyChat';
 import PeerChat from '@components/chat/PeerChat';
 import postImg2 from '@assets/images/postImg2.png';
 import { useCustomNavigate } from '@hooks/useCustomNavigate';
+import promiseIcon from '@assets/icons/promiseIcon.svg';
 import axiosInstance from '@apis/axiosInstance';
 import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
+
+import PromiseCard from '@components/chat/PromiseCard'; // ✅ 약속 카드 컴포넌트 추가
 
 export const ChatDetailPage = () => {
   const { goTo, goBack } = useCustomNavigate();
@@ -19,6 +22,33 @@ export const ChatDetailPage = () => {
   const [isDataLoaded, setIsDataLoaded] = useState(false); // ✅ 데이터 로딩 상태 추가
   const ws = useRef(null);
   const chatEndRef = useRef(null);
+
+  // ✅ (1) 최초 렌더링 시 "즉시" 스크롤 맨 아래로 이동
+  const scrollToBottomInstant = () => {
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: 'instant' });
+    }
+  };
+
+  // ✅ (2) 새로운 메시지가 추가될 때 "부드럽게" 스크롤 이동
+  const scrollToBottom = () => {
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // ✅ (4) 데이터 로딩이 완료된 후에도 즉시 맨 아래로 이동 (최초 1회)
+  useEffect(() => {
+    if (isDataLoaded) {
+      setTimeout(scrollToBottomInstant, 50);
+    }
+  }, [isDataLoaded]);
+
+  // ✅ (5) 새로운 메시지가 추가될 때 부드럽게 스크롤
+  useEffect(() => {
+    if (!isDataLoaded) return;
+    scrollToBottom();
+  }, [chatData]);
 
   const [showPromiseModal, setShowPromiseModal] = useState(false);
 
@@ -45,14 +75,12 @@ export const ChatDetailPage = () => {
       alert(
         `약속이 잡혔습니다: ${response.data.day_display}, ${response.data.time_display}, ${response.data.place}`
       );
-
+      // ✅ [2] 새로고침 (F5) 왜냐면 약속잡기가 바로안떠서..
+      setTimeout(() => {
+        window.location.reload(); // F5와 동일한 새로고침
+      }, 500); // 0.5초 후 새로고침
       // ✅ [1] 모달 닫기
       setShowPromiseModal(false);
-
-      // // ✅ [2] 새로고침 (F5)
-      // setTimeout(() => {
-      //   window.location.reload(); // F5와 동일한 새로고침
-      // }, 500); // 0.5초 후 새로고침
     } catch (error) {
       console.error(
         '❌ 약속 잡기 실패:',
@@ -128,6 +156,8 @@ export const ChatDetailPage = () => {
         newMessage.sender_email
       );
 
+      const isPromiseMessage = newMessage.promise_id !== null; // ✅ promise 값이 null이 아니면 약속 메시지로 판별
+
       const isSender =
         newMessage.sender_email.trim().toLowerCase() ===
         currentUserEmail.trim().toLowerCase();
@@ -147,11 +177,30 @@ export const ChatDetailPage = () => {
         text: newMessage.message,
         is_sender: isSender,
         formatted_time: formattedTime,
+        is_read: newMessage.is_read, // ✅ 읽음 상태 추가
+
+        is_promise: isPromiseMessage, // ✅ 약속 메시지 여부 저장
       };
 
       setChatData((prevData) => {
         if (!isDataLoaded) return prevData; // 데이터가 로드되지 않았다면 변경하지 않음
-
+        // ✅ 새로운 메시지가 약속 메시지라면 PromiseCard 형태로 추가
+        if (formattedMessage.is_promise) {
+          return prevData.map((chat, index) =>
+            index === prevData.length - 1
+              ? {
+                  ...chat,
+                  messages: [
+                    ...chat.messages,
+                    {
+                      ...formattedMessage,
+                      is_promise: true, // ✅ PromiseCard로 렌더링하도록 설정
+                    },
+                  ],
+                }
+              : chat
+          );
+        }
         // ✅ WebSocket 메시지는 날짜를 추가하지 않고, 기존 날짜 그룹에 메시지만 추가
         return prevData.map((chat) =>
           chat.date === prevData[prevData.length - 1].date
@@ -183,12 +232,6 @@ export const ChatDetailPage = () => {
     };
   };
 
-  const scrollToBottom = () => {
-    if (chatEndRef.current) {
-      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   useEffect(() => {
     scrollToBottom();
   }, [chatData]);
@@ -214,11 +257,23 @@ export const ChatDetailPage = () => {
             {chatGroup.messages.map((msg, index) => (
               <S.ChatContainer
                 key={msg.id || `${chatGroup.date}-${index}`}
+                isSender={msg.is_sender} // ✅ 내가 보낸 메시지인지 여부 전달
               >
-                {msg.is_sender ? (
-                  <MyChat time={msg.formatted_time} text={msg.text} />
+                {msg.promise ? ( // ✅ promise 값이 존재하면 PromiseCard로 렌더링
+                  <PromiseCard
+                    day={msg.promise_info.day_display}
+                    time={msg.promise_info.time_display}
+                    place={msg.promise_info.place}
+                  />
+                ) : msg.is_sender ? (
+                  <MyChat
+                    read={msg.is_read}
+                    time={msg.formatted_time}
+                    text={msg.text}
+                  />
                 ) : (
                   <PeerChat
+                    read={msg.is_read}
                     img={postImg2}
                     time={msg.formatted_time}
                     text={msg.text}
@@ -234,55 +289,60 @@ export const ChatDetailPage = () => {
       {showPromiseModal && (
         <S.ModalOverlay>
           <S.ModalWrapper>
-            <S.ModalTitle>📅 약속 잡기</S.ModalTitle>
+            <S.ModalTitle>
+              <img src={promiseIcon} alt="약속잡기아이콘" />
+              약속 잡기
+            </S.ModalTitle>
 
             <S.PromiseForm>
-              <S.PromiseField>
-                <S.FieldLabel>
-                  날짜 <S.Required>*</S.Required>
-                </S.FieldLabel>
-                <S.Input
-                  type="date"
-                  value={promiseData.day}
-                  onChange={(e) =>
-                    setPromiseData((prev) => ({
-                      ...prev,
-                      day: e.target.value,
-                    }))
-                  }
-                />
-              </S.PromiseField>
+              <S.FormContents>
+                <S.PromiseField>
+                  <S.FieldLabel>
+                    날짜 <S.Required>*</S.Required>
+                  </S.FieldLabel>
+                  <S.Input
+                    type="date"
+                    value={promiseData.day}
+                    onChange={(e) =>
+                      setPromiseData((prev) => ({
+                        ...prev,
+                        day: e.target.value,
+                      }))
+                    }
+                  />
+                </S.PromiseField>
 
-              <S.PromiseField>
-                <S.FieldLabel>
-                  시간 <S.Required>*</S.Required>
-                </S.FieldLabel>
-                <S.Input
-                  type="time"
-                  value={promiseData.time}
-                  onChange={(e) =>
-                    setPromiseData((prev) => ({
-                      ...prev,
-                      time: e.target.value,
-                    }))
-                  }
-                />
-              </S.PromiseField>
+                <S.PromiseField>
+                  <S.FieldLabel>
+                    시간 <S.Required>*</S.Required>
+                  </S.FieldLabel>
+                  <S.Input
+                    type="time"
+                    value={promiseData.time}
+                    onChange={(e) =>
+                      setPromiseData((prev) => ({
+                        ...prev,
+                        time: e.target.value,
+                      }))
+                    }
+                  />
+                </S.PromiseField>
 
-              <S.PromiseField>
-                <S.FieldLabel>장소</S.FieldLabel>
-                <S.Input
-                  type="text"
-                  placeholder="장소를 입력해 주세요."
-                  value={promiseData.place}
-                  onChange={(e) =>
-                    setPromiseData((prev) => ({
-                      ...prev,
-                      place: e.target.value,
-                    }))
-                  }
-                />
-              </S.PromiseField>
+                <S.PromiseField>
+                  <S.FieldLabel>장소</S.FieldLabel>
+                  <S.Input
+                    type="text"
+                    placeholder="장소를 입력해 주세요."
+                    value={promiseData.place}
+                    onChange={(e) =>
+                      setPromiseData((prev) => ({
+                        ...prev,
+                        place: e.target.value,
+                      }))
+                    }
+                  />
+                </S.PromiseField>
+              </S.FormContents>
             </S.PromiseForm>
 
             <S.ButtonContainer>

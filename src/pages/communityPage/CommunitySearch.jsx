@@ -4,7 +4,7 @@ import Left from "@assets/icons/Left.svg";
 import Search from "@assets/icons/Search.svg";
 import SearchX from "@assets/icons/SearchX.svg";
 import axiosInstance from "@apis/axiosInstance";
-import Like from "@assets/icons/good.svg";
+import Wlike from "@assets/icons/Wlike.svg";
 import Comment from "@assets/icons/comment.svg";
 import DelBtn from "@assets/icons/X.svg";
 
@@ -82,6 +82,10 @@ export const CommunitySearch = () => {
     navigate("/community");
   }
 
+  const handlePostClick = (id) => {
+    navigate(`/community/${id}`);
+  };  
+
   return (
     <>
       <S.Wrapper>
@@ -112,7 +116,7 @@ export const CommunitySearch = () => {
         <S.MiddleContainer>
           {searchResults.length > 0 ? (
             searchResults.map((result, index) => (
-              <S.ResultContainer key={index}>
+              <S.ResultContainer key={index} onClick={() => handlePostClick(result.id)}>
                 <S.ContainerMiddle>
                   <S.ContainerHeader>
                     <S.ResultCategory>{result.category}</S.ResultCategory>
@@ -129,7 +133,7 @@ export const CommunitySearch = () => {
                 </S.ContainerMiddle>
                 <S.ContainerBottom>
                   <S.IconContainer>
-                    <S.Icon src={Like} />
+                    <S.Icon src={Wlike} />
                     <S.IconNum>{result.like_cnt}</S.IconNum>
                   </S.IconContainer>
                   <S.IconContainer>

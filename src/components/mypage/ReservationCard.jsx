@@ -1,33 +1,55 @@
-import * as S from "./ReservationCard.styled";
-import Profile from "@assets/images/profileimg.png";
+import * as S from './ReservationCard.styled';
+import Profile from '@assets/images/profileimg.png';
 
-export const ReservationCard = ({ date1, date2, time, place, progress }) => {
+export const ReservationCard = ({
+  promiseDay,
+  profile,
+  name,
+  created,
+  time,
+  place,
+}) => {
+  // "2025-03-08T15:42:53.669904" -> "2025-03-08"
+  const dateOnly = created.split('T')[0];
+  // "2025-03-08" -> "2025.03.08"
+  const formattedDate = dateOnly.replaceAll('-', '.');
+
+  // 예약 날짜와 시간을 합쳐 Date 객체 생성 (예약 시간이 promiseDay와 time에 맞게 포맷되어 있어야 함)
+  const promiseDateTime = new Date(`${promiseDay}T${time}`);
+  // 현재 날짜와 비교
+  const isPast = new Date() > promiseDateTime;
+
   return (
     <S.Wrapper>
-      <S.DateSection>{date1}</S.DateSection>
+      <S.DateSection>{formattedDate}</S.DateSection>
       <S.CardSection>
         <S.NameBox>
           <S.NameContainer>
             <S.ImgBox>
               <img
-                src={Profile}
+                src={profile}
                 alt="프로필 사진"
-                style={{ width: "52px", height: "52px" }}
+                style={{ width: '52px', height: '52px' }}
               />
             </S.ImgBox>
-            <S.NameText>미뇽이</S.NameText>
+            <S.NameText>{name}</S.NameText>
           </S.NameContainer>
-          <S.Progress>헌혈 진행 전</S.Progress>
+          <S.Progress isPast={isPast}>
+            {isPast ? '헌혈완료' : '헌혈 진행 전'}
+          </S.Progress>
         </S.NameBox>
         <S.Line></S.Line>
         <S.DetailBox>
-          <S.Detail>날짜</S.Detail>12월 31일 수요일
+          <S.Detail>날짜</S.Detail>
+          {promiseDay}
         </S.DetailBox>
         <S.DetailBox>
-          <S.Detail>시간</S.Detail>오후 1:00
+          <S.Detail>시간</S.Detail>
+          {time}
         </S.DetailBox>
         <S.DetailBox>
-          <S.Detail>장소</S.Detail>아임도그너
+          <S.Detail>장소</S.Detail>
+          {place}
         </S.DetailBox>
       </S.CardSection>
     </S.Wrapper>

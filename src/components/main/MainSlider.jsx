@@ -1,11 +1,11 @@
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
-import * as S from "./MainSlider.styled";
-import TestSlide from "@components/main/TestSlide";
-import PetSlide from "@components/main/PetSlide";
-import CountSlide from "@components/main/CountSlide";
-const MainSlider = ({ isTest }) => {
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Slider from 'react-slick';
+import * as S from './MainSlider.styled';
+import TestSlide from '@components/main/TestSlide';
+import PetSlide from '@components/main/PetSlide';
+import CountSlide from '@components/main/CountSlide';
+const MainSlider = ({ isTest, profile }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -19,8 +19,8 @@ const MainSlider = ({ isTest }) => {
   };
   // ✅ isTest 값에 따라 슬라이드 순서 변경
   const slides = isTest
-    ? [<PetSlide />, <CountSlide />, <TestSlide />] // isTest가 true이면 TestSlide를 뒤로
-    : [<TestSlide />, <PetSlide />, <CountSlide />]; // 기본 순서
+    ? [<PetSlide profile={profile} />, <CountSlide />, <TestSlide />] // isTest가 true이면 TestSlide를 뒤로
+    : [<TestSlide />, <PetSlide profile={profile} />, <CountSlide />]; // 기본 순서
 
   return (
     <S.SliderContainer>

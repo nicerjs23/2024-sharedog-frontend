@@ -119,7 +119,7 @@ export const MyPage = () => {
         {/* 고객정보 */}
         <S.MyPageCard>
           <S.CardTitle>고객 지원</S.CardTitle>
-          <S.CardNav>
+          <S.CardNav onClick={() => navigate('/petInfo')}>
             <S.CardNavContents>
               <img
                 src={MyPageInquiry}
@@ -131,7 +131,7 @@ export const MyPage = () => {
             <MyNextBtn />
           </S.CardNav>
 
-          <S.CardNav>
+          <S.CardNav onClick={() => navigate('/terms')}>
             <S.CardNavContents>
               <img
                 src={MyPageNote}
@@ -142,7 +142,7 @@ export const MyPage = () => {
             </S.CardNavContents>
             <MyNextBtn />
           </S.CardNav>
-          <S.CardNav>
+          <S.CardNav onClick={() => navigate('/privacy')}>
             <S.CardNavContents>
               <img
                 src={MyPageNote}

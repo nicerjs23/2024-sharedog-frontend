@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Wrapper = styled.section`
   margin-bottom: 98px;
@@ -13,7 +13,8 @@ export const Wrapper = styled.section`
 
   top: 50%;
 
-  font-family: ${({ theme }) => theme.fonts.SUITSemiBold["font-family"]};
+  font-family: ${({ theme }) =>
+    theme.fonts.SUITSemiBold['font-family']};
 `;
 
 export const Header = styled.section`
@@ -64,6 +65,10 @@ export const BackButton = styled.div`
   width: 11px;
   height: 17px;
   margin-left: 20px;
+  img {
+    height: 17px;
+    width: auto;
+  }
 `;
 
 export const Blank = styled.div`

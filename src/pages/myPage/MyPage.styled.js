@@ -14,6 +14,11 @@ export const Wrapper = styled.section`
   margin-bottom: 98px;
 `;
 
+export const BtnWrapper = styled.img`
+  display: flex;
+  width: 16px;
+  height: 16px;
+`;
 export const Header = styled.section`
   display: flex;
   flex-direction: column;

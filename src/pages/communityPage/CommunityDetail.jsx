@@ -20,6 +20,7 @@ export const CommunityDetail = () => {
   const [comments, setComments] = useState([]);
   const [profile, setProfile] = useState(null);
   const [liked, setLiked] = useState(false);
+  const [myUserName, setMyUserName] = useState("");
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -55,6 +56,7 @@ export const CommunityDetail = () => {
         const response = await axiosInstance.get(`/api/home`);
         console.log(response.data);
         setProfile(response.data.profile_image);
+        setMyUserName(response.data.user_name);
       } catch(error) {
         console.log("유저 정보 받아오기 실패", error);
       }
@@ -174,6 +176,7 @@ export const CommunityDetail = () => {
                 profile={cmt.profile_image || Default}
                 content={cmt.content}
                 created_at={cmt.created_at}
+                myUserName={myUserName}
               />
             ))
           )}

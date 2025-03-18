@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Comment = ({ writer, profile, content, created_at }) => {
+const Comment = ({ writer, profile, content, created_at, myUserName}) => {
     return (
         <CommentWrapper>
             <CommentLeft>
@@ -19,9 +19,11 @@ const Comment = ({ writer, profile, content, created_at }) => {
                         <Text>{content}</Text>
                     </CommentContentBottom>
                 </CommentMain>
-                <ChatBtn>
-                    <span>채팅하기</span>
-                </ChatBtn>
+                {writer !== myUserName && (
+                    <ChatBtn>
+                        <span>채팅하기</span>
+                    </ChatBtn>
+                )}
             </CommentContainer>   
         </CommentWrapper>
     )

@@ -39,7 +39,7 @@ export const Reservation = () => {
         <S.BackButton>
           <img src={LeftButton} alt="백 버튼" onClick={BackClick} />
         </S.BackButton>
-        예약 내역
+        나의 긴급헌혈 약속
         <S.Blank></S.Blank>
       </S.Header>
       <S.ScrollableContent>

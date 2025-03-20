@@ -199,6 +199,7 @@ export const CommunityDetail = () => {
               content={cmt.content}
               created_at={cmt.created_at}
               myUserName={myUserName}
+              writerEmail={cmt.user_email}
             />
           ))}
       </S.CommentList>

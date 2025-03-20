@@ -188,12 +188,22 @@ export const Write = styled.div`
 export const MainImg = styled.div`
   display: flex;
   width: 100%;
-  justify-content: center;
+  max-width: 181px; 
+  margin: 0 auto;
+  justify-content: flex-start;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory; // 가로 방향 스크롤에서 무조건 특정 요소에서 멈추도록 설정
+
   img {
     width: 181px;
     height: 111px;
     flex-shrink: 0;
     border-radius: 6px;
+    scroll-snap-align: start;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;
 

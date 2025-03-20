@@ -47,8 +47,11 @@ const Image = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    aspect-ratio: 1 /1;
+    width: 80%;
     img{
-        width: 80%;
+        width: 100%;
+        height: 100%;
         border-radius: 38px;
         background: url(<path-to-image>) lightgray 50% / cover no-repeat;
         box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);

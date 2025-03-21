@@ -1,7 +1,7 @@
-import Like from "@assets/icons/good.svg";
-import Comment from "@assets/icons/comment.svg";
+import Like from '@assets/icons/good.svg';
+import Comment from '@assets/icons/comment.svg';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 const CommunityPost = ({
   category,
   region,
@@ -13,7 +13,7 @@ const CommunityPost = ({
   img,
   like_cnt,
   comment_cnt,
-  onClick
+  onClick,
 }) => {
   return (
     <PostWrapper onClick={onClick}>
@@ -57,7 +57,7 @@ const PostWrapper = styled.div`
   justify-content: flex-end;
   width: 100%;
   min-width: 330px;
-  height: 160px;
+  /* height: 160px; */
 
   border: 1px solid #eaeaea;
   border-radius: 10px;
@@ -98,11 +98,11 @@ const Tag = styled.div`
     tag2 ? theme.colors.white : theme.colors.mainColor};
 
   border: ${({ theme, tag2 }) =>
-    tag2 ? `0.27px solid ${theme.colors.mainColor}` : "none"};
+    tag2 ? `0.27px solid ${theme.colors.mainColor}` : 'none'};
   border-radius: 12px;
 
   font-family: ${({ theme }) =>
-    theme.fonts.SUITMedium["font-family"]};
+    theme.fonts.SUITMedium['font-family']};
   font-size: 0.5rem;
   color: ${({ theme, tag2 }) =>
     tag2 ? theme.colors.mainColor : theme.colors.white};
@@ -112,7 +112,7 @@ const Tag = styled.div`
 const Day = styled.div`
   display: flex;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITMedium["font-family"]};
+    theme.fonts.SUITMedium['font-family']};
   font-size: 0.625rem;
   color: ${({ theme }) => theme.colors.gray01};
 `;
@@ -124,7 +124,7 @@ const TitleWrapper = styled.div`
 `;
 
 const Title = styled.div`
-  font-family: ${({ theme }) => theme.fonts.SUITBold["font-family"]};
+  font-family: ${({ theme }) => theme.fonts.SUITBold['font-family']};
   font-size: 0.75rem;
   color: ${({ theme }) => theme.colors.gray03};
 
@@ -136,7 +136,7 @@ const Title = styled.div`
 
 const Writer = styled.div`
   font-family: ${({ theme }) =>
-    theme.fonts.SUITMedium["font-family"]};
+    theme.fonts.SUITMedium['font-family']};
   font-size: 0.625rem;
   color: ${({ theme }) => theme.colors.gray02};
 
@@ -169,7 +169,7 @@ const Body = styled.div`
   margin-right: 5px;
 
   font-family: ${({ theme }) =>
-    theme.fonts.SUITMedium["font-family"]};
+    theme.fonts.SUITMedium['font-family']};
   font-size: 0.625rem;
   line-height: 15px;
   color: ${({ theme }) => theme.colors.default};
@@ -199,5 +199,5 @@ const IconNum = styled.div`
   color: #9c9ca1;
   font-size: 0.5rem;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITMedium["font-family"]};
+    theme.fonts.SUITMedium['font-family']};
 `;

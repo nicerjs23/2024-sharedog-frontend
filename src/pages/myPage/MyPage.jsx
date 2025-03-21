@@ -89,7 +89,7 @@ export const MyPage = () => {
             <MyNextBtn />
           </S.CardNav>
 
-          <S.CardNav>
+          <S.CardNav onClick={() => handleNavigate('/mywrite')}>
             <S.CardNavContents>
               <img
                 src={MypageWrite}
@@ -119,7 +119,14 @@ export const MyPage = () => {
         {/* 고객정보 */}
         <S.MyPageCard>
           <S.CardTitle>고객 지원</S.CardTitle>
-          <S.CardNav onClick={() => navigate('/petInfo')}>
+          <S.CardNav
+            onClick={() =>
+              window.open(
+                'https://www.instagram.com/sharedog.official',
+                '_blank'
+              )
+            }
+          >
             <S.CardNavContents>
               <img
                 src={MyPageInquiry}

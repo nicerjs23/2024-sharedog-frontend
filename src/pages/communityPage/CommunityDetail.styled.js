@@ -54,7 +54,7 @@ export const Empty = styled.div`
 
 export const Main = styled.div`
   display: flex;
-  width: 88%;
+  width: 100%;
   flex-direction: column;
   padding: 16px 16px 1px 16px;
   border-radius: 10px 10px 0 0;
@@ -219,7 +219,7 @@ export const Content = styled.div`
 
 export const MainBottom = styled.div`
   display: flex;
-  width: 88%;
+  width: 100%;
   height: 30px;
   padding: 9px 16px;
   align-items: center;
@@ -262,7 +262,7 @@ export const Cnt = styled.div`
 
 export const Line = styled.div`
   display: flex;
-  width: 88%;
+  width: 100%;
   height: 1.018px;
   background: #EEE;
   margin-top: 20px;
@@ -342,7 +342,7 @@ export const CommentList = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 88%;
+  width: 100%;
   gap: 18px;
   padding-bottom: 35px;
 `;

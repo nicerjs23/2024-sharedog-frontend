@@ -43,7 +43,7 @@ export const KakaoCallbackPage = () => {
         setAuth({ access, refresh });
 
         // 메인 페이지로 이동
-        navigate("/main");
+        navigate("/signup/pro");
       } catch (error) {
         console.error(
           "카카오 로그인 실패:",

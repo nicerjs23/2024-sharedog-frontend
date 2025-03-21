@@ -188,35 +188,41 @@ export const ChatDetailPage = () => {
       };
 
       setChatData((prevData) => {
-        if (!isDataLoaded) return prevData; // 데이터가 로드되지 않았다면 변경하지 않음
-        // ✅ 새로운 메시지가 약속 메시지라면 PromiseCard 형태로 추가
-        if (formattedMessage.is_promise) {
-          return prevData.map((chat, index) =>
-            index === prevData.length - 1
-              ? {
-                  ...chat,
-                  messages: [
-                    ...chat.messages,
-                    {
-                      ...formattedMessage,
-                      is_promise: true, // ✅ PromiseCard로 렌더링하도록 설정
-                    },
-                  ],
-                }
-              : chat
-          );
+        // 날짜 추출(서버에서 주는 값 혹은 new Date() 등)
+        const newMsgDate = newMessage.date || '2025-03-21';
+        if (!prevData.length) {
+          // 기존 그룹이 전혀 없는 경우, 새 그룹 생성
+          return [
+            {
+              date: newMsgDate,
+              messages: [formattedMessage],
+            },
+          ];
         }
-        // ✅ WebSocket 메시지는 날짜를 추가하지 않고, 기존 날짜 그룹에 메시지만 추가
-        return prevData.map((chat) =>
-          chat.date === prevData[prevData.length - 1].date
-            ? {
-                ...chat,
-                messages: [...chat.messages, formattedMessage],
-              }
-            : chat
-        );
-      });
 
+        // 마지막 그룹과 날짜가 같으면 메시지만 푸시
+        const lastGroup = prevData[prevData.length - 1];
+        if (lastGroup.date === newMsgDate) {
+          return prevData.map((group, idx) => {
+            if (idx === prevData.length - 1) {
+              return {
+                ...group,
+                messages: [...group.messages, formattedMessage],
+              };
+            }
+            return group;
+          });
+        } else {
+          // 날짜가 다르면 새 그룹 추가
+          return [
+            ...prevData,
+            {
+              date: newMsgDate,
+              messages: [formattedMessage],
+            },
+          ];
+        }
+      });
       scrollToBottom();
     };
 

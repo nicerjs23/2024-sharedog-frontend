@@ -68,7 +68,7 @@ export const ResultContainer = styled.div`
   flex-direction: column;
   width: 88%;
   min-width: 330px;
-  height: 160.964px;
+  /* height: 160.964px; */
   flex-shrink: 0;
   border-radius: 10.06px;
   border: 1.006px solid #EAEAEA;

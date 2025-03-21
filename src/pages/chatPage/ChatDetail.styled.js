@@ -65,8 +65,8 @@ export const Date = styled.div`
   font-size: 0.75rem;
   font-family: ${({ theme }) =>
     theme.fonts.SUITSemiBold['font-family']};
-
-  margin-bottom: 5px;
+  margin-top: 10px;
+  /* margin-bottom: 5px; */
 `;
 
 export const ChatContainer = styled.div`

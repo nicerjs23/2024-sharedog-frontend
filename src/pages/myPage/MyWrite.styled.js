@@ -15,10 +15,10 @@ export const Wrapper = styled.section`
 export const Header = styled.section`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   width: 88%;
   gap: 18px;
-  margin: 13px 0 21px 0;
+  margin: 48px 0 21px 0;
 `;
 
 export const HeaderLeft = styled.div`
@@ -30,70 +30,19 @@ export const HeaderLeft = styled.div`
 
 export const HeaderRight = styled.div`
   display: flex;
-  width: 100%;
-  height: 34px;
-  padding: 6px 18px;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-
-  border-radius: 30px;
-  background: #FFE7E7;
-`;
-
-export const RightContainer = styled.div`
-  display: flex;
-  height: 22px;
-  align-items: center;
-  gap: 11px;
-  flex-shrink: 0;
-  align-self: stretch;
-`;
-
-export const SearchIcon = styled.div`
-  display: flex;
-  width: 15px;
-  height: 15px;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const SearchInput = styled.input`
-  width: 100%;
-  background: #FFE7E7;
-
-  color: #636366;
+  color: #000;
+  text-align: center;
   font-family: SUIT;
-  font-size: 14px;
+  font-size: 16px;
   font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-
-  &::placeholder {
-    color: #FFA1A1;
-    font-family: SUIT;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-  }
-
-  &:focus {
-    outline: none; /* 기본 아웃라인 제거 */
-  }
+  font-weight: 600;
+  line-height: 30px; /* 187.5% */
 `;
 
-export const ClearButton = styled.button`
+export const Empty = styled.div`
   display: flex;
-  /* align-items: center; */
-
-  cursor: pointer;
-
-  img {
-    width: 12px;
-    height: 12px;
-  }
-`;
+  width: 11px;
+`
 
 export const MiddleContainer = styled.div`
   display: flex;
@@ -102,6 +51,7 @@ export const MiddleContainer = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 15px;
+  padding: 0 0 35px 0;
 `;
 
 export const MiddleContent = styled.div`
@@ -233,84 +183,6 @@ export const IconNum = styled.div`
   font-size: 0.5rem;
 `;
 
+export const NoPostMessage = styled.div`
 
-export const Recent = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  color: #000;
-  font-family: SUIT;
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 800;
-  line-height: normal;
 `;
-
-export const Delete = styled.div`
-  color: rgba(156, 156, 161, 0.50);
-  text-align: center;
-  font-family: SUIT;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-`;
-
-export const SearchResult = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-export const DeleteHeader = styled.div`
-  display: flex;
-  width: 88%;
-
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-`;
-
-export const RecentList = styled.div`
-  display: flex;
-  width: 88%;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 9px;
-`;
-
-export const RecentItem = styled.div`
-  display: flex;
-  width: fit-content;
-  max-width: 30%;
-  min-width: 30%;
-  padding: 8px 13px 8px 15px;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 23.175px;
-  border: 1px solid #DADADA;
-  background: #FFF;
-
-  color: #636366;
-  text-align: center;
-  font-family: SUIT;
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-
-  span {
-    max-width: 80%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-`;
-
-export const DeleteButton = styled.div`
-  img {
-    width: 20px;
-    height: 20px;
-  }
-`;
-

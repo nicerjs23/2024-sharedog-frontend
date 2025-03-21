@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Wrapper = styled.section`
   /* border: 1px solid green; */
@@ -31,6 +31,9 @@ export const IconBox = styled.button`
   background: none;
   border: none;
   cursor: pointer;
+
+  /* $disabled=true면 클릭 안 되도록 */
+  pointer-events: ${({ $disabled }) => ($disabled ? 'none' : 'auto')};
 `;
 
 export const Icon = styled.img`
@@ -41,7 +44,7 @@ export const Icon = styled.img`
 export const IconText = styled.div`
   font-size: 10px;
   color: ${({ $isActive, theme }) =>
-    $isActive ? theme.colors.mainColor : "rgba(156, 156, 161, 0.7)"};
+    $isActive ? theme.colors.mainColor : 'rgba(156, 156, 161, 0.7)'};
   font-family: ${({ theme }) =>
-    theme.fonts.SUITRegular["font-family"]};
+    theme.fonts.SUITRegular['font-family']};
 `;

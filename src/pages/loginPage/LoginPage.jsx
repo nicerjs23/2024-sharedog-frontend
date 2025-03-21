@@ -4,13 +4,15 @@ import Logo from '@assets/icons/Logo.svg';
 import { useCustomNavigate } from '@hooks/useCustomNavigate';
 
 import axiosInstance from '@apis/axiosInstance'; // ✅ axiosInstance 사용
-
+import usePreventZoom from '@hooks/usePreventZoom'; //확대방지api
 export const LoginPage = () => {
   const { goTo } = useCustomNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  usePreventZoom(); // 확대 방지 적용!
 
   const handleLogin = async () => {
     if (!email || !password) {

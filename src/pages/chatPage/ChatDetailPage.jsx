@@ -13,7 +13,11 @@ import { useParams } from 'react-router-dom';
 import PromiseCard from '@components/chat/PromiseCard'; // ✅ 약속 카드 컴포넌트 추가
 import DateInput from '@components/chat/DateInput';
 import TimeInput from '@components/chat/TimeInput';
+
+import usePreventZoom from '@hooks/usePreventZoom'; //확대방지api
+
 export const ChatDetailPage = () => {
+  usePreventZoom(); // 확대 방지 적용!
   const { goTo, goBack } = useCustomNavigate();
   const { id } = useParams();
   const roomId = parseInt(id, 10);

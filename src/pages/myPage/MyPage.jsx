@@ -89,7 +89,7 @@ export const MyPage = () => {
             <MyNextBtn />
           </S.CardNav>
 
-          <S.CardNav>
+          <S.CardNav onClick={() => handleNavigate('/mywrite')}>
             <S.CardNavContents>
               <img
                 src={MypageWrite}

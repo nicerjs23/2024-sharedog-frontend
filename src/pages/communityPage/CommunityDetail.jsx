@@ -21,6 +21,7 @@ export const CommunityDetail = () => {
   const [profile, setProfile] = useState(null);
   const [liked, setLiked] = useState(false);
   const [myUserName, setMyUserName] = useState('');
+  const [isPosting, setIsPosting] = useState(false);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -83,10 +84,14 @@ export const CommunityDetail = () => {
   };
 
   const commentPost = async () => {
+    if (isPosting) return;
     if (!comment.trim()) {
       alert('댓글을 입력하세요.');
       return;
     }
+
+    setIsPosting(true);
+
     try {
       const response = await axiosInstance.post(
         `/api/community/home/${id}/comments`,
@@ -97,6 +102,9 @@ export const CommunityDetail = () => {
       setComment('');
     } catch (error) {
       console.log('댓글 등록 실패', error);
+    }
+    finally {
+      setIsPosting(false);
     }
   };
 
@@ -119,6 +127,12 @@ export const CommunityDetail = () => {
       }
     } catch (error) {
       console.log('좋아요 실패', error);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      commentPost();
     }
   };
 
@@ -216,6 +230,7 @@ export const CommunityDetail = () => {
               placeholder="댓글을 입력하세요."
               value={comment}
               onChange={(e) => setComment(e.target.value)}
+              onKeyDown={handleKeyDown}
             />
           </S.CommentLeft>
           <S.CommentSub>

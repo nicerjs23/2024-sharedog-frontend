@@ -151,7 +151,7 @@ export const CommunityDetail = () => {
             />
           </S.Back>
           <S.HeaderTitle>
-            <span>긴급헌혈</span>
+            <span>{post.category}</span>
           </S.HeaderTitle>
           <S.Empty />
         </S.Header>

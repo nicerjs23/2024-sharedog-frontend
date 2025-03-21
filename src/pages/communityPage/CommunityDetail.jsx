@@ -11,7 +11,11 @@ import Default from '@assets/icons/ProImage.svg';
 import Send from '@assets/icons/Send.svg';
 import CommentComponent from '@components/community/Comment';
 
+import usePreventZoom from '@hooks/usePreventZoom'; //확대방지api
+
 export const CommunityDetail = () => {
+  usePreventZoom(); // 확대 방지 적용!
+
   const { id } = useParams();
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
@@ -102,8 +106,7 @@ export const CommunityDetail = () => {
       setComment('');
     } catch (error) {
       console.log('댓글 등록 실패', error);
-    }
-    finally {
+    } finally {
       setIsPosting(false);
     }
   };
@@ -131,7 +134,7 @@ export const CommunityDetail = () => {
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey) {
       commentPost();
     }
   };

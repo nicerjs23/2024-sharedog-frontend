@@ -187,7 +187,7 @@ export const CommunityWrite = () => {
           <S.WriteMain>
             <S.Title>내용</S.Title>
             <S.MainPlace
-              placeholder="내용을 입력해주세요."
+              placeholder="내용을 입력해주세요. (*최소 5자 이상)"
               value={content}
               onChange={(e) => setContent(e.target.value)}
             />

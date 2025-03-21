@@ -151,8 +151,11 @@ export const CommunitySearch = () => {
               </S.DeleteHeader>
               <S.RecentList>
                 {recentSearches.map((item) => (
-                  <S.RecentItem key={item.id}>
-                    <span onClick={() => handleSearch(item.keyword)}>{item.keyword}</span>
+                  <S.RecentItem key={item.id} onClick={() => {
+                    handleSearch(item.keyword);
+                    setSearchTerm(item.keyword);
+                  }}>
+                    <span>{item.keyword}</span>
                     <S.DeleteButton onClick={() => deleteSearchKeyword(item.id)}>
                       <img src={DelBtn} alt="삭제 버튼" />
                     </S.DeleteButton>

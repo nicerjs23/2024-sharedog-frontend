@@ -43,7 +43,7 @@ export const BloodSignUpPage = () => {
           <S.BloodContainer>
             <S.DynamicSpan active={true}>혈액형</S.DynamicSpan>
             <S.BloodWrapper onClick={toggleDropdown}>
-              <S.BloodSelect>
+              <S.BloodSelect hasValue={!!signupData.blood}>
                 {signupData.blood ? signupData.blood : "혈액형 선택"}
               </S.BloodSelect>
               <S.Drop src={Drop} alt="드롭다운" />

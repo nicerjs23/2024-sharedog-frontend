@@ -297,7 +297,7 @@ export const BloodSelect = styled.div`
   height: 14px;
   flex-direction: column;
   justify-content: center;
-  color: #E7E8EB;
+  color: ${({ hasValue }) => (hasValue ? "#2A2A2A" : "#BDBDBD")};
   font-family: SUIT;
   font-style: normal;
   font-weight: 500;

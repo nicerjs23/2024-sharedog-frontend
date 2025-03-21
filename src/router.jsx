@@ -38,6 +38,7 @@ import { PetSignUpLayout } from '@layout/PetSignUpLayout';
 import { ChatDetailPage } from '@pages/chatPage/ChatDetailPage';
 import { TermsPage } from '@pages/myPage/TermsPage';
 import { PrivacyPolicyPage } from '@pages/myPage/PrivacyPolicyPage';
+import { MyWrite } from '@pages/myPage/MyWrite';
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -55,6 +56,7 @@ export const router = createBrowserRouter([
       { path: 'petinfo', element: <PetInfo /> },
       { path: 'petedit', element: <PetEdit /> },
       { path: 'petadd', element: <PetAdd /> },
+      { path: 'mywrite', element: <MyWrite />},
       { path: 'reservation', element: <Reservation /> },
       { path: 'testStart', element: <TestStartPage /> },
       { path: 'terms', element: <TermsPage /> },

@@ -105,7 +105,7 @@ export const CommunityWrite = () => {
   const handleModalClose = () => {
     setIsModalOpen(false);
     if (newPostId) {
-      navigate(`/community/${newPostId}`); // ✅ 상세 페이지로 이동
+      navigate(`/community/${newPostId}`, { replace: true }); // ✅ 상세 페이지로 이동
     } else {
       navigate("/community"); // 혹시 ID가 없으면 기본 목록 페이지로 이동
     }

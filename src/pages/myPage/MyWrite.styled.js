@@ -18,7 +18,7 @@ export const Header = styled.section`
   justify-content: space-between;
   width: 88%;
   gap: 18px;
-  margin: 48px 0 21px 0;
+  margin: 19px 0 21px 0;
 `;
 
 export const HeaderLeft = styled.div`

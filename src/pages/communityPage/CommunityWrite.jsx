@@ -36,7 +36,7 @@ export const CommunityWrite = () => {
   const navigate = useNavigate();
 
   const isFormComplete = selectedCategory && selectedRegion && selectedBloodType
-    && title && content && selectedImages.length > 0;
+    && title && content;
 
   const handleImageUpload = (event) => {
     if(!event.target.files) return;

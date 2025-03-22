@@ -126,7 +126,7 @@ export const PetAdd = () => {
 
       console.log('반려견 등록 성공:', response.data);
       alert('반려견이 성공적으로 등록되었습니다!');
-      navigate('/petinfo');
+      navigate('/mypage/petinfo');
     } catch (error) {
       console.error('반려견 등록 실패:', error);
       alert('반려견 등록에 실패했습니다.');

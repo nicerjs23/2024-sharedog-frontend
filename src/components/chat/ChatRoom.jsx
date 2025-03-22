@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import Logo from "@assets/icons/Logo.png";
+import styled from 'styled-components';
+import Logo from '@assets/images/defaultDogImg.png';
 const ChatRoom = ({ room, onClick }) => {
   return (
     <ChatRoomWrapper onClick={onClick}>
@@ -10,11 +10,11 @@ const ChatRoom = ({ room, onClick }) => {
         />
         <TextContainer>
           <ChatNameDate>
-            <Name>{room.opponent_user || "이름 없음"}</Name>
-            <Date>{room.latest_message_time || "시간 없음"}</Date>
+            <Name>{room.opponent_user || '이름 없음'}</Name>
+            <Date>{room.latest_message_time || '시간 없음'}</Date>
           </ChatNameDate>
           <ChatBody>
-            {room.latest_message || "최근 메시지가 없습니다."}
+            {room.latest_message || '최근 메시지가 없습니다.'}
           </ChatBody>
         </TextContainer>
       </ChatContent>
@@ -66,20 +66,20 @@ const ChatNameDate = styled.div`
 const Name = styled.div`
   color: ${({ theme }) => theme.colors.text};
   font-size: 0.875rem;
-  font-family: ${({ theme }) => theme.fonts.SUITBold["font-family"]};
+  font-family: ${({ theme }) => theme.fonts.SUITBold['font-family']};
 `;
 const Date = styled.div`
   color: #9c9ca1;
   font-size: 0.75rem;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITMedium["font-family"]};
+    theme.fonts.SUITMedium['font-family']};
 `;
 const ChatBody = styled.div`
   width: 100%;
   color: #9c9ca1;
   font-size: 0.75rem;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITMedium["font-family"]};
+    theme.fonts.SUITMedium['font-family']};
 
   white-space: nowrap; /* 한 줄로 유지 */
   overflow: hidden; /* 넘치는 내용 숨김 */

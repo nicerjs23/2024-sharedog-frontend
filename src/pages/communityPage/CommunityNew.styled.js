@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+import WriteIcon from '@assets/icons/writeIcon.svg?react';
 
 export const Wrapper = styled.section`
   display: flex;
@@ -27,7 +28,7 @@ export const Title = styled.div`
   color: #000000;
   font-size: 1.375rem;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITExtraBold["font-family"]};
+    theme.fonts.SUITExtraBold['font-family']};
 `;
 
 export const TopContentsContainer = styled.div`
@@ -53,7 +54,7 @@ export const Notice = styled.div`
   color: ${({ theme }) => theme.colors.mainColor};
   font-size: 0.75rem;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITExtraBold["font-family"]};
+    theme.fonts.SUITExtraBold['font-family']};
 `;
 export const NoticeText = styled.div`
   margin-left: 10px;
@@ -62,7 +63,7 @@ export const NoticeText = styled.div`
   color: ${({ theme }) => theme.colors.text};
   font-size: 0.75rem;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITSemiBold["font-family"]};
+    theme.fonts.SUITSemiBold['font-family']};
 
   white-space: nowrap;
   overflow: hidden;
@@ -99,7 +100,7 @@ export const SearchInput = styled.input`
 
   font-size: 0.75rem;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITMedium["font-family"]};
+    theme.fonts.SUITMedium['font-family']};
   color: #636366;
   &::placeholder {
     color: #ffa1a1;
@@ -149,7 +150,7 @@ export const NavText = styled.div`
   display: flex;
   font-size: 0.75rem;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITSemiBold["font-family"]};
+    theme.fonts.SUITSemiBold['font-family']};
   color: #dadada;
 
   ${({ $isSelected }) =>
@@ -172,7 +173,7 @@ export const DropDownContainer = styled.div`
   gap: 12px;
 `;
 
-export const WriteBtn = styled.img`
+export const Write = styled(WriteIcon)`
   position: fixed; /* 화면 고정 */
   width: 55px;
   height: 55px;
@@ -189,6 +190,6 @@ export const WriteBtn = styled.img`
   transition: opacity 0.3s ease, transform 0.3s ease;
   opacity: ${(props) => (props.$isVisible ? 1 : 0)};
   transform: ${(props) =>
-    props.$isVisible ? "translateY(0)" : "translateY(20px)"};
-  pointer-events: ${(props) => (props.$isVisible ? "auto" : "none")};
+    props.$isVisible ? 'translateY(0)' : 'translateY(20px)'};
+  pointer-events: ${(props) => (props.$isVisible ? 'auto' : 'none')};
 `;

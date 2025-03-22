@@ -5,7 +5,7 @@ import * as S from './MainSlider.styled';
 import TestSlide from '@components/main/TestSlide';
 import PetSlide from '@components/main/PetSlide';
 import CountSlide from '@components/main/CountSlide';
-const MainSlider = ({ isTest, profile }) => {
+const MainSlider = ({ isTest, profile, isLoggedIn }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -19,8 +19,16 @@ const MainSlider = ({ isTest, profile }) => {
   };
   // ✅ isTest 값에 따라 슬라이드 순서 변경
   const slides = isTest
-    ? [<PetSlide profile={profile} />, <CountSlide />, <TestSlide />] // isTest가 true이면 TestSlide를 뒤로
-    : [<TestSlide />, <PetSlide profile={profile} />, <CountSlide />]; // 기본 순서
+    ? [
+        <PetSlide profile={profile} isLoggedIn={isLoggedIn} />,
+        <CountSlide />,
+        <TestSlide />,
+      ] // isTest가 true이면 TestSlide를 뒤로
+    : [
+        <TestSlide />,
+        <PetSlide profile={profile} isLoggedIn={isLoggedIn} />,
+        <CountSlide />,
+      ]; // 기본 순서
 
   return (
     <S.SliderContainer>

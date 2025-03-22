@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import X from "@assets/icons/X.svg";
+import styled from 'styled-components';
+import X from '@assets/icons/X.svg';
 const LoginRequiredModal = ({ isOpen, onClose, onLogin }) => {
-  console.log("Modal isOpen 상태:", isOpen);
+  console.log('Modal isOpen 상태:', isOpen);
   if (!isOpen) return null; // ✅ isOpen이 false면 모달을 렌더링하지 않음
   //   onClick={onClose} onClick={onLogin} onClick={onClose}
   return (
@@ -23,7 +23,7 @@ const LoginRequiredModal = ({ isOpen, onClose, onLogin }) => {
               <ModalSkip onClick={onClose}>다음에 하기</ModalSkip>
             </ModalBtnBox>
           </ModalBody>
-          <div style={{ height: "50px", maxHeight: "50px" }} />
+          <div style={{ height: '50px', maxHeight: '50px' }} />
         </ModalContents>
       </ModalContainer>
     </ModalOverlay>
@@ -49,16 +49,16 @@ const ModalOverlay = styled.div`
 const ModalContainer = styled.div`
   width: 100%;
   flex-direction: column;
-  height: calc(100% - 474px);
+  height: calc(100% - 430px);
   min-height: 2px;
   max-width: 540px; /* MainWrapper와 동일한 최대 너비 */
   margin: 0 auto;
   background-color: white;
-  border-radius: 15px 15px 0 0;
+  border-radius: 20px 20px 0 0;
 
   position: relative;
   animation: slideUp 0.3s ease-out;
-
+  box-shadow: 4px 0px 4px 0px rgba(0, 0, 0, 0.1);
   @keyframes slideUp {
     from {
       transform: translateY(100%);
@@ -76,7 +76,7 @@ const ModalContents = styled.div`
   box-sizing: border-box;
   gap: 36px;
   height: 100%;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   @media screen and (max-height: 700px) {
     gap: 10px;
   }
@@ -118,7 +118,7 @@ const ModalTitle = styled.p`
   color: #2a2a2a;
   font-size: 1rem;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITExtraBold["font-family"]};
+    theme.fonts.SUITExtraBold['font-family']};
 `;
 
 // ✅ 모달 본문 텍스트
@@ -126,7 +126,7 @@ const ModalText = styled.p`
   color: #bdbdbd;
   font-size: 15px;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITSemiBold["font-family"]};
+    theme.fonts.SUITSemiBold['font-family']};
 `;
 
 const ModalBtnBox = styled.div`
@@ -143,7 +143,7 @@ const ModalBtn = styled.button`
   align-items: center;
   background-color: ${({ theme }) => theme.colors.mainColor};
   color: ${({ theme }) => theme.colors.white};
-  font-family: ${({ theme }) => theme.fonts.SUITBold["font-family"]};
+  font-family: ${({ theme }) => theme.fonts.SUITBold['font-family']};
   font-size: 15px;
   border-radius: 20px;
   cursor: pointer;
@@ -154,7 +154,7 @@ const ModalSkip = styled.p`
   margin-top: 14px;
   color: #8a8a8a;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITSemiBold["font-family"]};
+    theme.fonts.SUITSemiBold['font-family']};
   font-size: 13px;
   cursor: pointer;
 `;

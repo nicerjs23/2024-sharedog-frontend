@@ -1,12 +1,17 @@
-import styled from "styled-components";
-const NavBtn = ({ icon, text, $paddingLeft }) => {
+import styled from 'styled-components';
+import { useCustomNavigate } from '@hooks/useCustomNavigate';
+const NavBtn = ({ icon, text, $paddingLeft, to }) => {
+  const { goTo } = useCustomNavigate(); // ✅ 커스텀 navigate 훅 사용
+  const handleClick = () => {
+    if (to) goTo(to); // to가 있으면 navigate
+  };
   return (
-    <InfoNavBtn>
+    <InfoNavBtn onClick={handleClick}>
       <NavCircle $paddingLeft={$paddingLeft}>
         <img
           src={icon}
           alt={text}
-          style={{ width: "17px", height: "17px" }}
+          style={{ width: '17px', height: '17px' }}
         />
       </NavCircle>
       <NavText>{text}</NavText>
@@ -48,5 +53,5 @@ const NavText = styled.div`
   font-size: 0.875rem;
   color: #373737;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITSemiBold["font-family"]};
+    theme.fonts.SUITSemiBold['font-family']};
 `;

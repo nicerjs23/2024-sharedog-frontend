@@ -68,10 +68,12 @@ export const CommonFooter = () => {
           $disabled={!token}
         >
           <S.Icon
-            src={pathname === '/mypage' ? MyIconActive : MyIcon}
+            src={
+              pathname.startsWith('/mypage') ? MyIconActive : MyIcon
+            }
             alt="마이페이지아이콘"
           />
-          <S.IconText $isActive={pathname === '/mypage'}>
+          <S.IconText $isActive={pathname.startsWith('/mypage')}>
             마이페이지
           </S.IconText>
         </S.IconBox>

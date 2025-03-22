@@ -52,6 +52,9 @@ export const ProfileImage = styled.img`
   width: 100%;
   height: 100%;
   border-radius: 50%;
+
+  object-fit: cover; /* 이미지 비율 유지 */
+  object-position: center; /* 중앙 정렬 */
 `;
 
 export const Camera = styled.div`

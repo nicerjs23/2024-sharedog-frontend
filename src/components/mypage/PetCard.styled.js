@@ -1,5 +1,5 @@
 // PetCard.styled.js
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Wrapper = styled.section`
   display: flex;
@@ -9,12 +9,13 @@ export const Wrapper = styled.section`
   justify-content: center;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.pageBgColor};
-  font-family: ${({ theme }) => theme.fonts.SUITSemiBold["font-family"]};
+  font-family: ${({ theme }) =>
+    theme.fonts.SUITSemiBold['font-family']};
 `;
 
 export const Card = styled.div`
   display: flex;
-  width: 80%;
+  width: 85%;
   justify-content: center;
   align-items: center;
   border-radius: 15px;
@@ -29,6 +30,9 @@ export const ProfileImage = styled.img`
   margin-bottom: 20px;
 
   border-radius: 50%; /* 원형으로 만들기 */
+
+  object-fit: cover; /* 이미지 비율 유지 */
+  object-position: center; /* 중앙 정렬 */
 `;
 
 export const CardContents = styled.div`
@@ -43,7 +47,7 @@ export const NameSection = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-
+  width: 100%;
   color: #000;
   font-family: SUIT;
   font-size: 16px;
@@ -51,13 +55,24 @@ export const NameSection = styled.div`
   font-weight: 900;
   line-height: 160%; /* 25.6px */
 `;
-
+/* 이름 텍스트만 감싸는 래퍼 - 줄바꿈 가능하도록 */
+export const NameWrapper = styled.div`
+  flex: 1;
+  overflow-wrap: break-word;
+  word-break: break-all;
+`;
 export const NameText = styled.div`
   color: #000;
   font-size: 18px;
   font-weight: bold;
 `;
 
+export const TitleImgDiv = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+`;
 export const TitleSection = styled.div`
   display: flex;
   flex-direction: column;
@@ -81,7 +96,7 @@ export const ProfileEdit = styled.span`
   padding: 2px 4px;
   align-items: center;
   gap: 4px;
-
+  flex-shrink: 0;
   border-radius: 10px;
   background: var(--Grayscale-Gray100, #f6f7f8);
 

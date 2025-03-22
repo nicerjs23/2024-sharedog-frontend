@@ -140,7 +140,7 @@ export const PetEdit = () => {
 
       console.log('서버 응답:', response.data);
       alert('정보가 성공적으로 수정되었습니다!');
-      navigate('/petinfo');
+      navigate('/mypage/petinfo');
     } catch (error) {
       console.error('반려견 정보 수정 실패:', error);
       alert('반려견 정보 수정에 실패했습니다.');
@@ -149,7 +149,7 @@ export const PetEdit = () => {
 
   // 취소 버튼
   const handleCancel = () => {
-    navigate('/petinfo');
+    navigate('/mypage/petinfo');
   };
 
   return (

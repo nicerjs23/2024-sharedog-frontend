@@ -7,7 +7,7 @@ import Nav1 from '@assets/icons/nav1.png';
 import Nav2 from '@assets/icons/nav2.png';
 import Nav3 from '@assets/icons/nav3.png';
 import Fire from '@assets/icons/fire4X.png';
-
+import defaultDogImg from '@assets/images/defaultDogImg.png';
 import { filter } from '@data/mainData/Posts';
 import { post } from '@data/mainData/Posts';
 import { useState, useEffect } from 'react';
@@ -30,6 +30,7 @@ export const MainPage = () => {
   const navigate = useNavigate();
 
   const token = localStorage.getItem('access'); // 로그인 토큰 확인
+  const isLoggedIn = !!token; // true면 로그인, false면 비로그인
   useEffect(() => {
     const fetchData = async () => {
       if (!token) {
@@ -83,37 +84,50 @@ export const MainPage = () => {
       <S.SliderBox>
         <S.Header>
           {userData ? (
-            <S.ProfileBox>
+            <S.ProfileBox onClick={() => goTo('/mypage')}>
               <S.Profile
-                src={userData.profile_image}
+                src={userData.profile_image || defaultDogImg}
                 alt="프로필 이미지"
               />
               <S.ProfileText>{userData.user_name}</S.ProfileText>
             </S.ProfileBox>
           ) : (
             <S.ProfileBox onClick={handleLogin}>
-              <S.Profile />
+              <S.Profile
+                src={defaultDogImg}
+                alt="기본 프로필 이미지"
+              />
               <S.ProfileText>로그인하기</S.ProfileText>
             </S.ProfileBox>
           )}
           <S.AlarmBox>
-            <img src={BellIcon} />
+            {/*알람 일단 주석처리리 <img src={BellIcon} /> */}
           </S.AlarmBox>
         </S.Header>
         {/* 슬라이더부분 컴포넌트로 구현 */}
-        <MainSlider isTest={isTest} profile={profile} />
+        <MainSlider
+          isTest={isTest}
+          profile={profile}
+          isLoggedIn={isLoggedIn}
+        />
       </S.SliderBox>
 
       <S.ContentGapWrapper>
         {/* 헌혈정보 네비버튼 */}
         <S.InfoNavBox>
-          <NavBtn text="헌혈기준" icon={Nav1} />
+          <NavBtn text="헌혈기준" icon={Nav1} to="/bloodRule" />
           {/* 아이콘 가운데정렬안돼서 동적으로 패딩 적용 */}
-          <NavBtn text="주의사항" icon={Nav2} $paddingLeft="2px" />
-          <NavBtn text="헌혈혜택" icon={Nav3} />
+          <NavBtn
+            text="주의사항"
+            icon={Nav2}
+            $paddingLeft="2px"
+            to="/bloodCaution"
+          />
+          <NavBtn text="헌혈혜택" icon={Nav3} to="/bloodBenefit" />
         </S.InfoNavBox>
         <S.Line />
         {/* <S.Line />*/}
+
         <S.PostsTitle>
           <div>지역별 긴급헌혈 현황</div>
           <img src={Fire} style={{ width: '16px', height: '16px' }} />
@@ -122,6 +136,7 @@ export const MainPage = () => {
         <S.FilterBox>
           {filter.map((region) => (
             <S.Filter
+              disabled={!token}
               key={region.id}
               $isActive={activeFilter === region.name}
               onClick={() => handleFilterClick(region.name)}

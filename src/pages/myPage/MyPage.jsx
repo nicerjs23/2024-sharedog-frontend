@@ -1,5 +1,5 @@
 import * as S from './MyPage.styled';
-import defaultImg from '@assets/images/profileimg.png';
+import defaultImg from '@assets/images/defaultDogImg.png';
 import myBackIcon from '@assets/icons/Next.svg';
 import profileEditIcon from '@assets/icons/profileEditIcon.svg';
 import { useNavigate } from 'react-router-dom'; // React Router의 useNavigate 가져오기
@@ -54,17 +54,19 @@ export const MyPage = () => {
           />
           <S.ProfileInfo>
             <S.ProfileName>{userName}</S.ProfileName>
-            <S.ProfileEditBtn>
+            {/* <S.ProfileEditBtn>
               <img src={profileEditIcon} alt="글쓰기아이콘" />
               <p>프로필 수정</p>
-            </S.ProfileEditBtn>
+            </S.ProfileEditBtn> */}
           </S.ProfileInfo>
         </S.ProfileCard>
         {/* 나의정보 */}
         <S.MyPageCard>
           <S.CardTitle>나의 정보</S.CardTitle>
           <S.CardNav
-            onClick={() => handleNavigate('/accountmanagement')}
+            onClick={() =>
+              handleNavigate('/mypage/accountmanagement')
+            }
           >
             <S.CardNavContents>
               <img
@@ -77,7 +79,9 @@ export const MyPage = () => {
             <MyNextBtn />
           </S.CardNav>
 
-          <S.CardNav onClick={() => handleNavigate('/petInfo')}>
+          <S.CardNav
+            onClick={() => handleNavigate('/mypage/petInfo')}
+          >
             <S.CardNavContents>
               <img
                 src={dogAccount}
@@ -89,7 +93,9 @@ export const MyPage = () => {
             <MyNextBtn />
           </S.CardNav>
 
-          <S.CardNav onClick={() => handleNavigate('/mywrite')}>
+          <S.CardNav
+            onClick={() => handleNavigate('/mypage/mywrite')}
+          >
             <S.CardNavContents>
               <img
                 src={MypageWrite}
@@ -104,7 +110,9 @@ export const MyPage = () => {
         {/* 나의약속 */}
         <S.MyPageCard>
           <S.CardTitle>나의 약속</S.CardTitle>
-          <S.CardNav onClick={() => handleNavigate('/reservation')}>
+          <S.CardNav
+            onClick={() => handleNavigate('/mypage/reservation')}
+          >
             <S.CardNavContents>
               <img
                 src={MyPageHeart}
@@ -138,7 +146,7 @@ export const MyPage = () => {
             <MyNextBtn />
           </S.CardNav>
 
-          <S.CardNav onClick={() => navigate('/terms')}>
+          <S.CardNav onClick={() => navigate('/mypage/terms')}>
             <S.CardNavContents>
               <img
                 src={MyPageNote}
@@ -149,7 +157,7 @@ export const MyPage = () => {
             </S.CardNavContents>
             <MyNextBtn />
           </S.CardNav>
-          <S.CardNav onClick={() => navigate('/privacy')}>
+          <S.CardNav onClick={() => navigate('/mypage/privacy')}>
             <S.CardNavContents>
               <img
                 src={MyPageNote}

@@ -39,6 +39,9 @@ import { ChatDetailPage } from '@pages/chatPage/ChatDetailPage';
 import { TermsPage } from '@pages/myPage/TermsPage';
 import { PrivacyPolicyPage } from '@pages/myPage/PrivacyPolicyPage';
 import { MyWrite } from '@pages/myPage/MyWrite';
+import { BloodRule } from '@pages/mainPage/BloodRule';
+import { BloodCaution } from '@pages/mainPage/BloodCaution';
+import { BloodBenefit } from '@pages/mainPage/BloodBenefit';
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -46,21 +49,33 @@ export const router = createBrowserRouter([
     children: [
       { path: '', element: <WelcomePage /> },
       { path: 'main', element: <MainPage /> },
+      { path: 'bloodRule', element: <BloodRule /> },
+      { path: 'bloodCaution', element: <BloodCaution /> },
+      { path: 'bloodBenefit', element: <BloodBenefit /> },
       { path: 'login', element: <LoginPage /> },
       { path: 'kakao/callback', element: <KakaoCallbackPage /> },
-
       { path: 'chatList', element: <ChatPage /> },
       { path: 'chat/:id', element: <ChatDetailPage /> },
-      { path: 'mypage', element: <MyPage /> },
-      { path: 'accountmanagement', element: <AccountManagement /> },
-      { path: 'petinfo', element: <PetInfo /> },
-      { path: 'petedit', element: <PetEdit /> },
-      { path: 'petadd', element: <PetAdd /> },
-      { path: 'mywrite', element: <MyWrite />},
-      { path: 'reservation', element: <Reservation /> },
+      {
+        path: 'mypage',
+
+        children: [
+          { index: true, element: <MyPage /> },
+          {
+            path: 'accountmanagement',
+            element: <AccountManagement />,
+          },
+          { path: 'petinfo', element: <PetInfo /> },
+          { path: 'petedit', element: <PetEdit /> },
+          { path: 'petadd', element: <PetAdd /> },
+          { path: 'mywrite', element: <MyWrite /> },
+          { path: 'reservation', element: <Reservation /> },
+          { path: 'terms', element: <TermsPage /> },
+          { path: 'privacy', element: <PrivacyPolicyPage /> },
+        ],
+      },
       { path: 'testStart', element: <TestStartPage /> },
-      { path: 'terms', element: <TermsPage /> },
-      { path: 'privacy', element: <PrivacyPolicyPage /> },
+
       {
         path: 'signup',
         element: <SignUpLayout />,

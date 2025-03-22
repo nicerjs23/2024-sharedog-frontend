@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as S from './PetEdit.styled';
-import PetProfile from '@assets/images/petprofile.png';
+import PetProfile from '@assets/images/defaultDogImg.png';
 import YesCheck from '@assets/icons/YesCheck.svg';
 import NoCheck from '@assets/icons/NoCheck.svg';
 import Drop from '@assets/icons/Drop.svg';

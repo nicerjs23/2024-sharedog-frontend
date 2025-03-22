@@ -1,6 +1,6 @@
 import * as S from './PetCard.styled';
 import Medal from '@assets/icons/medal.svg';
-import PetProfile from '@assets/images/petprofile.png';
+import PetProfile from '@assets/images/defaultDogImg.png';
 import Pencil from '@assets/icons/pencil.svg';
 import { useNavigate } from 'react-router-dom'; // React Router의 useNavigate 가져오기
 

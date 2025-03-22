@@ -30,8 +30,7 @@ export const PetInfo = () => {
       if (response.data.length > 0) {
         pets = response.data;
       } else {
-        // API에 데이터가 없으면 로컬 스토리지 데이터 사용
-        pets = JSON.parse(localStorage.getItem('petList')) || [];
+        pets = []; // localStorage 사용 X
       }
 
       // (★) represent === true인 항목을 위로 정렬

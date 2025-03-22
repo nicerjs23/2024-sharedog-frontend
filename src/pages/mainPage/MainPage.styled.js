@@ -13,7 +13,7 @@ export const MainWrapper = styled.section`
   font-family: ${({ theme }) =>
     theme.fonts.SUITSemiBold['font-family']};
 
-  height: calc(var(--vh, 1vh) * 100);
+  /* height: calc(var(--vh, 1vh) * 100); */
 `;
 
 export const SliderBox = styled.div`
@@ -46,8 +46,11 @@ export const Profile = styled.img`
   display: flex;
   width: 32px;
   height: 32px;
-  border-radius: 60px;
+  /* border-radius: 60px; */
   background-color: #fff;
+  border-radius: 50%; /* 원형 만들기 */
+  object-fit: contain; /* 비율 유지하며 꽉 채우기 */
+  object-position: center; /* 가운데 정렬 */
 `;
 export const ProfileText = styled.div`
   display: flex;
@@ -64,8 +67,8 @@ export const AlarmBox = styled.button`
   align-items: center;
   width: 33px;
   height: 34px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.3);
+  /* border-radius: 10px;
+  background: rgba(255, 255, 255, 0.3); */
 `;
 
 //슬라이더밑에 부분들
@@ -162,6 +165,18 @@ export const Filter = styled.button`
     border: 0.88px solid  #ff6969;
     background: rgba(255, 105, 105, 0.2);
     `}
+
+  /* 🚫 disabled 상태 */
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+    /* 호버 효과 제거 위해 아래처럼 */
+    &:hover {
+      color: #9c9ca1;
+      border: 0.88px solid #d9d9d9;
+      background: transparent;
+    }
+  }
 `;
 
 export const PostsWrapper = styled.section`
@@ -172,23 +187,6 @@ export const PostsWrapper = styled.section`
   margin-top: 20px;
   gap: 20px;
   margin-bottom: 98px; //푸터에 안가려지게 78+공간조금 20px
-  flex: 1; /* 남은 높이를 자동으로 차지 */
-  min-height: 0; /* flex 사용 시 내부 스크롤이 가능하도록 설정 */
-  overflow-y: auto; /* 내부 스크롤 활성화 */
-
-  /* 스크롤바 디자인 */
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
 `;
 
 export const ErrorText = styled.p`

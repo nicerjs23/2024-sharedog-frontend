@@ -77,14 +77,14 @@ export const AccountManagement = () => {
           <S.MailText> {email && `${email}`}</S.MailText>
         </S.CategoryDetail>
 
-        <S.CategoryDetail>
+        {/* <S.CategoryDetail>
           비밀번호 재설정
           <img
             src={Next}
             alt="다음 아이콘"
             style={{ height: '16px', width: 'auto' }}
           />
-        </S.CategoryDetail>
+        </S.CategoryDetail> */}
         <S.CategoryText>계정 관리</S.CategoryText>
         <S.CategoryDetail onClick={() => setIsLogoutModalOpen(true)}>
           로그아웃

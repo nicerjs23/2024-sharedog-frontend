@@ -4,9 +4,12 @@ import arrowIcon from '@assets/icons/ArrowIcon.svg';
 import PostImg3 from '@assets/images/postImg3.jpg';
 import { useCustomNavigate } from '@hooks/useCustomNavigate';
 
-const PetSlide = ({ profile }) => {
+const PetSlide = ({ profile, isLoggedIn }) => {
   const { goTo, goBack } = useCustomNavigate();
-
+  const handleClick = () => {
+    if (!isLoggedIn) return; // 로그인 안 된 경우 아무 동작도 하지 않음
+    goTo('/mypage/petInfo');
+  };
   return (
     <Wrapper>
       <SlideContent>
@@ -15,7 +18,10 @@ const PetSlide = ({ profile }) => {
           추가로 등록할 수 있어요!
         </SlideTitle>
         <SlideBtn>
-          <BtnText onClick={() => goTo('/petInfo')}>
+          <BtnText
+            onClick={handleClick}
+            style={{ cursor: isLoggedIn ? 'pointer' : 'not-allowed' }}
+          >
             반려견 정보 등록하기
           </BtnText>
 

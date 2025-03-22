@@ -11,7 +11,6 @@ import { useNavigate } from 'react-router-dom';
 
 import DropDown from '@components/community/DropDown';
 import axiosInstance from '@apis/axiosInstance';
-import writeIcon from '@assets/icons/writeIcon.svg';
 
 import usePreventZoom from '@hooks/usePreventZoom'; //확대방지api
 
@@ -52,6 +51,7 @@ export const CommunityNew = () => {
   const [selectedBloodType, setSelectedBloodType] = useState(null);
 
   const regions = [
+    '지역',
     '서울',
     '인천',
     '경기',
@@ -62,6 +62,7 @@ export const CommunityNew = () => {
     '제주',
   ];
   const bloodTypes = [
+    '혈액형',
     'DEA 1-',
     'DEA 1.1',
     'DEA 1.2',
@@ -211,9 +212,7 @@ export const CommunityNew = () => {
           <div>게시글이 없습니다.</div>
         )}
       </S.Contents>
-      <S.WriteBtn
-        src={writeIcon}
-        alt="글쓰기아이콘"
+      <S.Write
         onClick={() => navigate('/community/write')}
         $isVisible={showButton}
       />

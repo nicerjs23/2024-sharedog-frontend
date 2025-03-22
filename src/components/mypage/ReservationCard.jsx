@@ -1,5 +1,5 @@
 import * as S from './ReservationCard.styled';
-import Profile from '@assets/images/profileimg.png';
+import defaultProfile from '@assets/images/defaultDogImg.png';
 
 export const ReservationCard = ({
   promiseDay,
@@ -27,7 +27,7 @@ export const ReservationCard = ({
           <S.NameContainer>
             <S.ImgBox>
               <img
-                src={profile}
+                src={profile || defaultProfile}
                 alt="프로필 사진"
                 style={{ width: '52px', height: '52px' }}
               />

@@ -17,7 +17,7 @@ export const PetInfo = () => {
 
   // 새로운 반려견 추가 페이지로 이동
   const handleNavigate = () => {
-    navigate('/petadd');
+    navigate('/mypage/petadd');
   };
 
   // ✅ API에서 반려견 정보 불러오기

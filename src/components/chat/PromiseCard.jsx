@@ -10,7 +10,7 @@ const PromiseCard = ({ day, time, place }) => {
         <Body>시간: {time}</Body>
         <Body>장소: {place}</Body>
       </TextContainer>
-      <PromiseBtn onClick={() => goTo('/reservation')}>
+      <PromiseBtn onClick={() => goTo('/mypage/reservation')}>
         약속 보기
       </PromiseBtn>
     </Wrapper>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './PetAdd.styled';
-import PetProfile from '@assets/images/petprofile.png';
+import PetProfile from '@assets/images/defaultDogImg.png';
 import YesCheck from '@assets/icons/YesCheck.svg';
 import NoCheck from '@assets/icons/NoCheck.svg';
 import Drop from '@assets/icons/Drop.svg';
@@ -139,7 +139,7 @@ export const PetAdd = () => {
         <S.BackButton onClick={() => navigate(-1)}>
           <img src={LeftButton} alt="뒤로 가기" />
         </S.BackButton>
-        새로운 반려견 등록
+        새로운 반려견 추가
         <S.Blank />
       </S.Header>
 

@@ -28,14 +28,14 @@ export const MyPage = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       // 첫 실행 시 알림창으로 확인
-      alert('사용자 정보를 불러오고 있습니다...');
+      // alert('사용자 정보를 불러오고 있습니다...');
 
       try {
         const response = await axiosInstance.get('/api/users/mypage');
         console.log('받아온 데이터:', response.data);
 
         // 아이폰 등 모바일 환경에서 확인하기 위한 alert
-        alert(`받아온 데이터: ${JSON.stringify(response.data)}`);
+        // alert(`받아온 데이터: ${JSON.stringify(response.data)}`);
 
         setUserData(response.data[0]); // 첫 번째 유저 데이터 저장
       } catch (error) {
@@ -47,17 +47,17 @@ export const MyPage = () => {
           // 401이면 JWT 토큰 문제(만료 또는 유효하지 않은 토큰) 가능성이 높음
           if (error.response.status === 401) {
             console.error('JWT 토큰 만료 또는 유효하지 않음.');
-            alert('JWT 토큰이 만료되었거나 유효하지 않습니다.');
+            // alert('JWT 토큰이 만료되었거나 유효하지 않습니다.');
           } else {
             console.error(
               '사용자 정보 가져오기 실패:',
               error.response.data
             );
-            alert(
-              `사용자 정보 가져오기 실패: ${JSON.stringify(
-                error.response.data
-              )}`
-            );
+            // alert(
+            //   `사용자 정보 가져오기 실패: ${JSON.stringify(
+            //     error.response.data
+            //   )}`
+            // );
           }
         } else {
           // response 자체가 없으면 네트워크 에러 또는 CORS 등 다른 이슈
@@ -65,9 +65,9 @@ export const MyPage = () => {
             '네트워크 에러 또는 서버에 응답이 없습니다:',
             error
           );
-          alert(
-            `네트워크 에러 또는 서버에 응답이 없습니다: ${error}`
-          );
+          // alert(
+          //   `네트워크 에러 또는 서버에 응답이 없습니다: ${error}`
+          // );
         }
       }
     };

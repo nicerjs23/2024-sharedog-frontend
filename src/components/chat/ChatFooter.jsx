@@ -1,11 +1,11 @@
-import styled from "styled-components";
-import cameraIcon from "@assets/icons/ChatCamera.svg";
-import sendIcon from "@assets/icons/ChatSend.svg";
-import xIcon from "@assets/icons/X.svg";
-import { useState } from "react";
+import styled from 'styled-components';
+import cameraIcon from '@assets/icons/ChatCamera.svg';
+import sendIcon from '@assets/icons/ChatSend.svg';
+import xIcon from '@assets/icons/X.svg';
+import { useState } from 'react';
 
 const ChatFooter = ({ ws, currentUserEmail }) => {
-  const [message, setMessage] = useState(""); // 입력된 텍스트
+  const [message, setMessage] = useState(''); // 입력된 텍스트
   const [previewImage, setPreviewImage] = useState(null); // 이미지 미리보기
   const [imageFile, setImageFile] = useState(null); // 실제 전송할 이미지 파일
 
@@ -41,10 +41,10 @@ const ChatFooter = ({ ws, currentUserEmail }) => {
     const now = new Date();
     const hours = now.getHours();
     const minutes = now.getMinutes();
-    const period = hours >= 12 ? "오후" : "오전";
+    const period = hours >= 12 ? '오후' : '오전';
     const formattedTime = `${period} ${hours % 12 || 12}:${minutes
       .toString()
-      .padStart(2, "0")}`;
+      .padStart(2, '0')}`;
 
     // ✅ 웹소켓으로 보낼 메시지 객체
     const messageData = JSON.stringify({
@@ -53,15 +53,15 @@ const ChatFooter = ({ ws, currentUserEmail }) => {
       formatted_time: formattedTime, // ✅ 시간 추가
     });
 
-    console.log("📤 웹소켓으로 메시지 전송:", messageData);
+    console.log('📤 웹소켓으로 메시지 전송:', messageData);
 
     if (ws.current && ws.current.readyState === WebSocket.OPEN) {
       ws.current.send(messageData);
     } else {
-      console.error("❌ 웹소켓 연결이 닫혀 있음!");
+      console.error('❌ 웹소켓 연결이 닫혀 있음!');
     }
 
-    setMessage(""); // 입력창 초기화
+    setMessage(''); // 입력창 초기화
   };
 
   return (
@@ -79,7 +79,7 @@ const ChatFooter = ({ ws, currentUserEmail }) => {
       {/* 📌 메시지 입력 UI */}
       <ChatSendBox>
         {/* 이미지 업로드 버튼 */}
-        <input
+        {/* <input
           type="file"
           accept="image/*"
           id="fileInput"
@@ -91,14 +91,14 @@ const ChatFooter = ({ ws, currentUserEmail }) => {
           alt="카메라아이콘"
           onClick={() => document.getElementById("fileInput").click()}
           style={{ width: "20px", height: "20px" }}
-        />
+        /> */}
 
         {/* 메시지 입력창 */}
         <ChatText
           placeholder="메시지를 작성해주세요."
           value={message}
           onChange={handleInputChange}
-          onKeyDown={(e) => e.key === "Enter" && sendMessage()} // 엔터로 전송
+          onKeyDown={(e) => e.key === 'Enter' && sendMessage()} // 엔터로 전송
         />
 
         {/* 전송 버튼 */}
@@ -106,7 +106,7 @@ const ChatFooter = ({ ws, currentUserEmail }) => {
           src={sendIcon}
           alt="전송아이콘"
           onClick={sendMessage}
-          style={{ width: "15px", height: "15px" }}
+          style={{ width: '15px', height: '15px' }}
         />
       </ChatSendBox>
     </Wrapper>
@@ -150,7 +150,7 @@ export const ChatText = styled.input`
   color: #2a2a2a;
   font-size: 0.75rem;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITMedium["font-family"]};
+    theme.fonts.SUITMedium['font-family']};
   flex: 1;
   &::placeholder {
     color: #9c9ca1;

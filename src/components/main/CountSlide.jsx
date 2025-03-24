@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import Medal from "@components/main/Medal";
-import arrowIcon from "@assets/icons/ArrowIcon.svg";
-import calendar from "@assets/icons/bloodCalendar.svg";
+import styled from 'styled-components';
+import Medal from '@components/main/Medal';
+import arrowIcon from '@assets/icons/ArrowIcon.svg';
+import calendar from '@assets/icons/bloodCalendar.svg';
 const CountSlide = () => {
   return (
     <Wrapper>
@@ -10,18 +10,18 @@ const CountSlide = () => {
           <img
             src={calendar}
             alt="달력아이콘"
-            style={{ width: "10px", height: "11px" }}
+            style={{ width: '10px', height: '11px' }}
           />
           <BloodText>
             다음 헌혈은&nbsp; <span> 4개월 </span> &nbsp;뒤에 가능해요
           </BloodText>
         </BloodCount>
         <SlideTitle>루피는 총2회 헌혈 했어요!</SlideTitle>
-        <SlideSubTitle>
+        {/* <SlideSubTitle>
           지금까지 루피는
           <br />
           소형견 4마리의 생명을 구했어요 :)
-        </SlideSubTitle>
+        </SlideSubTitle> */}
       </SlideContent>
       <ImgFlexDiv>
         <Medal number={2} />
@@ -37,6 +37,8 @@ const Wrapper = styled.div`
   justify-content: space-between;
 
   width: 87.73%;
+  padding: 0 10px;
+  box-sizing: border-box;
   margin: 0 auto;
   height: 100%;
 `;
@@ -45,7 +47,7 @@ const SlideContent = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 17px;
-  gap: 9px;
+  gap: 13px;
 `;
 const BloodCount = styled.div`
   display: flex;
@@ -62,11 +64,11 @@ const BloodText = styled.div`
   color: ${({ theme }) => theme.colors.mainColor};
   font-size: 0.5rem;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITSemiBold["font-family"]};
+    theme.fonts.SUITSemiBold['font-family']};
 
   span {
     font-family: ${({ theme }) =>
-      theme.fonts.SUITExtraBold["font-family"]};
+      theme.fonts.SUITExtraBold['font-family']};
   }
 `;
 const SlideTitle = styled.div`
@@ -74,7 +76,7 @@ const SlideTitle = styled.div`
   font-size: 1rem;
   color: #fff;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITExtraBold["font-family"]};
+    theme.fonts.SUITExtraBold['font-family']};
   line-height: 25px;
 `;
 const SlideSubTitle = styled.div`
@@ -82,7 +84,7 @@ const SlideSubTitle = styled.div`
   font-size: 0.75rem;
   color: #fff;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITMedium["font-family"]};
+    theme.fonts.SUITMedium['font-family']};
   line-height: 15px;
 `;
 

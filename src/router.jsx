@@ -90,12 +90,11 @@ export const router = createBrowserRouter([
               { path: 'op', element: <OpSignUpPage /> },
               { path: 'blood', element: <BloodSignUpPage /> },
 
-              // 🔥 최종 회원가입 완료 페이지
-              { path: 'last', element: <LastSignUpPage /> },
             ],
           },
         ],
       },
+      { path: 'signup/last', element: <LastSignUpPage /> },
       { path: 'signup/pro', element: <ProSignUpPage /> },
     ],
   },

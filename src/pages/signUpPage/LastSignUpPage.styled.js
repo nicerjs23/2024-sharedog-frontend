@@ -15,45 +15,54 @@ export const LastWrapper = styled.section`
     theme.fonts.SUITSemiBold["font-family"]};
 `;
 
-export const Text = styled.section`
+export const Container = styled.div`
   display: flex;
-  height: 38px;
   flex-direction: column;
   justify-content: center;
-  align-self: stretch;
-  margin-top: 50px;
-  margin-left: 30px;
+  align-items: center;
+  width: 80%;
+  margin-top: 35px;
+`
 
-  color: #2A2A2A;
-  font-family: SUIT;
-  font-size: 22px;
-  font-style: normal;
-  font-weight: 800;
-  line-height: 16.123px; /* 73.287% */
+export const Text = styled.div`
+  display: flex;
+  width : 100%;
+  margin-bottom: 11px;
+  margin-top: 50px;
+  align-items: flex-start;
+
+  span {
+    color: #2A2A2A;
+    font-family: SUIT;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 16px; 
+  }
 `;
 
-export const LastText = styled.section`
+export const LastText = styled.div`
   display: flex;
+  width : 100%;
   height: 59px;
-  width: 100%;
-  margin-left: 30px;
-  margin-top: 11px;
-  flex-direction: column;
-  justify-content: center;
-  align-self: stretch;
+  align-items: flex-start;
 
-  color: #FF6969;
-  font-family: SUIT;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 30px; /* 187.5% */
+  span {
+    color: #FF6969;
+    font-family: SUIT;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 30px; /* 187.5% */
+  }
 `;
 
 export const LastImg = styled.div`
   display: flex;
-  width: 256px;
-  height: 268px;
   margin-top: 68px;
+  img {
+    width: 256px;
+    height: 268px;
+  }
 `;
 

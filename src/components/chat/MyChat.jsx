@@ -5,7 +5,7 @@ const MyChat = ({ read, time, text }) => {
   return (
     <Wrapper>
       <TimeText>
-        <ReadText> {read ? '0' : '1'}</ReadText> {time}
+        <ReadText> {read ? ' ' : '1'}</ReadText> {time}
       </TimeText>
       <ChatBox>{text}</ChatBox>
     </Wrapper>

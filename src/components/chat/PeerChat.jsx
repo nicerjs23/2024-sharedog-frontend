@@ -6,7 +6,7 @@ const PeerChat = ({ read, time, text, img }) => {
       <ProfileImg src={img || Logo} alt="프로필 이미지" />
       <ChatBox>{text}</ChatBox>
       <TimeText>
-        {time} <ReadText> {read ? '0' : '1'}</ReadText>
+        {time} <ReadText> {read ? ' ' : '1'}</ReadText>
       </TimeText>
     </Wrapper>
   );

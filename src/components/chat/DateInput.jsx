@@ -83,6 +83,7 @@ function DateInput({ dateValue, onDateChange }) {
       onChange={handleChange}
       customInput={<CustomDateInput />}
       dateFormat="yyyy-MM-dd"
+      minDate={new Date()}
     />
   );
 }

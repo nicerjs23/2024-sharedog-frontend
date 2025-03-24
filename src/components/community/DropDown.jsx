@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { useState, useRef, useEffect } from "react";
+import styled from 'styled-components';
+import { useState, useRef, useEffect } from 'react';
 
-import filterIcon from "@assets/icons/filterIcon.svg";
+import filterIcon from '@assets/icons/filterIcon.svg';
 
 const DropDown = ({ options, selected, setSelected, label }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,15 +17,45 @@ const DropDown = ({ options, selected, setSelected, label }) => {
         setIsOpen(false);
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () =>
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  // ★ 변경 1) HeaderText에서 selected가 ''이면 label을 표시하게 처리
+  //    - 예: selected === ''이면 "지역"이나 "혈액형"이 보이도록
+  const getHeaderText = () => {
+    if (selected === '' || selected == null) {
+      return label;
+    }
+    return selected;
+  };
+
+  // ★ 변경 2) 옵션 클릭 시, '지역' 또는 '혈액형'인 경우는 selected = '' 로
+  //    - 그렇지 않으면 selected = 실제 지역/혈액형 값
+  const handleSelect = (option) => {
+    if (option === label) {
+      setSelected('');
+    } else {
+      setSelected(option);
+    }
+    setIsOpen(false);
+  };
+
+  // ★ 변경 3) isSelected 판단 로직
+  //    - '지역'(label)인 옵션은 selected가 ''일 때 하이라이트
+  //    - 그 외 옵션은 selected === option일 때 하이라이트
+  const isOptionSelected = (option) => {
+    if (option === label) {
+      return selected === '';
+    }
+    return selected === option;
+  };
 
   return (
     <DropdownWrapper ref={dropdownRef}>
       <DropdownHeader onClick={() => setIsOpen(!isOpen)}>
-        <HeaderText>{selected ? selected : label}</HeaderText>
+        <HeaderText>{getHeaderText()}</HeaderText>
         <img src={filterIcon} alt="필터아이콘" />
       </DropdownHeader>
       {isOpen && (
@@ -33,11 +63,8 @@ const DropDown = ({ options, selected, setSelected, label }) => {
           {options.map((option) => (
             <DropdownItem
               key={option}
-              onClick={() => {
-                setSelected(option);
-                setIsOpen(false);
-              }}
-              isSelected={selected === option}
+              onClick={() => handleSelect(option)}
+              isSelected={isOptionSelected(option)}
             >
               {option}
             </DropdownItem>
@@ -72,7 +99,7 @@ const HeaderText = styled.div`
   color: #9c9ca1;
   font-size: 0.625rem;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITRegular["font-family"]};
+    theme.fonts.SUITRegular['font-family']};
 `;
 const DropdownList = styled.ul`
   position: absolute;
@@ -106,12 +133,12 @@ const DropdownItem = styled.li`
 
   font-size: 0.75rem;
   font-family: ${({ theme }) =>
-    theme.fonts.SUITMedium["font-family"]};
+    theme.fonts.SUITMedium['font-family']};
 
   &:hover {
     background-color: #ffe7e7;
     color: #ff6969;
     font-family: ${({ theme }) =>
-      theme.fonts.SUITBold["font-family"]};
+      theme.fonts.SUITBold['font-family']};
   }
 `;

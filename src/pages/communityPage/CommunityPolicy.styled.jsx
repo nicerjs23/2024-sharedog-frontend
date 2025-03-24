@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import x from '@assets/icons/X.svg';
+import Left from '@assets/icons/Left.svg';
 import { useCustomNavigate } from '@hooks/useCustomNavigate';
 
 export const Header = ({ text }) => {
@@ -7,9 +8,14 @@ export const Header = ({ text }) => {
 
   return (
     <HeaderWrapper>
-      <div style={{ width: '30px', height: '30px' }} />
+      <img
+        src={Left}
+        alt="xicon"
+        onClick={() => goTo('/community')}
+      />
+
       {text}
-      <img src={x} alt="xicon" onClick={() => goTo('/myPage')} />
+      <div style={{ width: '30px', height: '30px' }} />
     </HeaderWrapper>
   );
 };
@@ -45,7 +51,7 @@ export const Wrapper = styled.section`
 
   font-family: ${({ theme }) =>
     theme.fonts.SUITSemiBold['font-family']};
-  margin-bottom: 98px;
+  /* margin-bottom: 98px; */
   margin-top: 50px;
 `;
 

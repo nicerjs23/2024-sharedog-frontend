@@ -47,7 +47,7 @@ export const Notice = styled.div`
   height: 35px;
   border-radius: 10px;
   background: #fff7f7;
-
+  user-select: none;
   padding: 0 13px;
   box-sizing: border-box;
 

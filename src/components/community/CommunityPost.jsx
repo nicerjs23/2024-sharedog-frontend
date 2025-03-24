@@ -1,6 +1,6 @@
 import Like from '@assets/icons/good.svg';
 import Comment from '@assets/icons/comment.svg';
-
+import NotLike from '@assets/icons/myPage/MypageHeart.svg';
 import styled from 'styled-components';
 const CommunityPost = ({
   category,
@@ -14,6 +14,7 @@ const CommunityPost = ({
   like_cnt,
   comment_cnt,
   onClick,
+  isLiked,
 }) => {
   return (
     <PostWrapper onClick={onClick}>
@@ -37,7 +38,10 @@ const CommunityPost = ({
       </PostContents>
       <Bottom>
         <IconContainer>
-          <Icon src={Like} />
+          <Icon
+            src={isLiked ? Like : NotLike}
+            alt={isLiked ? '채워진 하트' : '빈하트'}
+          />
           <IconNum>{like_cnt}</IconNum>
         </IconContainer>
         <IconContainer>

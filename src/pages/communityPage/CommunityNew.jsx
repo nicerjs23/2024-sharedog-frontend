@@ -134,12 +134,9 @@ export const CommunityNew = () => {
       <S.Contents>
         <S.Title>커뮤니티</S.Title>
         <S.TopContentsContainer>
-          <S.Notice>
+          <S.Notice onClick={() => navigate('/community/policy')}>
             NOTICE{' '}
-            <S.NoticeText>
-              공지사항 어쩌구 저쩌구 저쩌구 어쩌구 길게공지사항 어쩌구
-              저쩌구 저쩌구 어쩌구 길게
-            </S.NoticeText>
+            <S.NoticeText>나눠주개 커뮤니티 운영정책</S.NoticeText>
           </S.Notice>
 
           <S.Search>
@@ -197,8 +194,11 @@ export const CommunityNew = () => {
               key={post.id}
               category={post.category}
               region={post.region}
-              bloodType={post.blood}
+              bloodType={
+                post.blood === '전체' ? '혈액형' : post.blood
+              }
               created_at={post.created_at}
+              isLiked={post.is_liked}
               title={post.title}
               writer={post.writer}
               content={post.content}

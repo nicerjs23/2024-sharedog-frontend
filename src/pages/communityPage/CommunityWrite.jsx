@@ -2,7 +2,7 @@ import { useState, React } from "react";
 import { useNavigate } from "react-router-dom";
 import * as S from "./CommunityWrite.styled";
 import ImageUpload from "@assets/icons/ImageUpload.svg";
-import Circle from "@assets/icons/Circle.svg";
+import Caution from "@assets/icons/WriteCaution.svg";
 import axiosInstance from "@apis/axiosInstance";
 
 const Modal = ({ isOpen, onClose }) => {
@@ -173,7 +173,7 @@ export const CommunityWrite = () => {
             <S.Line />
           </S.Blood>
           <S.Caution>
-              <img src={Circle} alt="경고 메시지" />
+              <img src={Caution} alt="경고 메시지" />
               <span>욕설, 광고 등 운영정책 위반 시 제재를 받을 수 있어요.</span>
           </S.Caution>
           <S.WriteTitle>

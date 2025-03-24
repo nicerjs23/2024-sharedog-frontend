@@ -104,6 +104,10 @@ export const CommunityDetail = () => {
       console.log(response.data);
       setComments((prev) => [...prev, response.data]);
       setComment('');
+      setPost((prev) => ({
+        ...prev,
+        comments_cnt: prev.comments_cnt + 1,
+      }));
     } catch (error) {
       console.log('댓글 등록 실패', error);
     } finally {
@@ -117,6 +121,16 @@ export const CommunityDetail = () => {
         `/api/community/home/${id}/likes`
       );
       console.log(response.data);
+
+      setPost((prev) => ({
+        ...prev,
+        like_cnt:
+          response.data.success === '좋아요 성공'
+            ? prev.like_cnt + 1
+            : response.data.success === '좋아요 취소 성공'
+            ? prev.like_cnt - 1
+            : prev.like_cnt,
+      }));
 
       if (response.data.success === '좋아요 성공') {
         setLiked(true);

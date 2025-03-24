@@ -60,14 +60,15 @@ export default Comment;
 
 const CommentWrapper = styled.div`
   display: flex;
-  width: 88%;
+  width: 85%;
   align-items: center;
   gap: 10px;
 `;
 
 const CommentLeft = styled.div`
   display: flex;
-  width: 20%;
+  width: 37px;
+  height: 38px;
 `;
 
 const Image = styled.div`
@@ -75,7 +76,6 @@ const Image = styled.div`
   align-items: center;
   justify-content: center;
   aspect-ratio: 1 /1;
-  width: 80%;
   img {
     width: 100%;
     height: 100%;

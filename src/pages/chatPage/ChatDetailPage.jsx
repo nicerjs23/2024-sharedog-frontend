@@ -123,6 +123,16 @@ export const ChatDetailPage = () => {
   useEffect(() => {
     if (!currentUserEmail) return;
     connectWebSocket();
+
+    // ★ 컴포넌트 언마운트 시 웹소켓 연결을 닫는 cleanup 함수
+    return () => {
+      if (ws.current && ws.current.readyState === WebSocket.OPEN) {
+        console.log('Unmounting chat detail, closing WebSocket...');
+        // onclose에서 재연결 로직이 동작하지 않도록 핸들러를 해제하거나 code=1000으로 종료
+        ws.current.onclose = null;
+        ws.current.close(1000, 'Leaving chat page'); // 정상 종료 코드(1000)
+      }
+    };
   }, [currentUserEmail]);
 
   const connectWebSocket = () => {
@@ -224,6 +234,13 @@ export const ChatDetailPage = () => {
         }
       });
       scrollToBottom();
+      // ★ 추가: 상대방이 약속을 만든 메시지면 새로고침
+      if (isPromiseMessage && !isSender) {
+        // 상대방이 보낸 약속 메시지 → 내 화면도 새로고침
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      }
     };
 
     ws.current.onerror = (error) => {
@@ -334,6 +351,7 @@ export const ChatDetailPage = () => {
                         time: newTime,
                       }))
                     }
+                    dateValue={promiseData.day} // ★ 오늘인지 비교용
                   />
                 </S.PromiseField>
 

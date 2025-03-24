@@ -243,7 +243,7 @@ export const Caution = styled.div`
   display: flex;
   width: 100%;
   padding: 6px 12px;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
   align-self: stretch;
   margin-bottom: 25px;
@@ -258,6 +258,11 @@ export const Caution = styled.div`
   font-weight: 500;
   line-height: 140%; /* 16.8px */
   letter-spacing: -0.24px;
+
+  span {
+    display: flex;
+    text-align: center;
+  }
 
   .img{
     width: 18px;

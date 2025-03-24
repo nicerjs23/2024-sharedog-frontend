@@ -20,19 +20,29 @@ export const MyPage = () => {
   const handleNavigate = (path) => {
     navigate(path); // path에 따라 페이지 이동
   };
+
   // 사용자 데이터 상태
   const [userData, setUserData] = useState(null);
 
   // API 호출하여 사용자 데이터 가져오기
   useEffect(() => {
     const fetchUserData = async () => {
+      // 첫 실행 시 알림창으로 확인
+      alert('사용자 정보를 불러오고 있습니다...');
+
       try {
-        const response = await axiosInstance.get('/api/users/mypage'); // GET 요청
-        console.log('받아온 데이터:', response.data); // 콘솔 로그로 확인
+        const response = await axiosInstance.get('/api/users/mypage');
+        console.log('받아온 데이터:', response.data);
+
+        // 아이폰 등 모바일 환경에서 확인하기 위한 alert
+        alert(`받아온 데이터: ${JSON.stringify(response.data)}`);
 
         setUserData(response.data[0]); // 첫 번째 유저 데이터 저장
       } catch (error) {
         console.error('사용자 정보 가져오기 실패:', error);
+
+        // 에러 발생 시 아이폰에서 확인하기 위한 alert
+        alert(`사용자 정보 가져오기 실패: ${error}`);
       }
     };
 

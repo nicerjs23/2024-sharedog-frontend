@@ -162,7 +162,11 @@ export const MainPage = () => {
                 <Post
                   key={content.id}
                   category={content.category}
-                  bloodType={content.blood}
+                  bloodType={
+                    content.blood === '전체'
+                      ? '혈액형'
+                      : content.blood
+                  }
                   region={content.region}
                   created_at={content.created_at}
                   title={content.title}
@@ -170,6 +174,7 @@ export const MainPage = () => {
                   content={content.content}
                   img={content.image_1}
                   onClick={() => handlePostClick(content.id)}
+                  isLiked={content.is_liked}
                 />
               ))
           ) : (

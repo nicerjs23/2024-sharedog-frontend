@@ -16,6 +16,7 @@ export const useShouldHideFooter = () => {
     '/bloodRule',
     '/bloodCaution',
     '/bloodBenefit',
+    '/community/policy',
   ];
 
   // 동적 경로 부분이 아직 개발되지 않았으므로 항상 false 처리 =>이제 동적경로가 생겼으니까 추가함

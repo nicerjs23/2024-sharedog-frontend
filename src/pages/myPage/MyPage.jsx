@@ -39,15 +39,42 @@ export const MyPage = () => {
 
         setUserData(response.data[0]); // 첫 번째 유저 데이터 저장
       } catch (error) {
-        console.error('사용자 정보 가져오기 실패:', error);
+        // 에러가 발생하면 상태 코드와 함께 콘솔/알림창에 표시
+        if (error.response) {
+          console.error('에러 상태 코드:', error.response.status);
+          console.error('에러 응답 데이터:', error.response.data);
 
-        // 에러 발생 시 아이폰에서 확인하기 위한 alert
-        alert(`사용자 정보 가져오기 실패: ${error}`);
+          // 401이면 JWT 토큰 문제(만료 또는 유효하지 않은 토큰) 가능성이 높음
+          if (error.response.status === 401) {
+            console.error('JWT 토큰 만료 또는 유효하지 않음.');
+            alert('JWT 토큰이 만료되었거나 유효하지 않습니다.');
+          } else {
+            console.error(
+              '사용자 정보 가져오기 실패:',
+              error.response.data
+            );
+            alert(
+              `사용자 정보 가져오기 실패: ${JSON.stringify(
+                error.response.data
+              )}`
+            );
+          }
+        } else {
+          // response 자체가 없으면 네트워크 에러 또는 CORS 등 다른 이슈
+          console.error(
+            '네트워크 에러 또는 서버에 응답이 없습니다:',
+            error
+          );
+          alert(
+            `네트워크 에러 또는 서버에 응답이 없습니다: ${error}`
+          );
+        }
       }
     };
 
     fetchUserData();
   }, []);
+
   // 유저 데이터가 없을 경우 기본값 설정
   const userName = userData?.user_name || '이름 없음';
   const profileImage = userData?.dogs?.[0]?.dog_image || null; // 반려견 이미지가 없으면 기본 이미지 사용

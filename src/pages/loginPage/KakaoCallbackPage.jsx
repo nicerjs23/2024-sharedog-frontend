@@ -34,6 +34,7 @@ export const KakaoCallbackPage = () => {
         console.log("백엔드 응답 ,JWT 토큰 응답:", response.data); // 응답 데이터 출력
 
         const { access, refresh } = response.data.token;
+        const isSigned = response.data.is_signed;
 
         // 로컬스토리지에 access, refresh 토큰 저장
         localStorage.setItem("access", access);
@@ -42,8 +43,11 @@ export const KakaoCallbackPage = () => {
         // useKakaoAuth를 통해 상태 업데이트
         setAuth({ access, refresh });
 
-        // 메인 페이지로 이동
-        navigate("/signup/pro");
+        if (!isSigned) {
+          navigate("/main");
+        } else {
+          navigate("/signup/pro");
+        }
       } catch (error) {
         console.error(
           "카카오 로그인 실패:",

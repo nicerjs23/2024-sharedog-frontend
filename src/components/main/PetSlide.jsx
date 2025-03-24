@@ -65,6 +65,7 @@ const SlideTitle = styled.div`
 `;
 const SlideBtn = styled.button`
   display: flex;
+  align-items: center;
   /* width: 95px; */
   width: fit-content;
   padding: 4px 8px;

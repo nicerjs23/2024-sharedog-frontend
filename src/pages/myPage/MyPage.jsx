@@ -39,6 +39,7 @@ export const MyPage = () => {
 
         setUserData(response.data[0]); // 첫 번째 유저 데이터 저장
       } catch (error) {
+
         // 에러가 발생하면 상태 코드와 함께 콘솔/알림창에 표시
         if (error.response) {
           console.error('에러 상태 코드:', error.response.status);
@@ -69,6 +70,7 @@ export const MyPage = () => {
             `네트워크 에러 또는 서버에 응답이 없습니다: ${error}`
           );
         }
+
       }
     };
 

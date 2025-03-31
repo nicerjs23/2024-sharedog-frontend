@@ -2,49 +2,48 @@ import { useState, useEffect } from 'react';
 import * as S from './AccountManagement.styled';
 import { useNavigate } from 'react-router-dom';
 import Next from '@assets/icons/Next.svg';
-import { useKakaoAuth } from '@hooks/useKakaoAuth'; // useKakaoAuth 훅 가져오기
-import axios from '@apis/axiosInstance'; // axiosInstance 가져오기
+import { useKakaoAuth } from '@hooks/useKakaoAuth';
+import axios from '@apis/axiosInstance';
 import backIconNew from '@assets/icons/backIconNew.svg';
 
 export const AccountManagement = () => {
-  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false); // 로그아웃 모달 상태
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [isWithdrawModalOpen, setIsWithdrawModalOpen] =
-    useState(false); // 탈퇴 모달 상태
-  const [email, setEmail] = useState(''); // 이메일 상태 추가
+    useState(false);
+  const [email, setEmail] = useState('');
   const navigate = useNavigate();
+
   const BackClick = () => {
     navigate(-1);
   };
-  const { logout } = useKakaoAuth(); // useKakaoAuth에서 logout 함수 가져오기
 
-  // 로그아웃 처리 함수
+  const { logout } = useKakaoAuth();
+
   const handleLogout = () => {
     logout();
     setIsLogoutModalOpen(false);
     navigate('/');
   };
 
-  // 회원 탈퇴 처리 함수 (여기선 단순히 닫기만 설정, 실제 탈퇴 로직 추가 가능)
   const handleWithdraw = async () => {
     try {
-      await axios.delete('/api/accounts/delete-account'); // 회원 탈퇴 API 요청
+      await axios.delete('/api/accounts/delete-account');
       console.log('회원 탈퇴 성공!');
-
-      logout(); // 로그아웃 처리
-      navigate('/'); // 메인 페이지로 이동
+      logout();
+      navigate('/');
     } catch (error) {
       console.error('회원 탈퇴 실패:', error);
     } finally {
-      setIsWithdrawModalOpen(false); // 모달 닫기
+      setIsWithdrawModalOpen(false);
     }
   };
 
   // 사용자 정보 가져오기
   const fetchUserInfo = async () => {
     try {
-      const response = await axios.get('/api/users/mypage');
+      const response = await axios.get('/api/accounts/user-check');
       console.log('API 응답 전체 데이터:', response.data);
-      const { email } = response.data[0];
+      const { email } = response.data; // 변경된 API 구조에 맞게 수정
       setEmail(email);
     } catch (error) {
       console.error('사용자 정보 가져오기 실패:', error);
@@ -71,20 +70,10 @@ export const AccountManagement = () => {
       </S.Header>
       <S.InfoBox>
         <S.CategoryText>계정 정보</S.CategoryText>
-
         <S.CategoryDetail>
           로그인 계정
           <S.MailText> {email && `${email}`}</S.MailText>
         </S.CategoryDetail>
-
-        {/* <S.CategoryDetail>
-          비밀번호 재설정
-          <img
-            src={Next}
-            alt="다음 아이콘"
-            style={{ height: '16px', width: 'auto' }}
-          />
-        </S.CategoryDetail> */}
         <S.CategoryText>계정 관리</S.CategoryText>
         <S.CategoryDetail onClick={() => setIsLogoutModalOpen(true)}>
           로그아웃

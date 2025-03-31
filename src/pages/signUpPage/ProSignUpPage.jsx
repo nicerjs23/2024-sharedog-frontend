@@ -25,12 +25,12 @@ export const ProSignUpPage = () => {
       return;
     }
 
-    // ✅ 파일 크기 검사 (500KB 이하)
-    const maxSize = 500 * 1024;
-    if (file.size > maxSize) {
-      alert("이미지 파일이 너무 큽니다! 500KB 이하의 파일을 선택해주세요.");
-      return;
-    }
+    // // ✅ 파일 크기 검사 (500KB 이하)
+    // const maxSize = 500 * 1024;
+    // if (file.size > maxSize) {
+    //   alert("이미지 파일이 너무 큽니다! 500KB 이하의 파일을 선택해주세요.");
+    //   return;
+    // }
 
     // ✅ 이미지 리사이징 및 최적화
     const reader = new FileReader();

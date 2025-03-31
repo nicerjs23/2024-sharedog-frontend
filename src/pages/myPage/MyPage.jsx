@@ -10,7 +10,7 @@ import MyNextBtn from '@components/mypage/MyNextBtn';
 import MyPageAccount from '@assets/icons/myPage/MyPageAccount.svg';
 import dogAccount from '@assets/icons/myPage/dogAccount.svg';
 import MypageWrite from '@assets/icons/myPage/MypageWrite.svg';
-import MyPageHeart from '@assets/icons/myPage/MyPageHeart.svg';
+import MyPageHeart from '@assets/icons/myPage/MypageHeart2.svg';
 import MyPageInquiry from '@assets/icons/myPage/MyPageInquiry.svg';
 import MyPageNote from '@assets/icons/myPage/MyPageNote.svg';
 

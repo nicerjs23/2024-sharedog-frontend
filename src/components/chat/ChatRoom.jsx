@@ -15,6 +15,10 @@ const ChatRoom = ({ room, onClick }) => {
           </ChatNameDate>
           <ChatBody>
             {room.latest_message || '최근 메시지가 없습니다.'}
+
+            {room.unread_messages > 0 && (
+              <Unread>{room.unread_messages}</Unread>
+            )}
           </ChatBody>
         </TextContainer>
       </ChatContent>
@@ -75,6 +79,8 @@ const Date = styled.div`
     theme.fonts.SUITMedium['font-family']};
 `;
 const ChatBody = styled.div`
+  display: flex;
+  justify-content: space-between;
   width: 100%;
   color: #9c9ca1;
   font-size: 0.75rem;
@@ -84,4 +90,22 @@ const ChatBody = styled.div`
   white-space: nowrap; /* 한 줄로 유지 */
   overflow: hidden; /* 넘치는 내용 숨김 */
   text-overflow: ellipsis; /* 말줄임표(...) 적용 */
+`;
+
+const Unread = styled.div`
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-family: ${({ theme }) =>
+    theme.fonts.SUITMedium['font-family']};
+  background-color: ${({ theme }) => theme.colors.mainColor};
+  height: 15px;
+  min-width: 15px;
+  padding: 0 3px; /* 좌우 여백으로 자연스럽게 너비 증가 */
+  box-sizing: border-box;
+  border-radius: 999px; /* pill 형태 유지 */
+  line-height: 1;
 `;

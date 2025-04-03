@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Logo from '@assets/images/defaultDogImg.png';
+
 const ChatRoom = ({ room, onClick }) => {
   return (
     <ChatRoomWrapper onClick={onClick}>
@@ -15,7 +16,6 @@ const ChatRoom = ({ room, onClick }) => {
           </ChatNameDate>
           <ChatBody>
             {room.latest_message || '최근 메시지가 없습니다.'}
-
             {room.unread_messages > 0 && (
               <Unread>{room.unread_messages}</Unread>
             )}
@@ -27,6 +27,9 @@ const ChatRoom = ({ room, onClick }) => {
 };
 
 export default ChatRoom;
+
+// ==================== Styled Components ====================
+
 const ChatRoomWrapper = styled.div`
   display: flex;
   width: 100%;
@@ -41,14 +44,13 @@ const ChatContent = styled.div`
   width: 100%;
   gap: 17px;
   display: flex;
-
   align-items: center;
 `;
+
 const ChatProfile = styled.img`
   display: flex;
   width: 45px;
   height: 45px;
-
   border-radius: 45px;
   background-color: #ffffff;
   object-fit: cover; /* 이미지 비율 유지하면서 채우기 */
@@ -62,22 +64,26 @@ const TextContainer = styled.div`
   flex-direction: column;
   gap: 8px;
 `;
+
 const ChatNameDate = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
 `;
+
 const Name = styled.div`
   color: ${({ theme }) => theme.colors.text};
   font-size: 0.875rem;
   font-family: ${({ theme }) => theme.fonts.SUITBold['font-family']};
 `;
+
 const Date = styled.div`
   color: #9c9ca1;
   font-size: 0.75rem;
   font-family: ${({ theme }) =>
     theme.fonts.SUITMedium['font-family']};
 `;
+
 const ChatBody = styled.div`
   display: flex;
   justify-content: space-between;

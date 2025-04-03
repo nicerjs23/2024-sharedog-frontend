@@ -10,12 +10,27 @@ export const ChatPage = () => {
   // ChatPage 전용 WebSocket 연결 ref
   const socketRef = useRef(null);
 
-  // REST API를 통해 풍부한 채팅방 데이터를 불러옴
+  // REST API를 통해 채팅방 데이터를 불러옴
   const fetchChatRooms = async () => {
     try {
-      const response = await axiosInstance.get(`/api/chat/rooms`);
+      const response = await axiosInstance.get('/api/chat/rooms');
       console.log('📌 REST 채팅방 데이터:', response.data);
-      setChatRoom(response.data);
+
+      // REST 응답 데이터를 웹소켓과 동일한 구조로 매핑
+      // (필요한 필드만 가져오거나, 서버 필드와 일치하도록 조정)
+      const normalizedRooms = response.data.map((room) => ({
+        id: room.id,
+        is_promise: room.is_promise,
+        latest_message: room.latest_message,
+        latest_message_time: room.latest_message_time, // 추가
+        opponent_user: room.opponent_user,
+        opponent_image: room.opponent_image,
+        opponent_user_profile: room.opponent_user_profile,
+        unread_messages: room.unread_messages,
+        participants: room.participants,
+      }));
+
+      setChatRoom(normalizedRooms);
     } catch (error) {
       console.error('채팅방 데이터를 불러오는 중 오류 발생:', error);
     }
@@ -23,7 +38,17 @@ export const ChatPage = () => {
 
   // ChatPage 전용 WebSocket 연결 함수
   const connectWebSocket = () => {
-    if (socketRef.current) return; // 이미 연결되어 있다면 리턴
+    // 기존 연결이 남아있으면 강제로 종료 후 재설정
+    if (
+      socketRef.current &&
+      socketRef.current.readyState !== WebSocket.CLOSED
+    ) {
+      console.log(
+        '기존 WebSocket 연결이 존재합니다. 연결을 재설정합니다.'
+      );
+      socketRef.current.close();
+      socketRef.current = null;
+    }
 
     const token = localStorage.getItem('access');
     if (!token) {
@@ -31,7 +56,7 @@ export const ChatPage = () => {
       return;
     }
 
-    // 채팅 리스트 전용 엔드포인트 (예: /ws/user/chatrooms)
+    // 채팅 리스트 전용 엔드포인트
     const socketUrl = `wss://sharedog.shop/ws/user/chatrooms?token=${token}`;
     const socket = new WebSocket(socketUrl);
     socketRef.current = socket;
@@ -44,40 +69,68 @@ export const ChatPage = () => {
       try {
         const data = JSON.parse(event.data);
         console.log('💬 ChatList WebSocket 수신 데이터:', data);
+
+        // type이 'chatrooms_list'인 경우만 처리
         if (data.type === 'chatrooms_list' && data.chatrooms) {
-          // REST API 데이터와 WebSocket 업데이트 데이터를 병합하여 업데이트
           setChatRoom((prevRooms) => {
-            const updatedRooms = prevRooms.map((oldRoom) => {
-              const newRoom = data.chatrooms.find(
-                (wsRoom) => wsRoom.room_id === oldRoom.id
+            // 복사본 생성
+            let updatedRooms = [...prevRooms];
+
+            // 서버에서 전송된 채팅방 목록 순회
+            data.chatrooms.forEach((wsRoom) => {
+              // 기존 채팅방 중에 동일한 room_id가 있는지 확인
+              const index = updatedRooms.findIndex(
+                (room) => room.id === wsRoom.room_id
               );
-              if (!newRoom) return oldRoom;
-              return {
-                ...oldRoom,
-                unread_messages: newRoom.unread_messages,
-                latest_message:
-                  newRoom.last_message || oldRoom.latest_message,
-                // 서버가 보내주는 이름 필드가 'opponant_name'인 경우 매핑
-                opponent_user:
-                  newRoom.opponant_name || oldRoom.opponent_user,
-              };
+
+              if (index !== -1) {
+                // 기존 방이 있으면 업데이트 후 맨 앞으로 이동
+                const oldRoom = updatedRooms[index];
+                const newRoom = {
+                  ...oldRoom,
+                  unread_messages: wsRoom.unread_messages,
+                  latest_message:
+                    wsRoom.last_message || oldRoom.latest_message,
+                  latest_message_time:
+                    wsRoom.latest_message_time ||
+                    oldRoom.latest_message_time,
+                  opponent_user:
+                    wsRoom.opponent_name || oldRoom.opponent_user,
+                  opponent_image:
+                    wsRoom.opponent_image || oldRoom.opponent_image,
+                  opponent_user_profile:
+                    wsRoom.opponent_user_profile ||
+                    oldRoom.opponent_user_profile,
+                  is_promise:
+                    wsRoom.is_promise != null
+                      ? wsRoom.is_promise
+                      : oldRoom.is_promise,
+                  participants:
+                    wsRoom.participants || oldRoom.participants,
+                };
+                // 기존 위치에서 제거
+                updatedRooms.splice(index, 1);
+                // 업데이트된 방을 맨 앞에 추가(최근 메시지가 온 순서대로 정렬)
+                updatedRooms.unshift(newRoom);
+              } else {
+                // 새로운 방이면 맨 앞으로 추가
+                const newRoom = {
+                  id: wsRoom.room_id,
+                  is_promise: wsRoom.is_promise || false,
+                  latest_message: wsRoom.last_message || '',
+                  latest_message_time:
+                    wsRoom.latest_message_time || '',
+                  opponent_user: wsRoom.opponent_name || '이름 없음',
+                  opponent_image: wsRoom.opponent_image || '',
+                  opponent_user_profile:
+                    wsRoom.opponent_user_profile || '',
+                  unread_messages: wsRoom.unread_messages || 0,
+                  participants: wsRoom.participants || [],
+                };
+                updatedRooms.unshift(newRoom);
+              }
             });
-            // 새로 추가된 채팅방이 있다면 추가
-            const newRooms = data.chatrooms
-              .filter(
-                (wsRoom) =>
-                  !updatedRooms.some(
-                    (room) => room.id === wsRoom.room_id
-                  )
-              )
-              .map((wsRoom) => ({
-                id: wsRoom.room_id,
-                opponent_user: wsRoom.opponant_name || '이름 없음',
-                opponent_user_profile: '', // 프로필 정보가 없으면 빈 값
-                unread_messages: wsRoom.unread_messages,
-                latest_message: wsRoom.last_message || '',
-              }));
-            return [...updatedRooms, ...newRooms];
+            return updatedRooms;
           });
         } else {
           console.log('처리되지 않은 type:', data.type);
@@ -103,10 +156,11 @@ export const ChatPage = () => {
   useEffect(() => {
     fetchChatRooms();
     connectWebSocket();
-    // ChatPage가 언마운트될 때 연결 종료
+    // 컴포넌트 언마운트 시 WebSocket 연결 종료
     return () => {
       if (socketRef.current) {
         socketRef.current.close();
+        socketRef.current = null;
       }
     };
   }, []);

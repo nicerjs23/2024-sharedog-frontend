@@ -9,7 +9,7 @@ export const Header = ({ text }) => {
     <HeaderWrapper>
       <div style={{ width: '30px', height: '30px' }} />
       {text}
-      <img src={x} alt="xicon" onClick={() => goTo('/myPage')} />
+      <img src={x} alt="xicon" onClick={() => goTo('/mypage')} />
     </HeaderWrapper>
   );
 };

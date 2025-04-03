@@ -3,7 +3,7 @@ import backIconNew from '@assets/icons/backIconNew.svg';
 import ChatFooter from '@components/chat/ChatFooter';
 import MyChat from '@components/chat/MyChat';
 import PeerChat from '@components/chat/PeerChat';
-import postImg2 from '@assets/images/postImg2.png';
+import postImg2 from '@assets/images/defaultDogImg.png';
 import { useCustomNavigate } from '@hooks/useCustomNavigate';
 import promiseIcon from '@assets/icons/promiseIcon.svg';
 import axiosInstance from '@apis/axiosInstance';
@@ -24,6 +24,8 @@ export const ChatDetailPage = () => {
   const [chatData, setChatData] = useState([]);
   const [currentUserEmail, setCurrentUserEmail] = useState('');
   const [opponentName, setOpponentName] = useState('');
+  const [opponentImage, setOpponentImage] = useState('');
+
   const [isDataLoaded, setIsDataLoaded] = useState(false); // ✅ 데이터 로딩 상태 추가
   const ws = useRef(null);
   const chatEndRef = useRef(null);
@@ -107,6 +109,7 @@ export const ChatDetailPage = () => {
         const { user_info, messages_by_date } = response.data;
         setCurrentUserEmail(user_info.current_user.email || '');
         setOpponentName(user_info.opponent.name);
+        setOpponentImage(user_info.opponent.profile_image || '');
         setChatData(messages_by_date);
         setIsDataLoaded(true); // ✅ 데이터 로딩 완료
       }
@@ -302,7 +305,7 @@ export const ChatDetailPage = () => {
                 ) : (
                   <PeerChat
                     read={msg.is_read}
-                    img={postImg2}
+                    img={opponentImage || postImg2}
                     time={msg.formatted_time}
                     text={msg.text}
                   />

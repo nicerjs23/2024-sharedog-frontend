@@ -1,6 +1,6 @@
 import Like from '@assets/icons/good.svg';
 import Comment from '@assets/icons/comment.svg';
-import NotLike from '@assets/icons/myPage/MypageHeart.svg';
+import NotLike from '@assets/icons/Wlike.svg';
 import styled from 'styled-components';
 const CommunityPost = ({
   category,

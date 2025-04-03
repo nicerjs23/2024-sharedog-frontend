@@ -1,88 +1,109 @@
 import * as S from './ChatPage.styled';
 import ChatRoom from '@components/chat/ChatRoom';
-
 import axiosInstance from '@apis/axiosInstance';
 import { useState, useEffect, useRef } from 'react';
 import { useCustomNavigate } from '@hooks/useCustomNavigate';
 
 export const ChatPage = () => {
   const { goTo } = useCustomNavigate();
-
-  // 채팅방 리스트
   const [chatRoom, setChatRoom] = useState([]);
-  // 웹소켓 인스턴스 보관용 ref (재렌더링에 의한 재연결 방지)
+  // ChatPage 전용 WebSocket 연결 ref
   const socketRef = useRef(null);
 
+  // REST API를 통해 풍부한 채팅방 데이터를 불러옴
   const fetchChatRooms = async () => {
     try {
       const response = await axiosInstance.get(`/api/chat/rooms`);
-      console.log('📌 채팅방 데이터:', response.data);
-      setChatRoom(response.data); // REST API 데이터 상태 업데이트
+      console.log('📌 REST 채팅방 데이터:', response.data);
+      setChatRoom(response.data);
     } catch (error) {
       console.error('채팅방 데이터를 불러오는 중 오류 발생:', error);
     }
   };
 
-  // 웹소켓 연결 함수 (토큰을 쿼리 파라미터로 추가)
+  // ChatPage 전용 WebSocket 연결 함수
   const connectWebSocket = () => {
-    // 이미 소켓이 연결되어 있으면 중복 연결 방지
-    if (socketRef.current) {
-      return;
-    }
+    if (socketRef.current) return; // 이미 연결되어 있다면 리턴
 
     const token = localStorage.getItem('access');
     if (!token) {
-      console.error(
-        '❌ 액세스 토큰이 없습니다! 웹소켓 연결을 할 수 없습니다.'
-      );
+      console.error('❌ 액세스 토큰이 없습니다! 웹소켓 연결 불가');
       return;
     }
 
-    // 토큰을 URL에 쿼리 파라미터로 추가
+    // 채팅 리스트 전용 엔드포인트 (예: /ws/user/chatrooms)
     const socketUrl = `wss://sharedog.shop/ws/user/chatrooms?token=${token}`;
     const socket = new WebSocket(socketUrl);
     socketRef.current = socket;
 
-    // 연결 성공
     socket.onopen = () => {
-      console.log('✅ WebSocket 연결 성공:', socketUrl);
+      console.log('✅ ChatList WebSocket 연결 성공:', socketUrl);
     };
 
-    // 서버에서 데이터가 오면 실행되는 콜백
     socket.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
-        console.log('💬 WebSocket 수신 데이터:', data);
-
-        // 백엔드에서는 오직 chatrooms_list 타입만 사용
+        console.log('💬 ChatList WebSocket 수신 데이터:', data);
         if (data.type === 'chatrooms_list' && data.chatrooms) {
-          setChatRoom(data.chatrooms);
+          // REST API 데이터와 WebSocket 업데이트 데이터를 병합하여 업데이트
+          setChatRoom((prevRooms) => {
+            const updatedRooms = prevRooms.map((oldRoom) => {
+              const newRoom = data.chatrooms.find(
+                (wsRoom) => wsRoom.room_id === oldRoom.id
+              );
+              if (!newRoom) return oldRoom;
+              return {
+                ...oldRoom,
+                unread_messages: newRoom.unread_messages,
+                latest_message:
+                  newRoom.last_message || oldRoom.latest_message,
+                // 서버가 보내주는 이름 필드가 'opponant_name'인 경우 매핑
+                opponent_user:
+                  newRoom.opponant_name || oldRoom.opponent_user,
+              };
+            });
+            // 새로 추가된 채팅방이 있다면 추가
+            const newRooms = data.chatrooms
+              .filter(
+                (wsRoom) =>
+                  !updatedRooms.some(
+                    (room) => room.id === wsRoom.room_id
+                  )
+              )
+              .map((wsRoom) => ({
+                id: wsRoom.room_id,
+                opponent_user: wsRoom.opponant_name || '이름 없음',
+                opponent_user_profile: '', // 프로필 정보가 없으면 빈 값
+                unread_messages: wsRoom.unread_messages,
+                latest_message: wsRoom.last_message || '',
+              }));
+            return [...updatedRooms, ...newRooms];
+          });
         } else {
           console.log('처리되지 않은 type:', data.type);
         }
       } catch (error) {
-        console.error('WebSocket 수신 데이터 파싱 오류:', error);
+        console.error(
+          'ChatList WebSocket 수신 데이터 파싱 오류:',
+          error
+        );
       }
     };
 
-    // 에러 처리
     socket.onerror = (error) => {
-      console.error('WebSocket 에러:', error);
+      console.error('ChatList WebSocket 에러:', error);
     };
 
-    // 소켓이 닫혔을 때
     socket.onclose = (event) => {
-      console.log('WebSocket 연결 해제:', event);
-      socketRef.current = null; // 닫힌 후에는 ref 초기화
+      console.log('ChatList WebSocket 연결 해제:', event);
+      socketRef.current = null;
     };
   };
 
-  // 마운트 시 REST API와 WebSocket 연결 세팅
   useEffect(() => {
     fetchChatRooms();
     connectWebSocket();
-
-    // 언마운트 시 소켓 정리
+    // ChatPage가 언마운트될 때 연결 종료
     return () => {
       if (socketRef.current) {
         socketRef.current.close();
@@ -95,7 +116,6 @@ export const ChatPage = () => {
       <S.Contents>
         <S.ChatHeader>채팅</S.ChatHeader>
         <S.Line />
-        {/* 채팅방 데이터를 ChatRoom 컴포넌트에 props로 전달 */}
         {chatRoom.map((room) => (
           <ChatRoom
             key={room.id}

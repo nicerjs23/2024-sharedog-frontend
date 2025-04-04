@@ -70,22 +70,37 @@ export const ChatPage = () => {
         const data = JSON.parse(event.data);
         console.log('💬 ChatList WebSocket 수신 데이터:', data);
 
-        if (data.type === 'chatrooms_list' && data.chatrooms) {
-          // WebSocket에서 받은 chatrooms 배열을 매핑
-          setChatRoom(
-            data.chatrooms.map((wsRoom) => ({
-              id: wsRoom.id,
-              is_promise: wsRoom.is_promise ?? false,
-              latest_message: wsRoom.latest_message || '',
-              latest_message_time: wsRoom.latest_message_time || '',
-              opponent_email: wsRoom.opponent_email || '',
-              opponent_user: wsRoom.opponent_user || '이름 없음',
-              opponent_user_profile:
-                wsRoom.opponent_user_profile || '',
-              participants: wsRoom.participants || [],
-              unread_messages: wsRoom.unread_messages || 0,
-            }))
-          );
+        if (data.type === 'chatrooms_list') {
+          // 빈 배열이 오면 그냥 무시
+          if (!data.chatrooms || data.chatrooms.length === 0) {
+            console.log('빈 데이터 수신: 업데이트 무시');
+            return;
+          }
+
+          // 업데이트: 기존 채팅방과 비교해서 변경된 부분만 반영
+          setChatRoom((prevRooms) => {
+            // 기존 채팅방을 id 기준으로 매핑
+            const roomMap = new Map();
+            prevRooms.forEach((room) => roomMap.set(room.id, room));
+
+            // 새로 온 데이터에 대해 업데이트
+            data.chatrooms.forEach((wsRoom) => {
+              // 만약 기존에 있다면 병합
+              if (roomMap.has(wsRoom.id)) {
+                const existingRoom = roomMap.get(wsRoom.id);
+                roomMap.set(wsRoom.id, {
+                  ...existingRoom,
+                  ...wsRoom,
+                });
+              } else {
+                // 새로운 채팅방이면 추가
+                roomMap.set(wsRoom.id, wsRoom);
+              }
+            });
+
+            // Map을 배열로 변환해서 반환
+            return Array.from(roomMap.values());
+          });
         } else {
           console.log('처리되지 않은 type:', data.type);
         }

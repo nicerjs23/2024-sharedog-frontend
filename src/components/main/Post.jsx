@@ -15,8 +15,8 @@ const Post = ({
       <TagDayWrapper>
         <TagWrapper>
           <Tag>{category}</Tag>
-          <Tag tag2>{region}</Tag>
-          <Tag tag2>{bloodType}</Tag>
+          <Tag $tag2={true}>{region}</Tag>
+          <Tag $tag2={true}>{bloodType}</Tag>
         </TagWrapper>
         <Day>{created_at}</Day>
       </TagDayWrapper>
@@ -62,7 +62,9 @@ const TagWrapper = styled.div`
   gap: 6px;
 `;
 
-const Tag = styled.div`
+const Tag = styled.div.attrs((props) => ({
+  // 아무것도 반환하지 않으면 tag2는 DOM에 안 넘어감
+}))`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -70,18 +72,18 @@ const Tag = styled.div`
   height: 19px;
   padding: 0 6.5px;
 
-  background-color: ${({ theme, tag2 }) =>
-    tag2 ? theme.colors.white : theme.colors.mainColor};
+  background-color: ${({ theme, $tag2 }) =>
+    $tag2 ? theme.colors.white : theme.colors.mainColor};
 
-  border: ${({ theme, tag2 }) =>
-    tag2 ? `0.27px solid ${theme.colors.mainColor}` : 'none'};
+  border: ${({ theme, $tag2 }) =>
+    $tag2 ? `0.27px solid ${theme.colors.mainColor}` : 'none'};
   border-radius: 12px;
 
   font-family: ${({ theme }) =>
     theme.fonts.SUITMedium['font-family']};
   font-size: 0.5rem;
-  color: ${({ theme, tag2 }) =>
-    tag2 ? theme.colors.mainColor : theme.colors.white};
+  color: ${({ theme, $tag2 }) =>
+    $tag2 ? theme.colors.mainColor : theme.colors.white};
   line-height: 17px;
 `;
 

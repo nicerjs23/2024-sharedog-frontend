@@ -170,7 +170,7 @@ export const MainPage = () => {
                   region={content.region}
                   created_at={content.created_at}
                   title={content.title}
-                  writer={userData.user_name}
+                  writer={content.writer}
                   content={content.content}
                   img={content.image_1}
                   onClick={() => handlePostClick(content.id)}

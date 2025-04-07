@@ -12,7 +12,7 @@ export const PetInfo = () => {
 
   // 뒤로 가기 버튼
   const BackClick = () => {
-    navigate('/myPage');
+    navigate('/mypage');
   };
 
   // 새로운 반려견 추가 페이지로 이동

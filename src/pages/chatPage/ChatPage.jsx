@@ -71,7 +71,7 @@ export const ChatPage = () => {
         console.log('💬 ChatList WebSocket 수신 데이터:', data);
 
         if (data.type === 'chatrooms_list') {
-          // 빈 배열이면 업데이트 무시
+          // 빈 배열이 오면 그냥 무시
           if (!data.chatrooms || data.chatrooms.length === 0) {
             console.log('빈 데이터 수신: 업데이트 무시');
             return;

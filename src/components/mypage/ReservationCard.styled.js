@@ -91,9 +91,9 @@ export const Progress = styled.div`
   flex-shrink: 0;
 
   border-radius: 15.659px;
-  background: ${({ isPast }) => (isPast ? '#FF6969' : '#FFECEC')};
-  color: ${({ isPast }) =>
-    isPast ? '#FFF' : 'var(--Red-Red04, #FF6969)'};
+  background: ${({ $isPast }) => ($isPast ? '#FF6969' : '#FFECEC')};
+  color: ${({ $isPast }) =>
+    $isPast ? '#FFF' : 'var(--Red-Red04, #FF6969)'};
   text-align: center;
   font-family: SUIT;
   font-size: 10.526px;

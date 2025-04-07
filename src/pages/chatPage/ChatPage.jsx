@@ -77,29 +77,49 @@ export const ChatPage = () => {
             return;
           }
 
-          // 업데이트: 기존 채팅방과 비교해서 변경된 부분만 반영
           setChatRoom((prevRooms) => {
-            // 기존 채팅방을 id 기준으로 매핑
+            // 기존 채팅방을 id 기준으로 Map에 저장
             const roomMap = new Map();
-            prevRooms.forEach((room) => roomMap.set(room.id, room));
+            prevRooms.forEach((room) => {
+              roomMap.set(room.id, room);
+            });
 
-            // 새로 온 데이터에 대해 업데이트
+            // 새로 들어온 chatrooms 데이터를 병합
             data.chatrooms.forEach((wsRoom) => {
-              // 만약 기존에 있다면 병합
               if (roomMap.has(wsRoom.id)) {
+                // 기존 데이터에 새 데이터 병합
                 const existingRoom = roomMap.get(wsRoom.id);
                 roomMap.set(wsRoom.id, {
                   ...existingRoom,
                   ...wsRoom,
+                  // 최신 메시지 정렬용 timestamp만 업데이트, display는 기존값 유지
+                  latest_message_timestamp:
+                    wsRoom.latest_message_timestamp,
+                  latest_message_time:
+                    existingRoom.latest_message_time,
                 });
               } else {
-                // 새로운 채팅방이면 추가
+                // 신규 채팅방이면 바로 추가
                 roomMap.set(wsRoom.id, wsRoom);
               }
             });
 
-            // Map을 배열로 변환해서 반환
-            return Array.from(roomMap.values());
+            // 최종 배열로 변환
+            const updatedRooms = Array.from(roomMap.values());
+
+            // ⭐ 최신 메시지가 맨 위로 오도록 latest_message_time 기준 내림차순 정렬
+            updatedRooms.sort((a, b) => {
+              // 메시지 시간이 없을 수 있으니 안전처리
+              const timeA = a.latest_message_timestamp
+                ? new Date(a.llatest_message_timestamp).getTime()
+                : 0;
+              const timeB = b.latest_message_timestamp
+                ? new Date(b.latest_message_timestamp).getTime()
+                : 0;
+              return timeB - timeA; // 큰 값(최근)이 먼저 오도록 내림차순
+            });
+
+            return updatedRooms;
           });
         } else {
           console.log('처리되지 않은 type:', data.type);

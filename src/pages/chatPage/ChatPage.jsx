@@ -71,7 +71,7 @@ export const ChatPage = () => {
         console.log('💬 ChatList WebSocket 수신 데이터:', data);
 
         if (data.type === 'chatrooms_list') {
-          // 빈 배열이 오면 그냥 무시
+          // 빈 배열이면 업데이트 무시
           if (!data.chatrooms || data.chatrooms.length === 0) {
             console.log('빈 데이터 수신: 업데이트 무시');
             return;
@@ -92,11 +92,9 @@ export const ChatPage = () => {
                 roomMap.set(wsRoom.id, {
                   ...existingRoom,
                   ...wsRoom,
-                  // 최신 메시지 정렬용 timestamp만 업데이트, display는 기존값 유지
+                  // 최신 메시지 정렬용 timestamp만 업데이트
                   latest_message_timestamp:
                     wsRoom.latest_message_timestamp,
-                  latest_message_time:
-                    existingRoom.latest_message_time,
                 });
               } else {
                 // 신규 채팅방이면 바로 추가
@@ -111,7 +109,7 @@ export const ChatPage = () => {
             updatedRooms.sort((a, b) => {
               // 메시지 시간이 없을 수 있으니 안전처리
               const timeA = a.latest_message_timestamp
-                ? new Date(a.llatest_message_timestamp).getTime()
+                ? new Date(a.latest_message_timestamp).getTime()
                 : 0;
               const timeB = b.latest_message_timestamp
                 ? new Date(b.latest_message_timestamp).getTime()

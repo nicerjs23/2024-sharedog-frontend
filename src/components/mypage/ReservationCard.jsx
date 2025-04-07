@@ -34,7 +34,7 @@ export const ReservationCard = ({
             </S.ImgBox>
             <S.NameText>{name}</S.NameText>
           </S.NameContainer>
-          <S.Progress isPast={isPast}>
+          <S.Progress $isPast={isPast}>
             {isPast ? '헌혈완료' : '헌혈 진행 전'}
           </S.Progress>
         </S.NameBox>

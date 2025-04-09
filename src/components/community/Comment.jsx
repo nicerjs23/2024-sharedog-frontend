@@ -19,7 +19,7 @@ const Comment = ({
       const response = await axiosInstance.post("/api/chat/rooms", {
         user_email: writerEmail,
       });
-      console.log("채팅방 생성/반환 결과:", response.data);
+      // console.log("채팅방 생성/반환 결과:", response.data);
 
       // (3) 서버가 반환한 채팅방의 id로 채팅 페이지 이동
       //     예: /chat/:id 구조로 라우팅한다고 가정

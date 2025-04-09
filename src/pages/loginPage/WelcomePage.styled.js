@@ -18,7 +18,7 @@ export const Header = styled.div`
   display: flex;
   width: 89.33%;
   justify-content: flex-end;
-  margin-top: 6px;
+  margin-top: 30px;
   color: ${({ theme }) => theme.colors.mainColor};
   font-family: ${({ theme }) =>
     theme.fonts.SUITSemiBold["font-family"]};
@@ -27,12 +27,12 @@ export const Header = styled.div`
 `;
 
 export const Title = styled.div`
-  flex: 3.14;
+  flex: 4;
   display: flex;
   width: 84%;
   flex-direction: column;
 
-  gap: 14px;
+  /* gap: 14px; */
   font-size: 24px;
   color: ${({ theme }) => theme.colors.mainColor};
   font-family: ${({ theme }) =>
@@ -49,11 +49,11 @@ export const TitleInfo = styled.div`
 export const LogoWrapper = styled.div`
   display: flex;
   align-items: flex-start;
-  flex: 3.46;
+  flex: 5;
 `;
 export const Logo = styled.img`
   display: flex;
-  width: 85px;
+  width: 110px;
   height: auto;
 `;
 

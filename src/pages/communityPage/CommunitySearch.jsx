@@ -39,27 +39,29 @@ export const CommunitySearch = () => {
       });
       setSearchResults(response.data);
       fetchRecentSearches();
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
-      console.log("검색 실패:", error);
+      // console.log("검색 실패:", error);
     }
-  }
+  };
 
   const fetchRecentSearches = async () => {
     try {
       const response = await axiosInstance.get("/api/community/search");
       setRecentSearches(response.data);
     } catch (error) {
-      console.log("최근 검색어 불러오기 실패: ", error);
+      // console.log("최근 검색어 불러오기 실패: ", error);
     }
-  }
+  };
 
   const deleteSearchKeyword = async (id) => {
     try {
       await axiosInstance.delete(`api/community/search/${id}`);
-      setRecentSearches((prevSearches) => prevSearches.filter((item) => item.id !== id));
+      setRecentSearches((prevSearches) =>
+        prevSearches.filter((item) => item.id !== id)
+      );
     } catch (error) {
-      console.log("검색어 삭제 실패: ", error);
+      // console.log("검색어 삭제 실패: ", error);
     }
   };
 
@@ -67,8 +69,8 @@ export const CommunitySearch = () => {
     try {
       await axiosInstance.delete("/api/community/search");
       setRecentSearches([]);
-    } catch(error) {
-      console.log("전체 검색어 삭제 실패: ", error);
+    } catch (error) {
+      // console.log("전체 검색어 삭제 실패: ", error);
     }
   };
 
@@ -80,11 +82,11 @@ export const CommunitySearch = () => {
 
   const handleBack = () => {
     navigate("/community");
-  }
+  };
 
   const handlePostClick = (id) => {
     navigate(`/community/${id}`);
-  };  
+  };
 
   return (
     <>
@@ -116,7 +118,10 @@ export const CommunitySearch = () => {
         <S.MiddleContainer>
           {searchResults.length > 0 ? (
             searchResults.map((result, index) => (
-              <S.ResultContainer key={index} onClick={() => handlePostClick(result.id)}>
+              <S.ResultContainer
+                key={index}
+                onClick={() => handlePostClick(result.id)}
+              >
                 <S.ContainerMiddle>
                   <S.ContainerHeader>
                     <S.ResultCategory>{result.category}</S.ResultCategory>
@@ -127,7 +132,9 @@ export const CommunitySearch = () => {
                     <S.ResultWriter>| {result.writer}</S.ResultWriter>
                   </S.ContainerTitle>
                   <S.ContainerMain>
-                    {result.image_1 && <S.ResultImage src={result.image_1} alt="게시물 이미지" />}
+                    {result.image_1 && (
+                      <S.ResultImage src={result.image_1} alt="게시물 이미지" />
+                    )}
                     <S.ResultContent>{result.content}</S.ResultContent>
                   </S.ContainerMain>
                 </S.ContainerMiddle>
@@ -151,12 +158,17 @@ export const CommunitySearch = () => {
               </S.DeleteHeader>
               <S.RecentList>
                 {recentSearches.map((item) => (
-                  <S.RecentItem key={item.id} onClick={() => {
-                    handleSearch(item.keyword);
-                    setSearchTerm(item.keyword);
-                  }}>
+                  <S.RecentItem
+                    key={item.id}
+                    onClick={() => {
+                      handleSearch(item.keyword);
+                      setSearchTerm(item.keyword);
+                    }}
+                  >
                     <span>{item.keyword}</span>
-                    <S.DeleteButton onClick={() => deleteSearchKeyword(item.id)}>
+                    <S.DeleteButton
+                      onClick={() => deleteSearchKeyword(item.id)}
+                    >
                       <img src={DelBtn} alt="삭제 버튼" />
                     </S.DeleteButton>
                   </S.RecentItem>

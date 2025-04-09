@@ -17,7 +17,7 @@ import LoginRequiredBox from '@components/main/LoginRequiredBox';
 import axiosInstance from '@apis/axiosInstance';
 import LoginRequiredModal from '@components/main/LoginRequiredModal';
 import { useCustomNavigate } from '@hooks/useCustomNavigate';
-
+import { useKakaoAuth } from '@hooks/useKakaoAuth'; // 전역 auth 상태 사용
 export const MainPage = () => {
   // 🟢 활성화된 필터 상태 관리
   // 🟢 1번 필터를 초기 활성화 상태로 설정
@@ -29,7 +29,9 @@ export const MainPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // ✅ 모달 상태 추가
   const navigate = useNavigate();
 
-  const token = localStorage.getItem('access'); // 로그인 토큰 확인
+  // 기존 localStorage 대신 전역 인증 상태(Context)를 이용
+  const { auth } = useKakaoAuth();
+  const token = auth?.access;
   const isLoggedIn = !!token; // true면 로그인, false면 비로그인
   useEffect(() => {
     const fetchData = async () => {

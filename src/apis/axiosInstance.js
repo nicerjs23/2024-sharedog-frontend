@@ -4,7 +4,7 @@ import { refreshAccessToken } from '@apis/refreshTokenUtil';
 // Axios 인스턴스 생성
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL, // API 기본 URL을 환경 변수에서 가져옴
-  //withCredentials: true, // 쿠키를 포함한 요청 허용
+  withCredentials: true, // 쿠키를 포함한 요청 허용
 });
 
 // 요청 인터셉터

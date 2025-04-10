@@ -19,7 +19,7 @@ export const Reservation = () => {
       try {
         // /api/users/mypromise 엔드포인트로 GET 요청
         const response = await axiosInstance.get(
-          '/api/users/mypromise'
+          '/api/users/mypromise/'
         );
         console.log('예약 데이터:', response.data);
 

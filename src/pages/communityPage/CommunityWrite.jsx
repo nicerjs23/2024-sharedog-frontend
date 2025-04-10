@@ -1,10 +1,10 @@
-import { useState, React } from "react";
-import { useNavigate } from "react-router-dom";
-import * as S from "./CommunityWrite.styled";
-import ImageUpload from "@assets/icons/ImageUpload.svg";
-import Caution from "@assets/icons/WriteCaution.svg";
-import axiosInstance from "@apis/axiosInstance";
-
+import { useState, React } from 'react';
+import { useNavigate } from 'react-router-dom';
+import * as S from './CommunityWrite.styled';
+import ImageUpload from '@assets/icons/ImageUpload.svg';
+import Caution from '@assets/icons/WriteCaution.svg';
+import axiosInstance from '@apis/axiosInstance';
+import usePreventZoom from '@hooks/usePreventZoom'; //확대방지api
 const Modal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
@@ -20,41 +20,46 @@ const Modal = ({ isOpen, onClose }) => {
   );
 };
 
-const categories = ["긴급헌혈", "궁금해요", "얘기해요", "후기에요"];
+const categories = ['긴급헌혈', '궁금해요', '얘기해요', '후기에요'];
 const regions = [
-  "서울",
-  "인천",
-  "경기",
-  "강원",
-  "경상",
-  "충청",
-  "전라",
-  "제주",
+  '서울',
+  '인천',
+  '경기',
+  '강원',
+  '경상',
+  '충청',
+  '전라',
+  '제주',
 ];
 const bloodTypes = [
-  "전체",
-  "DEA 1-",
-  "DEA 1.1",
-  "DEA 1.2",
-  "DEA 3",
-  "DEA 4",
-  "DEA 5",
-  "DEA 7",
+  '전체',
+  'DEA 1-',
+  'DEA 1.1',
+  'DEA 1.2',
+  'DEA 3',
+  'DEA 4',
+  'DEA 5',
+  'DEA 7',
 ];
 
 export const CommunityWrite = () => {
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedRegion, setSelectedRegion] = useState("");
-  const [selectedBloodType, setSelectedBloodType] = useState("");
+  usePreventZoom(); // 확대 방지 적용!
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedRegion, setSelectedRegion] = useState('');
+  const [selectedBloodType, setSelectedBloodType] = useState('');
   const [selectedImages, setSelectedImages] = useState([]);
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newPostId, setNewPostId] = useState(null);
   const navigate = useNavigate();
 
   const isFormComplete =
-    selectedCategory && selectedRegion && selectedBloodType && title && content;
+    selectedCategory &&
+    selectedRegion &&
+    selectedBloodType &&
+    title &&
+    content;
 
   const handleImageUpload = (event) => {
     if (!event.target.files) return;
@@ -62,7 +67,7 @@ export const CommunityWrite = () => {
     const files = Array.from(event.target.files);
 
     if (selectedImages.length + files.length > 3) {
-      alert("이미지는 최대 3개까지 업로드할 수 있습니다.");
+      alert('이미지는 최대 3개까지 업로드할 수 있습니다.');
       return;
     }
 
@@ -71,7 +76,9 @@ export const CommunityWrite = () => {
       preview: URL.createObjectURL(file), // ✅ 미리보기용 URL 생성
     }));
 
-    setSelectedImages((prev) => [...prev, ...newImagePreviews].slice(0, 3));
+    setSelectedImages((prev) =>
+      [...prev, ...newImagePreviews].slice(0, 3)
+    );
   };
 
   const handleRemoveImage = (index) => {
@@ -84,21 +91,21 @@ export const CommunityWrite = () => {
   };
 
   const handleCancel = () => {
-    navigate("/community");
+    navigate('/community');
   };
 
   const handleSubmit = async () => {
     if (!isFormComplete) {
-      alert("모든 필드를 입력해주세요.");
+      alert('모든 필드를 입력해주세요.');
       return;
     }
 
     const formData = new FormData();
-    formData.append("title", title);
-    formData.append("content", content);
-    formData.append("category", selectedCategory);
-    formData.append("region", selectedRegion);
-    formData.append("blood", selectedBloodType);
+    formData.append('title', title);
+    formData.append('content', content);
+    formData.append('category', selectedCategory);
+    formData.append('region', selectedRegion);
+    formData.append('blood', selectedBloodType);
 
     selectedImages.forEach((image, index) => {
       formData.append(`image_${index + 1}`, image.file); // File 객체 추가
@@ -106,11 +113,11 @@ export const CommunityWrite = () => {
 
     try {
       const response = await axiosInstance.post(
-        "/api/community/home",
+        '/api/community/home',
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            'Content-Type': 'multipart/form-data',
           },
         }
       );
@@ -120,7 +127,7 @@ export const CommunityWrite = () => {
       setIsModalOpen(true);
     } catch (error) {
       // console.error("❌ 게시글 등록 실패:", error);
-      alert("게시글 등록에 실패했습니다.");
+      alert('게시글 등록에 실패했습니다.');
     }
   };
 
@@ -129,7 +136,7 @@ export const CommunityWrite = () => {
     if (newPostId) {
       navigate(`/community/${newPostId}`, { replace: true }); // ✅ 상세 페이지로 이동
     } else {
-      navigate("/community"); // 혹시 ID가 없으면 기본 목록 페이지로 이동
+      navigate('/community'); // 혹시 ID가 없으면 기본 목록 페이지로 이동
     }
   };
 
@@ -140,7 +147,10 @@ export const CommunityWrite = () => {
           <S.Header>
             <S.Cancel onClick={handleCancel}>취소</S.Cancel>
             <S.Write>글쓰기</S.Write>
-            <S.Upload isFormComplete={isFormComplete} onClick={handleSubmit}>
+            <S.Upload
+              isFormComplete={isFormComplete}
+              onClick={handleSubmit}
+            >
               등록
             </S.Upload>
           </S.Header>
@@ -193,7 +203,9 @@ export const CommunityWrite = () => {
           </S.Blood>
           <S.Caution>
             <img src={Caution} alt="경고 메시지" />
-            <span>욕설, 광고 등 운영정책 위반 시 제재를 받을 수 있어요.</span>
+            <span>
+              욕설, 광고 등 운영정책 위반 시 제재를 받을 수 있어요.
+            </span>
           </S.Caution>
           <S.WriteTitle>
             <S.Title>제목</S.Title>
@@ -214,7 +226,8 @@ export const CommunityWrite = () => {
           <S.ImageContainer>
             <S.Title>이미지</S.Title>
             <S.Explain>
-              이미지 파일 (JPG, PNG, GIF)을 최대 3개를 첨부할 수 있어요.
+              이미지 파일 (JPG, PNG, GIF)을 최대 3개를 첨부할 수
+              있어요.
             </S.Explain>
             <S.ImageList>
               {selectedImages.map((image, index) => (
@@ -223,7 +236,9 @@ export const CommunityWrite = () => {
                     src={image.preview}
                     alt={`업로드된 이미지 ${index + 1}`}
                   />
-                  <S.RemoveButton onClick={() => handleRemoveImage(index)}>
+                  <S.RemoveButton
+                    onClick={() => handleRemoveImage(index)}
+                  >
                     ×
                   </S.RemoveButton>
                 </S.ImagePreview>
@@ -240,7 +255,7 @@ export const CommunityWrite = () => {
                     accept="image/*"
                     multiple
                     onChange={handleImageUpload}
-                    style={{ display: "none" }}
+                    style={{ display: 'none' }}
                   />
                 </S.UploadBox>
               )}

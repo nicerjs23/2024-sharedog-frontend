@@ -174,7 +174,10 @@ export const ChatDetailPage = () => {
         newMessage.sender_email
       );
 
-      const isPromiseMessage = newMessage.promise_id !== null; // ✅ promise 값이 null이 아니면 약속 메시지로 판별
+      //const isPromiseMessage = newMessage.promise_id !== null; // ✅ promise 값이 null이 아니면 약속 메시지로 판별
+      const isPromiseMessage =
+        newMessage.promise_id !== undefined &&
+        newMessage.promise_id !== null;
 
       const isSender =
         newMessage.sender_email.trim().toLowerCase() ===

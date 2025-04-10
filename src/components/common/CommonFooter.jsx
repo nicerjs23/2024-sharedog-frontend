@@ -9,13 +9,13 @@ import MyIcon from '@assets/icons/MyIcon.svg';
 import MyIconActive from '@assets/icons/MyIconActive.svg';
 import { useCustomNavigate } from '@hooks/useCustomNavigate';
 import { useLocation } from 'react-router-dom';
-
+import { useKakaoAuth } from '@hooks/useKakaoAuth';
 export const CommonFooter = () => {
   const { pathname } = useLocation(); // 현재 경로 가져오기
   const { goTo } = useCustomNavigate();
 
-  // 1) localStorage 에서 토큰 가져오기
-  const token = localStorage.getItem('access');
+  const { auth } = useKakaoAuth(); // 컨텍스트에서 인증 상태를 가져옴
+  const token = auth?.access; // auth가 있을 경우 토큰 값 사용
 
   // 2) 아이콘 클릭 시 토큰 없으면 경고, 있으면 경로 이동
   const handleIconClick = (path) => {

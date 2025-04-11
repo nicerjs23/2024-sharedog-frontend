@@ -42,9 +42,6 @@ export const PetInfo = () => {
     } catch (error) {
       console.error('API 요청 실패:', error);
       // API 요청 실패 시, 로컬 스토리지 데이터 로드
-      const storedPets =
-        JSON.parse(localStorage.getItem('petList')) || [];
-      setPetList(storedPets);
     }
   };
 

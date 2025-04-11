@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import * as S from "./MyWrite.styled";
-import Left from "@assets/icons/Left.svg";
-import axiosInstance from "@apis/axiosInstance";
-import Wlike from "@assets/icons/Wlike.svg";
-import Comment from "@assets/icons/comment.svg";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import * as S from './MyWrite.styled';
+import Left from '@assets/icons/Left.svg';
+import axiosInstance from '@apis/axiosInstance';
+import Wlike from '@assets/icons/Wlike.svg';
+import Comment from '@assets/icons/comment.svg';
+import { useNavigate } from 'react-router-dom';
 
 export const MyWrite = () => {
   const navigate = useNavigate();
@@ -32,19 +32,27 @@ export const MyWrite = () => {
   }, []);
 
   useEffect(() => {
+    if (!myUserName) return; // userName 이 없으면 요청X
+
     const fetchMyPosts = async () => {
       try {
-        const response = await axiosInstance.get(`/api/community/home`);
-        const myPosts = response.data.filter(post => post.writer === myUserName);
+        const response = await axiosInstance.get(
+          '/api/community/home'
+        );
+        const myPosts = response.data.filter(
+          (post) => post.writer === myUserName
+        );
+        console.log(myPosts);
         setWriteResult(myPosts);
-    } catch (error) {
+      } catch (error) {
         console.log('글 목록 받아오기 실패', error);
-        }
+      }
     };
-        fetchMyPosts();
-    }, [myUserName]); 
 
-    return (
+    fetchMyPosts();
+  }, [myUserName]);
+
+  return (
     <S.Wrapper>
       <S.Header>
         <S.HeaderLeft>
@@ -56,10 +64,15 @@ export const MyWrite = () => {
       <S.MiddleContainer>
         {writeResult.length > 0 ? (
           writeResult.map((result, index) => (
-            <S.ResultContainer key={index} onClick={() => handlePostClick(result.id)}>
+            <S.ResultContainer
+              key={index}
+              onClick={() => handlePostClick(result.id)}
+            >
               <S.ContainerMiddle>
                 <S.ContainerHeader>
-                  <S.ResultCategory>{result.category}</S.ResultCategory>
+                  <S.ResultCategory>
+                    {result.category}
+                  </S.ResultCategory>
                   <S.ResultCreate>{result.created_at}</S.ResultCreate>
                 </S.ContainerHeader>
                 <S.ContainerTitle>
@@ -67,7 +80,12 @@ export const MyWrite = () => {
                   <S.ResultWriter>| {result.writer}</S.ResultWriter>
                 </S.ContainerTitle>
                 <S.ContainerMain>
-                  {result.image_1 && <S.ResultImage src={result.image_1} alt="게시물 이미지" />}
+                  {result.image_1 && (
+                    <S.ResultImage
+                      src={result.image_1}
+                      alt="게시물 이미지"
+                    />
+                  )}
                   <S.ResultContent>{result.content}</S.ResultContent>
                 </S.ContainerMain>
               </S.ContainerMiddle>

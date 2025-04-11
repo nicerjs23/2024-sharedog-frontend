@@ -195,7 +195,7 @@ export const CommunityNew = () => {
               category={post.category}
               region={post.region}
               bloodType={
-                post.blood === '전체' ? '혈액형' : post.blood
+                post.blood === '전체' ? '혈액형 모름' : post.blood
               }
               created_at={post.created_at}
               isLiked={post.is_liked}

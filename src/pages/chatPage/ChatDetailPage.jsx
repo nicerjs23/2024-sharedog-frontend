@@ -184,9 +184,12 @@ export const ChatDetailPage = () => {
         currentUserEmail.trim().toLowerCase();
 
       const now = new Date();
-      const formattedTime = `${
-        now.getHours() >= 12 ? '오후' : '오전'
-      } ${now.getHours() % 12 || 12}:${now
+      const hour = now.getHours();
+      const period = hour >= 12 ? '오후' : '오전';
+      // 자정일 경우에는 0, 오후 12시는 그대로 12, 그 외에는 12시 기준 변환
+      const displayHour =
+        hour === 0 ? 0 : hour > 12 ? hour - 12 : hour;
+      const formattedTime = `${period} ${displayHour}:${now
         .getMinutes()
         .toString()
         .padStart(2, '0')}`;
@@ -202,10 +205,19 @@ export const ChatDetailPage = () => {
 
         is_promise: isPromiseMessage, // ✅ 약속 메시지 여부 저장
       };
+      // 날짜를 해당 형식으로 변환하는 함수
+      const formatDate = (dateInput) => {
+        // dateInput이 없으면 현재 날짜 사용
+        const date = dateInput ? new Date(dateInput) : new Date();
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+        const day = String(date.getDate()).padStart(2, '0');
 
+        return `${year}년 ${month}월 ${day}일`;
+      };
       setChatData((prevData) => {
-        // 날짜 추출(서버에서 주는 값 혹은 new Date() 등)
-        const newMsgDate = newMessage.date || '2025-03-21';
+        // 날짜
+        const newMsgDate = formatDate();
         if (!prevData.length) {
           // 기존 그룹이 전혀 없는 경우, 새 그룹 생성
           return [
@@ -240,9 +252,8 @@ export const ChatDetailPage = () => {
         }
       });
       scrollToBottom();
-      // ★ 추가: 상대방이 약속을 만든 메시지면 새로고침
+      // [1] 약속 메시지이고, 내가 보낸 게 아닐 경우 0.5초 후 새로고침
       if (isPromiseMessage && !isSender) {
-        // 상대방이 보낸 약속 메시지 → 내 화면도 새로고침
         setTimeout(() => {
           window.location.reload();
         }, 500);

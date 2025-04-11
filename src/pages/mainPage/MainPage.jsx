@@ -166,7 +166,7 @@ export const MainPage = () => {
                   category={content.category}
                   bloodType={
                     content.blood === '전체'
-                      ? '혈액형'
+                      ? '혈액형 모름'
                       : content.blood
                   }
                   region={content.region}

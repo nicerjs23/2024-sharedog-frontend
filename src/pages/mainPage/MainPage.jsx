@@ -33,6 +33,8 @@ export const MainPage = () => {
   const { auth } = useKakaoAuth();
   const token = auth?.access;
   const isLoggedIn = !!token; // true면 로그인, false면 비로그인
+  // ✅ [추가] 반려견 리스트 상태
+  const [petList, setPetList] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       if (!token) {
@@ -63,6 +65,27 @@ export const MainPage = () => {
     fetchData();
   }, [token, activeFilter]); // ✅ 지역 선택 시 API 요청 변경
 
+  // ✅ [추가] 반려견 정보 불러오기
+  useEffect(() => {
+    const fetchDogData = async () => {
+      if (!token) return; // 로그인이 안 되어 있다면 요청 스킵
+
+      try {
+        const res = await axiosInstance.get('/api/users/dogs/');
+        console.log('반려견 API 응답:', res.data);
+
+        if (Array.isArray(res.data) && res.data.length > 0) {
+          setPetList(res.data);
+        } else {
+          setPetList([]); // 등록된 반려견이 없으면 빈 배열
+        }
+      } catch (error) {
+        console.error('반려견 API 요청 실패:', error);
+      }
+    };
+    fetchDogData();
+  }, [token]);
+
   const handleFilterClick = (regionName) => {
     setActiveFilter(regionName); // ✅ 클릭한 지역을 상태에 저장
   };
@@ -78,6 +101,8 @@ export const MainPage = () => {
   const handlePostClick = (id) => {
     navigate(`/community/${id}`);
   };
+  // 대표 강아지의 이름 (0번째 반려견)
+  const dogName = petList[0]?.dog_name || '';
 
   const isTest = userData?.is_test || false; // isTest 값 가져오기 (없으면 기본값 false)
   const profile = userData?.profile_image;
@@ -111,6 +136,7 @@ export const MainPage = () => {
           isTest={isTest}
           profile={profile}
           isLoggedIn={isLoggedIn}
+          dogName={dogName}
         />
       </S.SliderBox>
 

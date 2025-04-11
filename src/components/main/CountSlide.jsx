@@ -5,7 +5,7 @@ import arrowIcon from '@assets/icons/ArrowIcon.svg';
 import calendar from '@assets/icons/bloodCalendar.svg';
 import axiosInstance from '@apis/axiosInstance';
 
-const CountSlide = () => {
+const CountSlide = ({ dogName }) => {
   // 초기값을 0으로 세팅
   const [bloodData, setBloodData] = useState({
     count_blood: 0,
@@ -47,7 +47,7 @@ const CountSlide = () => {
           </BloodText>
         </BloodCount>
         <SlideTitle>
-          루피는 총 {bloodData.count_blood}회 헌혈 했어요!
+          {dogName}는 총 {bloodData.count_blood}회 헌혈 했어요!
         </SlideTitle>
         {/* <SlideSubTitle>
           지금까지 루피는

@@ -12,7 +12,7 @@ const ChatRoom = ({ room, onClick }) => {
         <TextContainer>
           <ChatNameDate>
             <Name>{room.opponent_user || '이름 없음'}</Name>
-            <Date>{room.latest_message_time || '시간 없음'}</Date>
+            <Date>{room.latest_message_time || ' '}</Date>
           </ChatNameDate>
           <ChatBody>
             {room.latest_message || '최근 메시지가 없습니다.'}

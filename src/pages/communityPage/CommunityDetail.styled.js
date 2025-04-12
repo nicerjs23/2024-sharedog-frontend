@@ -195,8 +195,7 @@ export const MainImg = styled.div`
   scroll-snap-type: x mandatory; // 가로 방향 스크롤에서 무조건 특정 요소에서 멈추도록 설정
 
   img {
-    width: 181px;
-    height: 111px;
+    width: 100%;
     flex-shrink: 0;
     border-radius: 6px;
     scroll-snap-align: start;

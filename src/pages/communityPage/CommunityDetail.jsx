@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import * as S from "./CommunityDetail.styled";
-import axiosInstance from "@apis/axiosInstance";
-import Left from "@assets/icons/Left.svg";
-import Delete from "@assets/icons/Delete.svg";
-import Like from "@assets/icons/good.svg";
-import Wlike from "@assets/icons/Wlike.svg";
-import Comment from "@assets/icons/comment.svg";
-import Default from "@assets/icons/ProImage.svg";
-import Send from "@assets/icons/Send.svg";
-import CommentComponent from "@components/community/Comment";
+import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import * as S from './CommunityDetail.styled';
+import axiosInstance from '@apis/axiosInstance';
+import Left from '@assets/icons/Left.svg';
+import Delete from '@assets/icons/Delete.svg';
+import Like from '@assets/icons/good.svg';
+import Wlike from '@assets/icons/Wlike.svg';
+import Comment from '@assets/icons/comment.svg';
+import Default from '@assets/icons/ProImage.svg';
+import Send from '@assets/icons/Send.svg';
+import CommentComponent from '@components/community/Comment';
 
-import usePreventZoom from "@hooks/usePreventZoom"; //확대방지api
+import usePreventZoom from '@hooks/usePreventZoom'; //확대방지api
 
 export const CommunityDetail = () => {
   usePreventZoom(); // 확대 방지 적용!
@@ -20,18 +20,20 @@ export const CommunityDetail = () => {
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
   const [comments, setComments] = useState([]);
   const [profile, setProfile] = useState(null);
   const [liked, setLiked] = useState(false);
-  const [myUserName, setMyUserName] = useState("");
+  const [myUserName, setMyUserName] = useState('');
   const [isPosting, setIsPosting] = useState(false);
 
   useEffect(() => {
     const fetchPost = async () => {
       setLoading(true);
       try {
-        const response = await axiosInstance.get(`/api/community/home/${id}`);
+        const response = await axiosInstance.get(
+          `/api/community/home/${id}`
+        );
         // console.log(response.data);
         setPost(response.data);
         setComments(response.data.comments);
@@ -44,8 +46,8 @@ export const CommunityDetail = () => {
         if (error.response) {
           // console.error('서버 응답 오류:', error.response.data);
         }
-        alert("게시글을 불러오는 데 실패했습니다.");
-        navigate("/community");
+        alert('게시글을 불러오는 데 실패했습니다.');
+        navigate('/community');
       } finally {
         setLoading(false);
       }
@@ -77,18 +79,18 @@ export const CommunityDetail = () => {
   const deletePost = async () => {
     try {
       await axiosInstance.delete(`/api/community/home/${id}`);
-      alert("게시글이 삭제되었습니다.");
-      navigate("/community");
+      alert('게시글이 삭제되었습니다.');
+      navigate('/community');
     } catch (error) {
       // console.error('게시글 삭제 실패', error);
-      alert("게시글 삭제에 실패했습니다");
+      alert('게시글 삭제에 실패했습니다');
     }
   };
 
   const commentPost = async () => {
     if (isPosting) return;
     if (!comment.trim()) {
-      alert("댓글을 입력하세요.");
+      alert('댓글을 입력하세요.');
       return;
     }
 
@@ -101,7 +103,7 @@ export const CommunityDetail = () => {
       );
       // console.log(response.data);
       setComments((prev) => [...prev, response.data]);
-      setComment("");
+      setComment('');
       setPost((prev) => ({
         ...prev,
         comments_cnt: prev.comments_cnt + 1,
@@ -123,22 +125,22 @@ export const CommunityDetail = () => {
       setPost((prev) => ({
         ...prev,
         like_cnt:
-          response.data.success === "좋아요 성공"
+          response.data.success === '좋아요 성공'
             ? prev.like_cnt + 1
-            : response.data.success === "좋아요 취소 성공"
+            : response.data.success === '좋아요 취소 성공'
             ? prev.like_cnt - 1
             : prev.like_cnt,
       }));
 
-      if (response.data.success === "좋아요 성공") {
+      if (response.data.success === '좋아요 성공') {
         setLiked(true);
-      } else if (response.data.success === "좋아요 취소 성공") {
+      } else if (response.data.success === '좋아요 취소 성공') {
         setLiked(false);
       } else if (
         response.data.error ===
-        "본인이 작성한 글에는 좋아요를 누를 수 없습니다."
+        '본인이 작성한 글에는 좋아요를 누를 수 없습니다.'
       ) {
-        alert("본인이 작성한 글에는 좋아요를 누를 수 없습니다.");
+        alert('본인이 작성한 글에는 좋아요를 누를 수 없습니다.');
       }
     } catch (error) {
       // console.log('좋아요 실패', error);
@@ -146,7 +148,7 @@ export const CommunityDetail = () => {
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey) {
       commentPost();
     }
   };
@@ -156,7 +158,11 @@ export const CommunityDetail = () => {
       <S.Container>
         <S.Header>
           <S.Back>
-            <img src={Left} onClick={() => navigate(-1)} alt="뒤로가기 버튼" />
+            <img
+              src={Left}
+              onClick={() => navigate(-1)}
+              alt="뒤로가기 버튼"
+            />
           </S.Back>
           <S.HeaderTitle>
             <span>{post.category}</span>
@@ -169,7 +175,9 @@ export const CommunityDetail = () => {
               <S.HeaderLeft>
                 <S.Cate>{post.category}</S.Cate>
                 <S.Region>{post.region}</S.Region>
-                <S.Blood>{post.blood}</S.Blood>
+                <S.Blood>
+                  {post.blood === '전체' ? '혈액형 모름' : post.blood}
+                </S.Blood>
               </S.HeaderLeft>
               <S.HeaderRight>
                 <S.Create>{post.created_at}</S.Create>
@@ -186,9 +194,15 @@ export const CommunityDetail = () => {
             </S.HeaderBottom>
           </S.MainHeader>
           <S.MainImg>
-            {post.image_1 && <img src={post.image_1} alt="게시물 이미지 1" />}
-            {post.image_2 && <img src={post.image_2} alt="게시물 이미지 2" />}
-            {post.image_3 && <img src={post.image_3} alt="게시물 이미지 3" />}
+            {post.image_1 && (
+              <img src={post.image_1} alt="게시물 이미지 1" />
+            )}
+            {post.image_2 && (
+              <img src={post.image_2} alt="게시물 이미지 2" />
+            )}
+            {post.image_3 && (
+              <img src={post.image_3} alt="게시물 이미지 3" />
+            )}
           </S.MainImg>
           <S.Content>{post.content}</S.Content>
         </S.Main>

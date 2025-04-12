@@ -17,12 +17,23 @@ export const CommunitySearch = () => {
   const [recentSearches, setRecentSearches] = useState([]);
 
   useEffect(() => {
-    if (location.state?.query) {
+    // 최초 진입일 때만 location.state.query 반영
+    const isInitial = sessionStorage.getItem("search_initial") !== "false";
+
+    if (isInitial && location.state?.query) {
       setSearchTerm(location.state.query);
       handleSearch(location.state.query);
+      sessionStorage.setItem("search_initial", "false");
+    } else {
+      const last = sessionStorage.getItem("last_search_term"); // ✅ 뒤로가기용 검색어
+      if (last) {
+        setSearchTerm(last);
+        handleSearch(last);
+      }
     }
+
     fetchRecentSearches();
-  }, [location.state]);
+  }, []);
 
   const handleClearSearch = () => {
     setSearchTerm("");
@@ -32,6 +43,8 @@ export const CommunitySearch = () => {
   const handleSearch = async (query) => {
     const searchQuery = query || searchTerm;
     if (!searchQuery.trim()) return;
+
+    sessionStorage.setItem("last_search_term", searchQuery);
 
     try {
       const response = await axiosInstance.get("/api/community/home", {
@@ -85,7 +98,7 @@ export const CommunitySearch = () => {
   };
 
   const handlePostClick = (id) => {
-    navigate(`/community/${id}`);
+    navigate(`/community/${id}`, { state: null });
   };
 
   return (

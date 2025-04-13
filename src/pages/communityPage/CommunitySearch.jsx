@@ -69,7 +69,7 @@ export const CommunitySearch = () => {
 
   const deleteSearchKeyword = async (id) => {
     try {
-      await axiosInstance.delete(`api/community/search/${id}`);
+      await axiosInstance.delete(`/api/community/search/${id}`);
       setRecentSearches((prevSearches) =>
         prevSearches.filter((item) => item.id !== id)
       );
@@ -80,7 +80,7 @@ export const CommunitySearch = () => {
 
   const deleteAllSearchKeywords = async () => {
     try {
-      await axiosInstance.delete("/api/community/search");
+      await axiosInstance.delete("/api/community/search/alldelete");
       setRecentSearches([]);
     } catch (error) {
       // console.log("전체 검색어 삭제 실패: ", error);
@@ -180,7 +180,10 @@ export const CommunitySearch = () => {
                   >
                     <span>{item.keyword}</span>
                     <S.DeleteButton
-                      onClick={() => deleteSearchKeyword(item.id)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        deleteSearchKeyword(item.id);
+                      }}
                     >
                       <img src={DelBtn} alt="삭제 버튼" />
                     </S.DeleteButton>

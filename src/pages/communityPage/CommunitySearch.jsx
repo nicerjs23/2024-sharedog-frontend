@@ -80,7 +80,7 @@ export const CommunitySearch = () => {
 
   const deleteAllSearchKeywords = async () => {
     try {
-      await axiosInstance.delete("/api/community/search");
+      await axiosInstance.delete("/api/community/search/alldelete");
       setRecentSearches([]);
     } catch (error) {
       // console.log("전체 검색어 삭제 실패: ", error);

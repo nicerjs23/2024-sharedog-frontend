@@ -24,7 +24,7 @@ export const PetInfo = () => {
   const fetchPetInfo = async () => {
     try {
       const response = await axios.get('/api/users/dogs/');
-      console.log('API 응답 데이터:', response.data);
+      //console.log('API 응답 데이터:', response.data);
 
       let pets = [];
       if (response.data.length > 0) {

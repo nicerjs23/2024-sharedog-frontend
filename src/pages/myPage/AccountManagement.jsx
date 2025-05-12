@@ -28,11 +28,11 @@ export const AccountManagement = () => {
   const handleWithdraw = async () => {
     try {
       await axios.delete('/api/accounts/delete-account');
-      console.log('회원 탈퇴 성공!');
+      //console.log('회원 탈퇴 성공!');
       logout();
       navigate('/');
     } catch (error) {
-      console.error('회원 탈퇴 실패:', error);
+      //console.error('회원 탈퇴 실패:', error);
     } finally {
       setIsWithdrawModalOpen(false);
     }
@@ -42,11 +42,11 @@ export const AccountManagement = () => {
   const fetchUserInfo = async () => {
     try {
       const response = await axios.get('/api/accounts/user-check');
-      console.log('API 응답 전체 데이터:', response.data);
+      //console.log('API 응답 전체 데이터:', response.data);
       const { email } = response.data; // 변경된 API 구조에 맞게 수정
       setEmail(email);
     } catch (error) {
-      console.error('사용자 정보 가져오기 실패:', error);
+      //console.error('사용자 정보 가져오기 실패:', error);
     }
   };
 

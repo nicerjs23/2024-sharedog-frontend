@@ -14,7 +14,7 @@ export const ChatPage = () => {
   const fetchChatRooms = async () => {
     try {
       const response = await axiosInstance.get('/api/chat/rooms');
-      console.log('📌 REST 채팅방 데이터:', response.data);
+      //console.log('📌 REST 채팅방 데이터:', response.data);
 
       // REST 응답을 필요한 형태로 매핑
       const normalizedRooms = response.data.map((room) => ({
@@ -42,9 +42,9 @@ export const ChatPage = () => {
       socketRef.current &&
       socketRef.current.readyState !== WebSocket.CLOSED
     ) {
-      console.log(
-        '기존 WebSocket 연결이 존재합니다. 연결을 재설정합니다.'
-      );
+      //console.log(
+       // '기존 WebSocket 연결이 존재합니다. 연결을 재설정합니다.'
+      //);
       socketRef.current.close();
       socketRef.current = null;
     }
@@ -61,19 +61,19 @@ export const ChatPage = () => {
     socketRef.current = socket;
 
     socket.onopen = () => {
-      console.log('✅ ChatList WebSocket 연결 성공:', socketUrl);
+      //console.log('✅ ChatList WebSocket 연결 성공:', socketUrl);
     };
 
     // 3) WebSocket 메시지 수신
     socket.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
-        console.log('💬 ChatList WebSocket 수신 데이터:', data);
+        //console.log('💬 ChatList WebSocket 수신 데이터:', data);
 
         if (data.type === 'chatrooms_list') {
           // 빈 배열이면 업데이트 무시
           if (!data.chatrooms || data.chatrooms.length === 0) {
-            console.log('빈 데이터 수신: 업데이트 무시');
+           // console.log('빈 데이터 수신: 업데이트 무시');
             return;
           }
 
@@ -120,7 +120,7 @@ export const ChatPage = () => {
             return updatedRooms;
           });
         } else {
-          console.log('처리되지 않은 type:', data.type);
+         // console.log('처리되지 않은 type:', data.type);
         }
       } catch (error) {
         console.error(
@@ -131,11 +131,11 @@ export const ChatPage = () => {
     };
 
     socket.onerror = (error) => {
-      console.error('ChatList WebSocket 에러:', error);
+      //console.error('ChatList WebSocket 에러:', error);
     };
 
     socket.onclose = (event) => {
-      console.log('ChatList WebSocket 연결 해제:', event);
+      //console.log('ChatList WebSocket 연결 해제:', event);
       socketRef.current = null;
     };
   };

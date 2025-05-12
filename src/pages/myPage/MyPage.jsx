@@ -27,28 +27,28 @@ export const MyPage = () => {
         const response = await axiosInstance.get(
           '/api/accounts/user-check'
         );
-        console.log('받아온 데이터:', response.data);
+        //console.log('받아온 데이터:', response.data);
 
         // 만약 response.data가 배열이 아니라 객체로 변경되었다면 아래처럼 직접 할당
         setUserData(response.data);
       } catch (error) {
         if (error.response) {
-          console.error('에러 상태 코드:', error.response.status);
-          console.error('에러 응답 데이터:', error.response.data);
+          //console.error('에러 상태 코드:', error.response.status);
+          //console.error('에러 응답 데이터:', error.response.data);
 
           if (error.response.status === 401) {
-            console.error('JWT 토큰 만료 또는 유효하지 않음.');
+            //console.error('JWT 토큰 만료 또는 유효하지 않음.');
           } else {
-            console.error(
-              '사용자 정보 가져오기 실패:',
-              error.response.data
-            );
+            //console.error(
+              //'사용자 정보 가져오기 실패:',
+              //error.response.data
+            //);
           }
         } else {
-          console.error(
-            '네트워크 에러 또는 서버에 응답이 없습니다:',
-            error
-          );
+          //console.error(
+            //'네트워크 에러 또는 서버에 응답이 없습니다:',
+            //error
+          //);
         }
       }
     };

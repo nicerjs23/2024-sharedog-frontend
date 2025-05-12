@@ -12,7 +12,7 @@ export const KakaoCallbackPage = () => {
       if (isRequesting.current) return; // 이미 요청 중이면 중단
       isRequesting.current = true;
       try {
-        console.log("KakaoCallbackPage useEffect 실행");
+       // console.log("KakaoCallbackPage useEffect 실행");
         const queryParams = new URLSearchParams(
           window.location.search
         );
@@ -21,7 +21,7 @@ export const KakaoCallbackPage = () => {
           throw new Error("카카오 로그인 code가 없습니다.");
         }
 
-        console.log("카카오 로그인 code:", code); // 받은 code 확인
+        //console.log("카카오 로그인 code:", code); // 받은 code 확인
 
         // 백엔드의 토큰 교환 API 호출
         const response = await axios.post(
@@ -31,7 +31,7 @@ export const KakaoCallbackPage = () => {
           }
         );
 
-        console.log("백엔드 응답 ,JWT 토큰 응답:", response.data); // 응답 데이터 출력
+        //console.log("백엔드 응답 ,JWT 토큰 응답:", response.data); // 응답 데이터 출력
 
         const { access, refresh } = response.data.token;
         const isSigned = response.data.is_signed;

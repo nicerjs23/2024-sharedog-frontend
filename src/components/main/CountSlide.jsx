@@ -17,14 +17,14 @@ const CountSlide = ({ dogName }) => {
     const fetchBloodData = async () => {
       try {
         const response = await axiosInstance.get('/api/home/blood');
-        console.log('Fetched blood data:', response.data);
+        //console.log('Fetched blood data:', response.data);
         const { count_blood, count_month } = response.data;
         setBloodData({
           count_blood: count_blood ?? 0,
           count_month: count_month ?? 0,
         });
       } catch (error) {
-        console.error('Error fetching blood data:', error);
+        //console.error('Error fetching blood data:', error);
       }
     };
 

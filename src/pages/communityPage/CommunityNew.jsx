@@ -98,16 +98,16 @@ export const CommunityNew = () => {
       // 혈액형 필터 추가
       if (selectedBloodType) params.append("blood", selectedBloodType);
 
-      console.log(
-        "📌 API 요청 URL:",
-        `/api/community/home?${params.toString()}`
-      ); // 디버깅용
+     // console.log(
+      //  "📌 API 요청 URL:",
+      //  `/api/community/home?${params.toString()}`
+      //); // 디버깅용
 
       // API 요청
       const response = await axiosInstance.get(
         `/api/community/home?${params.toString()}`
       );
-      console.log("📌 API 응답 데이터:", response.data);
+      //console.log("📌 API 응답 데이터:", response.data);
 
       if (!Array.isArray(response.data)) {
         throw new Error("API 응답이 배열이 아닙니다.");
@@ -115,7 +115,7 @@ export const CommunityNew = () => {
 
       setPosts(response.data);
     } catch (error) {
-      console.error("❌ 게시글 불러오기 실패:", error);
+      //console.error("❌ 게시글 불러오기 실패:", error);
     }
   };
 

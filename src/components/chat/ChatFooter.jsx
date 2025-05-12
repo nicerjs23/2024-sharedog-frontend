@@ -53,12 +53,12 @@ const ChatFooter = ({ ws, currentUserEmail }) => {
       formatted_time: formattedTime, // ✅ 시간 추가
     });
 
-    console.log('📤 웹소켓으로 메시지 전송:', messageData);
+    // console.log('📤 웹소켓으로 메시지 전송:', messageData);
 
     if (ws.current && ws.current.readyState === WebSocket.OPEN) {
       ws.current.send(messageData);
     } else {
-      console.error('❌ 웹소켓 연결이 닫혀 있음!');
+      //console.error('❌ 웹소켓 연결이 닫혀 있음!');
     }
 
     setMessage(''); // 입력창 초기화

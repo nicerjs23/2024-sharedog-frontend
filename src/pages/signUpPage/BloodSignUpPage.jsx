@@ -21,7 +21,7 @@ export const BloodSignUpPage = () => {
 
   const handleNext = async () => {
     if (!signupData.blood) {
-      console.log("혈액형을 선택해주세요!");
+      //console.log("혈액형을 선택해주세요!");
       return;
     }
 
@@ -29,7 +29,7 @@ export const BloodSignUpPage = () => {
       await submitSignupData(); // ✅ 최종 `POST` 요청 실행
       navigate("/signup/last"); // ✅ 회원가입 완료 페이지로 이동
     } catch (error) {
-      console.error("회원가입 실패:", error);
+      //console.error("회원가입 실패:", error);
     }
   };
 

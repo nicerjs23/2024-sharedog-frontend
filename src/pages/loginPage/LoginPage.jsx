@@ -29,7 +29,7 @@ export const LoginPage = () => {
         loginData.refresh_token = refreshToken;
       }
 
-      console.log('📌 로그인 요청 데이터:', loginData);
+      //console.log('📌 로그인 요청 데이터:', loginData);
 
       const response = await axiosInstance.post(
         '/api/accounts/login',
@@ -47,8 +47,8 @@ export const LoginPage = () => {
       localStorage.setItem('access', accessToken);
       localStorage.setItem('refresh', newRefreshToken);
 
-      console.log('저장된 access token:', accessToken);
-      console.log('저장된 refresh token:', newRefreshToken);
+      //console.log('저장된 access token:', accessToken);
+      //console.log('저장된 refresh token:', newRefreshToken);
 
       // ✅ [2] axiosInstance의 Authorization 헤더 즉시 업데이트
       axiosInstance.defaults.headers.common[

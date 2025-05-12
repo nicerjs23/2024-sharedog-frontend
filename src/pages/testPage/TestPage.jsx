@@ -53,18 +53,18 @@ export const TestPage = () => {
   const handleNext = () => {
     if (currentIndex < testQuestions.length - 1) {
       setCurrentIndex((prev) => prev + 1); // 다음 문항으로 이동
-      console.log(
-        `📝 **${currentIndex + 1}번 문항 점수:** ${
-          questionScores[currentIndex]
-        }`
-      );
+      //console.log(
+      //  `📝 **${currentIndex + 1}번 문항 점수:** ${
+      //    questionScores[currentIndex]
+      //  }`
+      //);
     } else {
       // ✅ 마지막 문항 처리
-      console.log(
-        `📝 **${currentIndex + 1}번 문항 점수:** ${
-          questionScores[currentIndex]
-        }`
-      );
+      //console.log(
+      //  `📝 **${currentIndex + 1}번 문항 점수:** ${
+      //    questionScores[currentIndex]
+      //  }`
+      //);
       setIsLoading(true); // 로딩 상태 활성화
       const LOADING_DURATION = 2000; // 로딩 시간 (2초)
       const ResultScore = questionScores.reduce(
@@ -73,8 +73,8 @@ export const TestPage = () => {
       );
       setTimeout(() => {
         setIsLoading(false);
-        console.log("📝 전체 문항 점수:", questionScores);
-        console.log("✅ **총합 점수**:", ResultScore);
+        //console.log("📝 전체 문항 점수:", questionScores);
+        //console.log("✅ **총합 점수**:", ResultScore);
         // ✅ 마지막 문항 완료 후 결과 페이지로 이동
         if (ResultScore == 5) {
           goTo("/test/resultOK", { replace: true });

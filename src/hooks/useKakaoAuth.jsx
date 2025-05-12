@@ -19,11 +19,11 @@ export const KakaoAuthProvider = ({ children }) => {
 
   // 카카오 로그인 버튼 클릭 시 백엔드의 카카오 로그인 엔드포인트로 리다이렉트
   const kakaoLogin = () => {
-    console.log('kakaoLogin 함수 호출됨'); // 함수 호출 여부 확인
+    //console.log('kakaoLogin 함수 호출됨'); // 함수 호출 여부 확인
     const kakaoLoginUrl = `${
       import.meta.env.VITE_BASE_URL
     }/api/accounts/kakao/login`;
-    console.log('카카오 로그인 URL:', kakaoLoginUrl);
+    //console.log('카카오 로그인 URL:', kakaoLoginUrl);
     window.location.href = kakaoLoginUrl;
   };
 

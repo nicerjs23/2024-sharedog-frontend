@@ -21,7 +21,7 @@ export const Reservation = () => {
         const response = await axiosInstance.get(
           '/api/users/mypromise/'
         );
-        console.log('예약 데이터:', response.data);
+        //console.log('예약 데이터:', response.data);
 
         // 서버에서 받은 데이터 형태에 맞춰 상태에 저장
         setReservations(response.data);

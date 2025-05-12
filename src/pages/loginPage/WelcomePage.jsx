@@ -17,7 +17,7 @@ export const WelcomePage = () => {
 
   // 확인용 콘솔 로그 추가
   const handleKakaoLogin = () => {
-    console.log('카카오 로그인 버튼 클릭됨'); // 확인 메시지
+    //console.log('카카오 로그인 버튼 클릭됨'); // 확인 메시지
     kakaoLogin(); // 실제 카카오 로그인 함수 호출
   };
 

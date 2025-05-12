@@ -72,13 +72,13 @@ export const ChatDetailPage = () => {
     }
 
     try {
-      console.log(`📌 POST 요청: /api/chat/rooms/${roomId}/promise`);
+      //console.log(`📌 POST 요청: /api/chat/rooms/${roomId}/promise`);
       const response = await axiosInstance.post(
         `/api/chat/rooms/${roomId}/promise`,
         promiseData
       );
 
-      console.log('✅ 약속 생성 성공:', response.data);
+      //console.log('✅ 약속 생성 성공:', response.data);
       alert(
         `약속이 잡혔습니다: ${response.data.day_display}, ${response.data.time_display}, ${response.data.place}`
       );
@@ -99,11 +99,11 @@ export const ChatDetailPage = () => {
 
   const fetchMessages = async () => {
     try {
-      console.log(`📌 GET 요청: /api/chat/${roomId}/messages`);
+      //console.log(`📌 GET 요청: /api/chat/${roomId}/messages`);
       const response = await axiosInstance.get(
         `/api/chat/${roomId}/messages`
       );
-      console.log('📌 채팅 데이터:', response.data);
+      //console.log('📌 채팅 데이터:', response.data);
 
       if (response.data) {
         const { user_info, messages_by_date } = response.data;
@@ -130,7 +130,7 @@ export const ChatDetailPage = () => {
     // ★ 컴포넌트 언마운트 시 웹소켓 연결을 닫는 cleanup 함수
     return () => {
       if (ws.current && ws.current.readyState === WebSocket.OPEN) {
-        console.log('Unmounting chat detail, closing WebSocket...');
+        //console.log('Unmounting chat detail, closing WebSocket...');
         // onclose에서 재연결 로직이 동작하지 않도록 핸들러를 해제하거나 code=1000으로 종료
         ws.current.onclose = null;
         ws.current.close(1000, 'Leaving chat page'); // 정상 종료 코드(1000)
@@ -156,23 +156,23 @@ export const ChatDetailPage = () => {
     ws.current = new WebSocket(socketUrl);
 
     ws.current.onopen = () => {
-      console.log('✅ 웹소켓 연결 성공!');
+      //console.log('✅ 웹소켓 연결 성공!');
     };
     ws.current.onmessage = (event) => {
       let newMessage;
       try {
         newMessage = JSON.parse(event.data);
-        console.log('📩 웹소켓 메시지 수신:', newMessage);
+        //console.log('📩 웹소켓 메시지 수신:', newMessage);
       } catch (error) {
-        console.error('❌ JSON 파싱 오류:', error);
+        //console.error('❌ JSON 파싱 오류:', error);
         return;
       }
 
-      console.log('현재 유저 이메일:', currentUserEmail);
-      console.log(
-        '받은 메시지 발신자 이메일:',
-        newMessage.sender_email
-      );
+      //console.log('현재 유저 이메일:', currentUserEmail);
+      //console.log(
+      //  '받은 메시지 발신자 이메일:',
+      //  newMessage.sender_email
+      //);
 
       //const isPromiseMessage = newMessage.promise_id !== null; // ✅ promise 값이 null이 아니면 약속 메시지로 판별
       const isPromiseMessage =
@@ -194,7 +194,7 @@ export const ChatDetailPage = () => {
         .toString()
         .padStart(2, '0')}`;
 
-      console.log('📤 보낸 메시지의 시간:', formattedTime);
+      //console.log('📤 보낸 메시지의 시간:', formattedTime);
 
       const formattedMessage = {
         ...newMessage,
@@ -265,13 +265,13 @@ export const ChatDetailPage = () => {
     };
 
     ws.current.onclose = (event) => {
-      console.log(
-        '⚠️ 웹소켓 연결 종료됨. 이유:',
-        event.code,
-        event.reason
-      );
+      //console.log(
+      //  '⚠️ 웹소켓 연결 종료됨. 이유:',
+      //  event.code,
+      //  event.reason
+      //);
       if (event.code !== 1000) {
-        console.log('🔄 웹소켓 자동 재연결 시도...');
+       // console.log('🔄 웹소켓 자동 재연결 시도...');
         setTimeout(connectWebSocket, 2000);
       }
     };

@@ -20,12 +20,12 @@ export const TestResultNoPage = () => {
       // 로그인 상태라면 POST 요청 보냄
       try {
         await axiosInstance.post("/api/tests/check");
-        console.log("테스트 결과 업데이트 완료");
+       // console.log("테스트 결과 업데이트 완료");
       } catch (error) {
-        console.error("테스트 결과 업데이트 실패:", error);
+        //console.error("테스트 결과 업데이트 실패:", error);
       }
     } else {
-      console.log("비로그인 사용자 → POST 요청 안 보냄");
+      //console.log("비로그인 사용자 → POST 요청 안 보냄");
     }
 
     // 로그인 여부 상관없이 메인 페이지 이동

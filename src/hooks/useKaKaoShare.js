@@ -8,14 +8,14 @@ const useKakaoShare = () => {
 
   useEffect(() => {
     if (!window.Kakao) {
-      console.error("Kakao SDK가 로드되지 않았습니다.");
+      //console.error("Kakao SDK가 로드되지 않았습니다.");
       return;
     }
 
     // ✅ Kakao SDK 초기화
     if (!window.Kakao.isInitialized()) {
       window.Kakao.init(import.meta.env.VITE_KAKAO_APP_KEY); // .env에서 키 가져오기
-      console.log("✅ Kakao SDK Initialized");
+      //console.log("✅ Kakao SDK Initialized");
     }
   }, []);
 

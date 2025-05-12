@@ -25,7 +25,7 @@ export const MyWrite = () => {
         const response = await axiosInstance.get(`/api/home`);
         setMyUserName(response.data.user_name);
       } catch (error) {
-        console.log('유저 정보 받아오기 실패', error);
+        //console.log('유저 정보 받아오기 실패', error);
       }
     };
     fetchProfile();
@@ -42,10 +42,10 @@ export const MyWrite = () => {
         const myPosts = response.data.filter(
           (post) => post.writer === myUserName
         );
-        console.log(myPosts);
+        //console.log(myPosts);
         setWriteResult(myPosts);
       } catch (error) {
-        console.log('글 목록 받아오기 실패', error);
+        //console.log('글 목록 받아오기 실패', error);
       }
     };
 

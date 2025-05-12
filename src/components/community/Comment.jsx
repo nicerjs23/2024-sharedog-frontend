@@ -25,7 +25,7 @@ const Comment = ({
       //     예: /chat/:id 구조로 라우팅한다고 가정
       navigate(`/chat/${response.data.id}`);
     } catch (error) {
-      console.error("채팅방 생성 실패:", error);
+      //console.error("채팅방 생성 실패:", error);
       alert("채팅방 생성에 실패했습니다.");
     }
   };

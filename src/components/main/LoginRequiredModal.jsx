@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import X from '@assets/icons/X.svg';
 const LoginRequiredModal = ({ isOpen, onClose, onLogin }) => {
-  console.log('Modal isOpen 상태:', isOpen);
+  //console.log('Modal isOpen 상태:', isOpen);
   if (!isOpen) return null; // ✅ isOpen이 false면 모달을 렌더링하지 않음
   //   onClick={onClose} onClick={onLogin} onClick={onClose}
   return (

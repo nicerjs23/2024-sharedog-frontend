@@ -53,7 +53,7 @@ export const MainPage = () => {
 
         const response = await axiosInstance.get(apiUrl);
         setUserData(response.data);
-        console.log(`API 요청 (${activeFilter}):`, response.data);
+        //console.log(`API 요청 (${activeFilter}):`, response.data);
       } catch (err) {
         console.error('API 요청 실패:', err);
         setError(err);
@@ -72,7 +72,7 @@ export const MainPage = () => {
 
       try {
         const res = await axiosInstance.get('/api/users/dogs/');
-        console.log('반려견 API 응답:', res.data);
+        //console.log('반려견 API 응답:', res.data);
 
         if (Array.isArray(res.data) && res.data.length > 0) {
           setPetList(res.data);
@@ -95,7 +95,7 @@ export const MainPage = () => {
   };
   const handleLogin = () => {
     goTo('/');
-    console.log('로그인 페이지로 이동');
+    //console.log('로그인 페이지로 이동');
   };
 
   const handlePostClick = (id) => {

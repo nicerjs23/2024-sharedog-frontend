@@ -40,7 +40,7 @@ export const SignupProvider = ({ children }) => {
         },
       });
   
-      console.log("강아지 정보 등록 성공!", response.data);
+      //console.log("강아지 정보 등록 성공!", response.data);
     } catch (error) {
       console.error("강아지 정보 등록 중 오류 발생:", error.response?.data || error.message);
     }
